@@ -1,0 +1,60 @@
+/**
+ * Access Control List for the auction network.
+ */
+rule Auctioneer {
+    description: "Allow the auctioneer full access"
+    participant: "org.cmpe272.evergreen.auction.Auctioneer"
+    operation: ALL
+    resource: "org.cmpe272.evergreen.auction.*"
+    action: ALLOW
+}
+
+rule Member {
+    description: "Allow the member read access"
+    participant: "org.cmpe272.evergreen.auction.Member"
+    operation: READ
+    resource: "org.cmpe272.evergreen.auction.*"
+    action: ALLOW
+}
+
+rule ProductOwner {
+    description: "Allow the owner of a product total access"
+    participant(m): "org.cmpe272.evergreen.auction.Member"
+    operation: ALL
+    resource(v): "org.cmpe272.evergreen.auction.Product"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule ProductListingOwner {
+    description: "Allow the owner of a product total access to their product listing"
+    participant(m): "org.cmpe272.evergreen.auction.Member"
+    operation: ALL
+    resource(p): "org.cmpe272.evergreen.auction.ProductListing"
+    condition: (p.product.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

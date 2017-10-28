@@ -1,0 +1,47 @@
+/**
+ * Defines a data model for a product auction
+ */
+namespace org.cmpe272.evergreen.auction
+
+asset Product identified by pid {
+  o String pid
+  --> Member owner
+}
+
+enum ListingState {
+  o FOR_SALE
+  o RESERVE_NOT_MET
+  o SOLD
+}
+
+asset ProductListing identified by listingId {
+  o String listingId
+  o Double reservePrice
+  o String description
+  o ListingState state
+  o Offer[] offers optional
+  --> Product product
+}
+
+abstract participant User identified by email {
+  o String email
+  o String firstName
+  o String lastName
+}
+
+participant Member extends User {
+  o Double balance
+}
+
+participant Auctioneer extends User {
+}
+
+transaction Offer {
+  o Double bidPrice
+  --> ProductListing listing
+  --> Member member
+}
+
+transaction CloseBidding {
+  --> ProductListing listing
+}

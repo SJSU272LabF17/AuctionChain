@@ -7,20 +7,24 @@ This will give the steps configuring REST API for already deployed blockchain ne
 
 
 2. Create Business Network:  Will generate .bna file for the developed network
-    * https://hyperledger.github.io/composer/installing/development-tools.html
+    * https://hyperledger.github.io/composer/business-network/bnd-create.html
 
 3. Deploy Network Locally: Use Generated .bna file to deploy network locally
     * https://hyperledger.github.io/composer/business-network/bnd-deploy.html
 
     ```
-    composer network deploy -p hlfv1 -a my-network.bna -i PeerAdmin -s randomString -A admin -S
+    composer network deploy -p hlfv1 -a auction-network.bna -i PeerAdmin -s adminpwd -A admin -S
     ```
 
 4. Create REST Server for Running Network
     * https://hyperledger.github.io/composer/integrating/getting-started-rest-api.html
 
     ```
-     composer-rest-server
+    composer-rest-server -p hlfv1 -n auction-network -i admin -s adminpwd
+
+    or
+
+    composer-rest-server
 
         ? Enter your Connection Profile Name: hlfv1
         ? Enter your Business Network name : auction-network
