@@ -1,6 +1,6 @@
-# Car Auction Network
+# Online Auction Network
 
-> This is an interactive, distributed, car auction demo. List assets for sale (setting a reserve price), and watch as assets that have met their reserve price are automatically transferred to the highest bidder at the end of the auction.
+> This is an interactive, distributed, product auction demo. List assets for sale (setting a reserve price), and watch as assets that have met their reserve price are automatically transferred to the highest bidder at the end of the auction.
 
 This business network defines:
 
@@ -62,7 +62,7 @@ In the `Product` asset registry, create a new asset of a product owned by `membe
 }
 ```
 
-In the `ProductListing` asset registry, create a product listing for car `pid:1234`.
+In the `ProductListing` asset registry, create a product listing for product `pid:1234`.
 
 ```
 {
@@ -110,7 +110,7 @@ To end the auction submit a `CloseBidding` transaction for the listing.
 
 This simply indicates that the auction for `listingId:ABCD` is now closed, triggering the `closeBidding` function that was described above.
 
-To see the Product was sold you need to click on the `Product` asset registry to check the owner of the car. The reserve price was met by owner `memberB@cmpe272.org` so you should see the owner of the product is now `memberB@cmpe272.org`.
+To see the Product was sold you need to click on the `Product` asset registry to check the owner of the product. The reserve price was met by owner `memberB@cmpe272.org` so you should see the owner of the product is now `memberB@cmpe272.org`.
 
 If you check the state of the ProductListing with `listingId:ABCD` is should be `SOLD`.
 
