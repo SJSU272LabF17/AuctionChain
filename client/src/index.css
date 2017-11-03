@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #ddd
+}
+
+
+#panelDivHome{ 
+   text-align: center;
+}
+
+#panelMargin{
+	margin:20px
+}
+
+#registrationdiv{
+	style=margin:5px
+}
+
+#usernameExistDiv{
+	border-top: 1px solid#888;
+	 padding-top:15px; 
+	 font-size:85%
+}
+
+.padd {
+  padding: 10px;
+  }
+
+
+.text-red{
+	color: red
+}
+
+.text-green{
+  color : green
+}
+
+#panelDivHome{ 
+   text-align: center;
+}
+
+.font-20{
+  font-size:20px
+}
+
+  .margin15{
+    margin-left: 15px
+  }
+  
+   .padd {
+  padding: 15px 0 0 0 ;
+  color : #333;
+  border : none;
+  
+  }
+  
+  .foo {
+   
+    display: block;
+    max-width: 235px;
+    float: left;
+    height: auto ;
+    margin: 0px
+  }
+  
+  .rightDiv{
+   
+    position: relative;
+    min-height:50px;
+     float: left;
+  }
+
+  .sectionattr{
+    display: inline-block;
+    width: 100%;
+    padding: 24px;
+    margin: 24px 0 0;
+    border-radius : 4px
+  }
+  
+  .ulattr{
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 ;
+    width: 100%;
+  }
+  
+  .divForImage{
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    width: 180px;
+    
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  
+  .imageAttr{
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  
+  .liAttr{
+    padding: 16px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .textColorBlack{
+    color : #333; 
+  }
