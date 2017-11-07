@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux' ; 
 import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn} from '../actions/register_action'
 import Modal from 'react-modal'
+import { Link } from 'react-router-dom'
 
 export default function(InnerComponent){
 	
@@ -121,14 +122,14 @@ export default function(InnerComponent){
 			                </div>
 			                <ul className="nav navbar-nav">
 			                  <li className="active"><a href="/">Home</a></li>
-			                  <li><a href="#">Daily Deals</a></li>
+			                  <li><Link to="/home-garden">Products</Link></li>
 			                  <li><a href="#">Gift Cards</a></li>
 			                  <li><a href="#">Help & Contact</a></li>
 			                </ul>
 
 			               <ul className="nav navbar-nav navbar-right">
-			                <li><a href="#">Sell</a></li>
-			                <li><a href="#">My eBay</a></li>
+			                <li>      <Link to="/addProduct">Sell</Link>     </li>
+			                <li><Link to="/myProduct">My eBay</Link></li>
 			              </ul>
 		              </div>
 		            </nav>
@@ -148,10 +149,10 @@ export default function(InnerComponent){
 
 
 
-                        <div className="panel panel-primary " id="registrationdiv">
+                        <div  id="registrationdiv">
 					        
 					       
-					       <div className="panel-body">
+					     
 					       
 					        
 					        
@@ -159,27 +160,25 @@ export default function(InnerComponent){
 					        
 					          <div className="row padd">
 					            <div className='form-group'>
-					            <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					              <div className='col-lg-3 col-md-3 col-sm-3' >
-					                <label htmlFor='username' className="label label-primary" >Username :</label>
-					              </div>
-					              <div className='col-lg-6 col-md-6 col-sm-6'>
+					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					             
+					              <div className='input-group col-lg-6 col-md-6 col-sm-6'>
+					                <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
 					                <input type="text" name='username'    id='username'   className="form-control" onChange={this.onChangeUsername.bind(this)} placeholder="Username..." aria-describedby="basic-addon1" required />
 					              </div>
-					              <div className='col-lg-1 col-md-1 col-sm-1'> </div>
+					              <div className='col-lg-3 col-md-3 col-sm-3'> </div>
 					            </div>
 					          </div>
 					          
 					          <div className="row padd">
 					            <div className='form-group'>
-					              <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					              <div className='col-lg-3 col-md-3 col-sm-3'>
-					                <label htmlFor='password' className="label label-primary" >Password :</label>
-					              </div>
-					              <div className='col-lg-6 col-md-6 col-sm-6'>
+					              <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					              
+					              <div className='input-group col-lg-6 col-md-6 col-sm-6'>
+					                <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
 					                <input type="password"   name='password' id='pwd' onChange={this.onChangePassword.bind(this)}  className="form-control"  placeholder="Password ..." aria-describedby="basic-addon1" required />
 					              </div>
-					              <div className='col-lg-1 '></div>
+					              <div className='col-lg-3 col-md-3 col-sm-3'></div>
 					            </div>
 					          </div>
 					          
@@ -188,56 +187,56 @@ export default function(InnerComponent){
 					          
 					          <div className="row padd">
 					          <div className='form-group'>
-					            <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					            <div className='col-lg-3 col-md-3 col-sm-3' >
-					              <label htmlFor='fname' className="label label-primary" >First Name :</label>
-					            </div>
-					            <div className='col-lg-6 col-md-6 col-sm-6'>
+					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					            
+					            <div className='input-group col-lg-6 col-md-6 col-sm-6'>
+					              <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
 					              <input type="text" name='fname'  id='fname' onChange={this.onChangeFname.bind(this)}  className="form-control"  placeholder="First Name..." aria-describedby="basic-addon1"  required />
 					            </div>
-					            <div className='col-lg-1'></div>
+					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
 					          </div>
 					          </div>
 					          
 					          <div className="row padd">
 					          <div className='form-group'>
-					          <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					            <div className='col-lg-3 col-md-3 col-sm-3' >
-					              <label htmlFor='lname' className="label label-primary" >Last Name :</label>
-					            </div>
-					            <div className='col-lg-6 col-md-6 col-sm-6'>
+					          <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					            
+					            <div className='input-group col-lg-6 col-md-6 col-sm-6'>
+					              <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
 					              <input type="text" name='lname' id='lname'  onChange={this.onChangeLname.bind(this)} className="form-control"  placeholder="Last Name..." aria-describedby="basic-addon1"  required />
 					            </div>
-					            <div className='col-lg-1'></div>
+					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
 					          </div>
 					          </div>
 					          
 					          <div className="row padd">
 					          <div className='form-group'>
-					          <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					            <div className='col-lg-3 col-md-3 col-sm-3'>
-					              <label htmlFor='lname' className="label label-primary" >DOB :</label>
-					            </div>
-					            <div className='col-lg-6 col-md-6 col-sm-6'>
+					          <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					            
+					            <div className='input-group col-lg-6 col-md-6 col-sm-6'>
+					              <span className="input-group-addon"><i className="glyphicon glyphicon-calendar"></i></span>
 					              <input type="date" onChange={this.onChangeDOB.bind(this)}  name='dob' id='fname'   className="form-control"  aria-describedby="basic-addon1"  required/>
 					            </div>
-					            <div className='col-lg-1'></div>
+					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
 					          </div>
 					          </div>
 					          
-					          <div className="row padd">
+					          <div className="row ">
 					          <div className='form-group'>
-					          <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					            <div className='col-lg-3 col-md-3 col-sm-3'>
-					              <label htmlFor='lname' className="label label-primary" >GENDER :</label>
-					            </div>
+					          <div className='col-lg-3 col-md-3 col-sm-3'></div>
+					           
 					            <div className='col-lg-7 col-md-7 col-sm-7'>
 					              <div className="radio-group" >
 					                      <div className="radio">
-
-					                        <label ><input type="radio" name="optradio" required value='Male' onChange={this.onChangeGender.bind(this)}/>Male </label>
-					                        <label><input type="radio" name="optradio" required value='Female'onChange={this.onChangeGender.bind(this)}/>Female </label>
-					                        <label><input type="radio" name="optradio" required value='Other' onChange={this.onChangeGender.bind(this)}/>Other </label>
+					                      	<div className='col-lg-4 col-md-4 col-sm-4 text-left'>
+					                      		<label ><input type="radio" name="optradio" required value='Male' onChange={this.onChangeGender.bind(this)}/>Male </label>
+					                      	</div>
+					                      	<div className='col-lg-4 col-md-4 col-sm-4'>
+					                      		<label><input type="radio" name="optradio" required value='Female'onChange={this.onChangeGender.bind(this)}/>Female </label>
+					                      	</div>
+					                      	<div className='col-lg-4 col-md-4 col-sm-4'>
+					                      		<label><input type="radio" name="optradio" required value='Other' onChange={this.onChangeGender.bind(this)}/>Other </label>
+					                      	</div>
 					                      </div >
 					              </div>
 					            </div>
@@ -246,10 +245,10 @@ export default function(InnerComponent){
 					          </div>
 					          
 					          
-					          <div className="row padd">
+					          <div className="row topPadd">
 					          <div className='form-group'>
-					          <div className='col-lg-2 col-md-2 col-sm-2'></div>
-					            <div className='col-lg-3 col-md-3 col-sm-3'>
+					           
+					            <div className='col-lg-6 col-md-6 col-sm-6'>
 					            </div>
 					            <div className='col-lg-2 col-md-2 col-sm-2'>
 					              <button className='btn btn-info' onClick={() => {
@@ -315,7 +314,7 @@ export default function(InnerComponent){
 
 					                    }}>Submit</button>
 					            </div>
-					            <div className='col-lg-5 col-md-5 col-sm-5'>
+					            <div className='col-lg-2 col-md-2 col-sm-2'>
 					            	<button onClick={() => {
                       				this.setState({modalIsOpen: false});
                       				}} className="btn btn-danger">Close</button>
@@ -325,7 +324,7 @@ export default function(InnerComponent){
 					          
 					        
 					        
-					        </div>
+					        
 					        
 					        
 					        
@@ -347,10 +346,7 @@ export default function(InnerComponent){
 
 					      </div>
                         
-						 <div >
-                      			
-                      	</div>
-                        
+						
                 </Modal>
 
 
@@ -362,45 +358,44 @@ export default function(InnerComponent){
                         contentLabel="Profile">
 
 
-                         <div >
-		                     
-		                     <div className="panel panel-primary " id='panelMargin'>
-			                      
-			                      <div className="panel-body">
+                         
 
 
 					                      <div>
 
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
-						                          <div className='col-lg-2 col-sm-12 col-md-2  ' ></div>
-						                          <div className='col-lg-2  col-md-2  col-sm-12 ' >
-						                            <label htmlFor='username' className="label label-primary" >Username :</label>
-						                          </div>
-						                          <div className='col-sm-12 col-md-7  col-lg-7 '>
-						                            <input type="text" onChange={this.onChangeUsername.bind(this)} name='username' id='username'   className="form-control"  placeholder="Username..." aria-describedby="basic-addon1" required />
-						                          </div>
-						                          <div className='col-lg-1  col-md-1  col-sm-12 '> </div>
+						                          <div className="col-md-2 col-lg-2 col-sm-2"></div>
+						                           <div className="input-group col-md-8 col-lg-8 col-sm-8">
+								                           <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
+								                           <input type="text" onChange={this.onChangeUsername.bind(this)} name='username' id='username'   className="form-control"  placeholder="Username..." aria-describedby="basic-addon1" required />
+								                  </div>
+						                           <div className="col-md-2 col-lg-2 col-sm-2"></div>
+						                         
 					                        </div>
 					                        
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
-						                          <div className='col-lg-2 col-sm-12 col-md-2  ' ></div>
-						                          <div className='col-lg-2  col-md-2  col-sm-12' >
-						                            <label htmlFor='pwd' className="label label-primary" >Password :</label>
-						                          </div>
-						                          <div className='col-sm-12 col-md-7  col-lg-7  '>
-						                            <input type="password"  onChange={this.onChangePassword.bind(this)} name='password' id='pwd'   className="form-control"  placeholder="Password..." aria-describedby="basic-addon1"  required/>
-						                          </div>
-						                          <div className='col-lg-1  col-md-1  col-sm-12 '> </div>
+						                          
+					                        	
+
+								                  <div className="col-md-2 col-lg-2 col-sm-2"></div>
+						                           <div className="input-group col-md-8 col-lg-8 col-sm-8">
+								                           <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
+								                           <input type="password"  onChange={this.onChangePassword.bind(this)} name='password' id='pwd'   className="form-control"  placeholder="Password..." aria-describedby="basic-addon1"  required/>
+								                  </div>
+						                           <div className="col-md-2 col-lg-2 col-sm-2"></div>
+
+						                            
+						                          
 					                        </div>
 					                        
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
-					                          <div className='col-lg-4 col-sm-12 col-md-4 text-right'></div>
-					                          <div className='col-sm-12 col-lg-2 col-md-2'>
+					                          <div className='col-lg-4 col-sm-12 col-md-4 '></div>
+					                          <div className='col-sm-12 col-lg-2 col-md-2 text-right'>
 					                            <button className='btn btn-info' onClick={() => {
 					                              this.props.login(this.state.username , this.state.password)
 					                            }}> Login</button>
 					                          </div>
-					                            <div className='col-lg-2 col-md-2 col-sm-12'>
+					                            <div className='col-lg-2 col-md-2 col-sm-12 text-right'>
 											            	<button onClick={() => {
 						                      				this.setState({modalIsOpenLogin: false});
 						                      				}} className="btn btn-danger">Close</button>
@@ -409,15 +404,7 @@ export default function(InnerComponent){
 
 					                     </div>
 
-			                      </div>
-
-		                      </div>
-
-		                      
-
-		                     
-
-		                  </div>
+			                   
 
 
 
