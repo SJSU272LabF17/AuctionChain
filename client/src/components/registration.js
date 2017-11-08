@@ -205,12 +205,12 @@ class Registration extends Component {
                                 this.state.gender)
 
 
-                      if(!username_regex.test(this.state.username)){
+                     /* if(!username_regex.test(this.state.username)){
                         this.setState({
                           error : 'Username should be alpha-numeric and 5-20 characters'
                         })
                         return ;
-                      }
+                      }*/
                       if(!password_regex.test(this.state.password)){
                         this.setState({
                           error : 'Password should be alpha-numeric and 5-20 characters'

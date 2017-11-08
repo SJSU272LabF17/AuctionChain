@@ -6,10 +6,10 @@ const headers = {
 };
 
 export function register(username , password , fname , lname , dob , gender ){
-	console.log(username , password , fname , lname , dob , gender )
+	console.log(username , password , fname , lname , dob , gender ) ; 
 
 		return function(dispatch){
-			fetch('http://localhost:3002/register', {
+			fetch('http://localhost:3000/api/org.cmpe272.evergreen.auction.Member', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
@@ -17,23 +17,21 @@ export function register(username , password , fname , lname , dob , gender ){
 	        },
 	        credentials:'include',
 	   	    body: JSON.stringify({
-	   	    			password : password , 
-					  	username : username,
-					  	fname : fname ,
-					  	lname : lname ,
-					  	dob : dob ,
-					  	gender : gender
+	   	    			"$class": "org.cmpe272.evergreen.auction.Member",
+						  "balance": 5000,
+						  "email": username,
+						  "firstName": fname,
+						  "lastName": lname ,
+						  "password" : password
 	   	    })
 
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
 			      	console.log("res " , res );
-			      	if(res.success === false && res.error === 'User already present'){
-			      		dispatch({type : 'USERNAME_ALREADY_TAKEN' , payload : res})
-			      	}else if(res.success === true){
-			      		dispatch({type : 'REGISTER_SUCCESS' , payload : res})
-			      	}
+			      	
+
+
 			      	
 				})
 																		        
