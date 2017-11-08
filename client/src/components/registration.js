@@ -243,6 +243,11 @@ class Registration extends Component {
                       }
 
                       
+                      this.setState({
+                          error : ''
+                        })
+
+
                       this.props.register(this.state.username,
                                 this.state.password,
                                 this.state.fname,
