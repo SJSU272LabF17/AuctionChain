@@ -193,8 +193,8 @@ class Registration extends Component {
               <button className='btn btn-info' onClick={() => {
                       
                       var username_regex = /^[a-z0-9]{5,20}$/i ; 
-                      var name_regex = /^[a-z]{5,20}$/i ;
-                      var lname_regex = /^[a-z]{5,20}$/i ;
+                      var name_regex = /^[a-z]{3,20}$/i ;
+                      var lname_regex = /^[a-z]{3,20}$/i ;
                       var password_regex = /^[a-z0-9]{5,20}$/i ; 
 
                       console.log(this.state.username,
