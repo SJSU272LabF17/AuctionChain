@@ -125,6 +125,9 @@ class addProduct extends Component {
                     <button className="btn btn-success"  onClick={() => {
                       console.log("Data to submit " , this.state.productName , " " , this.state.pic ,
                         " " , this.state.desc , " " , this.state.category) ; 
+
+                      
+
                     }} >Submit</button>
                  </div>
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
