@@ -9,7 +9,7 @@ export function register(username , password , fname , lname , dob , gender ){
 	console.log(username , password , fname , lname , dob , gender ) ; 
 
 		return function(dispatch){
-			fetch('http://localhost:3000/api/org.cmpe272.evergreen.auction.Member', {
+			fetch('http://localhost:3002/register', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
@@ -17,7 +17,7 @@ export function register(username , password , fname , lname , dob , gender ){
 	        },
 	        credentials:'include',
 	   	    body: JSON.stringify({
-	   	    			"$class": "org.cmpe272.evergreen.auction.Member",
+	   	    			"class": "org.cmpe272.evergreen.auction.Member",
 						  "balance": 5000,
 						  "email": username,
 						  "firstName": fname,

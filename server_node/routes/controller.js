@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 var ObjectID = require('mongodb').ObjectID
 
 
+var axios  = require ('axios');
 
 
 module.exports = function(app , db ){
@@ -62,63 +63,39 @@ module.exports = function(app , db ){
 	
 	app.post('/register' , function(req,res)
 	{
-		var username = req.body.username ;
+		var email = req.body.email ;
 		var password = req.body.password ; 
-		var fname = req.body.fname ; 
-		var lname = req.body.lname ; 
-		var dob = req.body.dob ; 
-		var gender = req.body.gender  ;
-		console.log(username , password , fname , lname , dob , gender );
+		var firstName = req.body.firstName ; 
+		var lastName = req.body.lastName ; 
+		var balance = req.body.balance ;
+		var className =  req.body.class ; 
 		
+		const saltRounds = 10;
+		console.log(email , password , firstName , lastName , balance , className );
 		
-		
-		var collection = db.collection('users');
-		
-		collection.find({username : username}).toArray(function(err , result){
-			if(err){
-				console.log(err)
-			}else{
-				if(result[0]){
-					console.log('User already present ' , result[0]); 
-					res.status(200).json({ loggedIn : false , success : false , error : 'User already present' , user : null})
-				}else{
-					
-					
-					const saltRounds = 10;
-					
-					bcrypt.hash(password, saltRounds, function(err, hash) {
-						var obj = {username : username ,
-								password : hash ,
-								fname : fname,
-								lname : lname  ,
-								dob : dob ,
-								gender : gender } ; 
-						
-						collection.insertOne(obj , function(err , response){
-							if(err){
-								console.log(err);
-								res.status(500).json({loggedIn : false , success : false ,  error : error , user : null})
-							}else{
-								req.login(username , function(err ){
-						        	console.log(' ...Requesting');
-						        	var ObjToSend = {
-						        			username : username ,
-											fname : fname,
-											lname : lname  ,
-											dob : dob ,
-											gender : gender
-						        	}; 
-						        	res.status(200).json({loggedIn : true , success : true , error : null ,  user : ObjToSend})
-						        })
-							}
-						})
-					})
-					
-				}
+		bcrypt.hash(password, saltRounds, function(err, hash) {
+			var apiObject = {
+					 "$class": className,
+					  "balance": balance,
+					  "email": email,
+					  "firstName": firstName,
+					  "lastName": lastName ,
+					  "password" : hash	
 			}
-		})
-		
-		
+			
+			
+			axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
+			  .then(function (response) {
+			    console.log(response.data);
+			    res.status(200).json({})
+			  })
+			  .catch(function (error) {
+			    console.log("This is error calling Composer API");
+			    res.status(200).json({})
+			  });
+			
+			
+		});
 	})
 		
 	
