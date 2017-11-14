@@ -34,7 +34,7 @@ module.exports = function(app , db ){
 	var collection = db.collection('user');
 	
 	
-	app.get('/getAllProduct' , function(req , res){
+	app.post('/addNewProduct' , function(req , res){
 		
 	})
 	

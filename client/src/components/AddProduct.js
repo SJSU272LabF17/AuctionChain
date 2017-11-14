@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
-
+import {addNewProduct } from '../actions/product_action'
 
 class addProduct extends Component {
   
@@ -125,7 +125,8 @@ class addProduct extends Component {
                     <button className="btn btn-success"  onClick={() => {
                       console.log("Data to submit " , this.state.productName , " " , this.state.pic ,
                         " " , this.state.desc , " " , this.state.category) ; 
-
+                        this.props.addNewProduct(this.props.user.email 
+                        , this.state.productName , this.state.desc , this.state.category) ;
                       
 
                     }} >Submit</button>
@@ -144,13 +145,14 @@ class addProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-    
+      addNewProduct : (email , name , desc , category) => dispatch(addNewProduct(email , name , desc , category)),
     }
   }
 
   function mapStateToProps(state) {
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
+        user : state.AuthReducer.user
       };
   }
 
