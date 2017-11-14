@@ -23,7 +23,8 @@ export function addNewProduct(email , productName , productDesc , productCategor
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
-			      	
+					  
+					console.log(res);
 			      	
 			      dispatch({ type : 'PRODUCT_ADDED' , payload : res})
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
-import {myProductList} from './MyProductList'
 import {getAllUserProduct  } from '../actions/product_action'
+
+import MyProductList from './MyProductList'
 
 class myProduct extends Component {
   
@@ -27,7 +28,7 @@ class myProduct extends Component {
 
 
       const listOfProducts = this.props.myProducts.map((product , key) => {
-        return <myProductList key={key} product={product}></myProductList>
+        return <MyProductList key={key} product={product}></MyProductList>
       })
 
       const displayNone = {

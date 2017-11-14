@@ -3,7 +3,8 @@ var passport = require('passport');
 var authenticate = require('../middleware/authenticateMiddleware');
 require('../middleware/passport')(passport);
 var session = require('express-session');
-
+var Guid = require('guid');
+var urlencode = require('urlencode');
 
 //mongo connection
 var mongoURL =        "mongodb://localhost:27017/272_Auction_Project";
@@ -36,29 +37,69 @@ module.exports = function(app , db ){
 	
 	app.post('/addNewProduct' , function(req , res){
 		
-	})
+		var pid = Guid.raw();;
+		var name = req.body.productName ; 
+		var description = req.body.productDesc ; 
+		var category = req.body.productCategory ; 
+		var imageurl = req.body.imageurl;
+		var owner =  req.body.email; 
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.Product",
+			 "pid": pid,
+			 "name": name,
+			 "description": description,
+			 "category": category,
+			 "imageurl": "imageurl",
+			 "owner" : owner	
+  		};
+		
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product', apiObject)
+		.then(function (response) {			
+
+			var strOwner = urlencode("resource:org.cmpe272.evergreen.auction.Member#" + owner);
+
+			axios.get('http://localhost:3004/api/queries/GetAllUserProducts?owner=' + strOwner, {})
+			.then(function (response) {							
+				console.log(response.data);
+				res.status(200).json({products: response.data});				
+			})
+			.catch(function (error) {
+				console.log("This is error calling Composer API: Product added Could not fetch all user products");
+				res.status(500).json({products: []});				
+			});
+
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API", error);
+			res.status(500).json({error: "Internal server error."})
+		});		
+	});
+
+	
 	
 	
 	app.post('/checkIfAlreadyLoggedIn' , authenticate , function(req,res){
-		 var user = req.user ; 
-		 console.log('user ' , user ); 
-		 user = new ObjectID(user) ; 
-		 
-		 collection.find({_id : user}).toArray(function(err , result){
-			 console.log(result[0]); 
-			 if(result[0]){
-				 console.log("User already loggedIn ");
-				 res.status(200).json({loggedIn : true, user : { username : result[0].username ,
-					 												fname : result[0].fname ,
-					 												lname : result[0].lname ,
-					 											dob : result[0].dob ,
-					 											gender : result[0].gender}})
-			 }else{
-				 console.log('No vali session exist ') ; 
-				 res.status(200).json({loggedIn : false , user : null })
-			 }
-		})
-	})
+		 var email = req.user ; 
+		 console.log('user ' , email ); 
+
+		 axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
+		 .then(function (response) {
+			 console.log("User already exists with this email.");
+			   console.log(response.data);
+					
+			   res.status(200).json({loggedIn : true, user : {email : response.data.email , 
+				fname : response.data.firstName , 
+				lname : response.data.lastName
+			}});
+
+		 })
+		 .catch(function (error) {
+			 
+			 	
+			res.status(200).json({loggedIn : false, user : null});
+		 });
+	});
 	
 	
 	app.post('/register' , function(req,res)
@@ -149,6 +190,7 @@ module.exports = function(app , db ){
 	});
 	
 };
+
 
 	
 	

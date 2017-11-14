@@ -4,7 +4,7 @@ import { connect } from 'react-redux' ;
 
 
 
-class myProductList extends Component {
+class MyProductList extends Component {
   
     constructor(props){
       super(props);
@@ -59,4 +59,4 @@ function mapDispatchToProps(dispatch){
       };
   }
 
-  export default connect(mapStateToProps,mapDispatchToProps)(myProductList) ; 
+  export default connect(mapStateToProps,mapDispatchToProps)(MyProductList) ; 
