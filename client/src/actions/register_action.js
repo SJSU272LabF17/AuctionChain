@@ -28,15 +28,21 @@ export function register(username , password , fname , lname  ){
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
-			      	console.log("res " , res );
 			      	
-
+			      	
+			      dispatch({ type : 'REGISTERED' , payload : res})
 
 			      	
 				})
 																		        
 	   		})
 	        .catch(error => {
+	        	var res = {
+	        		registered : false ,
+	        		registeredError : "Internal Server error "
+	        	}
+	        	 dispatch({ type : 'REGISTERED_FAIL' , payload : res})
+	        	
 	            console.log("This is error");
 	            
 	        })

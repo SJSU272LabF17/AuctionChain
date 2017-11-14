@@ -27,6 +27,32 @@ export default function(InnerComponent){
 		}
 	}
 
+
+	componentWillMount(){
+		console.log("Initial")
+	}
+
+	 componentWillReceiveProps(newProps) {    
+      if(this.props.register_success){
+      	this.setState({
+      		modalIsOpen : false
+      	})
+
+
+
+
+      }
+   }
+
+	componentDidMount(){
+		console.log("Mounted");
+	}
+
+
+
+
+
+
 	onChangeUsernameLogin(e){
     
     this.setState({
@@ -65,18 +91,7 @@ export default function(InnerComponent){
 	    })
 	  }
 	 
-	  onChangeDOB(e){
-	    this.setState({
-	      dob : e.target.value
-	    })
-	  }
-	 
-	  onChangeGender(e){
-	  
-	    this.setState({
-	      gender : e.target.value
-	    })
-	  }
+	
 
 	  handleSubmit(e) {
       	e.preventDefault()
@@ -304,7 +319,7 @@ export default function(InnerComponent){
 					        <div className='col-lg-3 col-md-3 col-sm-3'></div>
 					          
 					          <div className='col-lg-7 col-md-7 col-sm-7' id="usernameExistDiv">
-					            <span className="text-red"> <b>{this.state.error}</b>  </span>
+					            <span className="text-red"> <b>{this.props.registration_error}</b>  </span>
 					          </div>
 					          <div className='col-lg-2 col-md-2 col-sm-2'></div>
 					        </div>
@@ -389,13 +404,16 @@ export default function(InnerComponent){
 	function mapDispatchToProps(dispatch){
 	  return {
 	  	checkIfAlreadyLoggedIn : () => dispatch(checkIfAlreadyLoggedIn()),
-	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  ))
+	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  )),
+	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess())
 	  }
 	}
 
 	function mapStateToProps(state) {
 	    return {
 	    	isAuthenticated : state.AuthReducer.isAuthenticated,
+	    	register_success : state.AuthReducer.register_success , 
+	    	registration_error : state.AuthReducer.registration_error
 	    };
 	}
 
