@@ -34,38 +34,19 @@ export default function(InnerComponent){
 
 	 componentWillReceiveProps(newProps) {    
       console.log("CHeck " , this.props.register_success) ;
-      if(this.props.register_success){
+      if(newProps.register_success){
       	this.setState({
       		modalIsOpen : false
       	})
 
+      	this.props.setBackRegisteredSuccess();
 
 
 
       }
    }
 
-    shouldComponentUpdate(newProps, newState) {
-      return true;
-   }
-   componentWillUpdate(nextProps, nextState) {
-      console.log('Component WILL UPDATE!');
-      console.log("CHeck " , this.props.register_success) ;
-   }
-   componentDidUpdate(prevProps, prevState) {
-      console.log('Component DID UPDATE!')
-      console.log("CHeck " , this.props.register_success) ;
-   }
-   componentWillUnmount() {
-      console.log('Component WILL UNMOUNT!')
-      console.log("CHeck " , this.props.register_success) ;
-   }
 
-
-	componentDidMount(){
-		console.log("Mounted");
-		console.log("CHeck " , this.props.register_success) ;
-	}
 
 
 
