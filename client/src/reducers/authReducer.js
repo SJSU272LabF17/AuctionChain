@@ -1,6 +1,6 @@
 const initialState = {
 	
-	isAuthenticated : false ,
+	isAuthenticated : null ,
 	error : null ,
 	loggedIn : false,
 	user : null ,
@@ -16,7 +16,9 @@ export default function reducer (state=initialState , action )  {
 		}
 		case 'REGISTERED' : {
 			return  {...state , register_success : action.payload.registered,
-								registration_error : action.payload.registeredError} ; 
+								registration_error : action.payload.registeredError,
+								isAuthenticated : action.payload.isAuthenticated ,
+							    user : action.payload.user} ; 
 		}
 		case 'REGISTERED_FAIL' : {
 			return  {...state , register_success : action.payload.registered,
