@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux' ; 
-import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn} from '../actions/register_action'
+import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn , logout } from '../actions/register_action'
 import Modal from 'react-modal'
 import { Link } from 'react-router-dom'
 
@@ -127,7 +127,9 @@ export default function(InnerComponent){
 			                  
 			                	{
 			                		this.props.isAuthenticated === true ? 
-			                		 <a className="navbar-brand" href="#">Logout</a>
+			                		 <a className="navbar-brand" onClick={()=> {
+			                		 	this.props.logout();
+			                		 }}>Logout</a>
 			                  	
 			                		:
 			                		 <div>
@@ -414,7 +416,8 @@ export default function(InnerComponent){
 	  	checkIfAlreadyLoggedIn : () => dispatch(checkIfAlreadyLoggedIn()),
 	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  )),
 	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess()),
-	  	login : (username , password ) => dispatch(login(username , password ))
+	  	login : (username , password ) => dispatch(login(username , password )),
+	  	logout : () => dispatch(logout())
 	  }
 	}
 

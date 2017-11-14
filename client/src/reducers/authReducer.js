@@ -33,6 +33,12 @@ export default function reducer (state=initialState , action )  {
 			return  {...state , isAuthenticated : action.payload.loggedIn,
 								user : action.payload.user} ; 
 		}
+		case 'USER_LOGGED_OUT' : {
+			return  {...state , isAuthenticated : action.payload.loggedIn,
+								user : action.payload.user} ; 
+		}
+
+
 
 
 		default :
