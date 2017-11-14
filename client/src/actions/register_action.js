@@ -108,7 +108,7 @@ export function checkIfAlreadyLoggedIn( ){
 			        
 			        response.json().then(res => {
 			        	console.log(res);
-			      		dispatch({ type : 'USER_ALREADY_LOGGED_IN' , payload : res})
+			      		dispatch({ type : 'USER_ALREADY_LOGGED_IN_SUCCESS' , payload : res})
 					})
 	   		})
 	        .catch(error => {

@@ -5,6 +5,9 @@ import Home from './components/Home';
 import Registration from './components/registration';
 import Login from './components/login';
 import registerServiceWorker from './registerServiceWorker';
+import {checkIfAlreadyLoggedIn} from './actions/register_action'
+
+
 import { BrowserRouter ,   Switch, Route  } from 'react-router-dom'
 import Authenticate from './components/Authenticate';
 import store from './store'
@@ -28,6 +31,11 @@ const Main = () => (
     </Switch>
   
 )
+
+
+store.dispatch(checkIfAlreadyLoggedIn()) ; 
+
+
 
 
 ReactDOM.render( 

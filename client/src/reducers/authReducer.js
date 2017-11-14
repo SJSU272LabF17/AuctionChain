@@ -29,7 +29,10 @@ export default function reducer (state=initialState , action )  {
 			return  {...state , register_success : null,
 								registration_error : null} ; 
 		}
-
+		case 'USER_ALREADY_LOGGED_IN_SUCCESS' : {
+			return  {...state , isAuthenticated : action.payload.loggedIn,
+								user : action.payload.user} ; 
+		}
 
 
 		default :
