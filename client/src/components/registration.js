@@ -150,7 +150,7 @@ class Registration extends Component {
           </div>
           </div>
           
-          <div className="row padd">
+          /*<div className="row padd">
           <div className='form-group'>
           <div className='col-lg-3'></div>
             <div className='col-sm-1 col-md-1 col-sm-12'>
@@ -181,7 +181,7 @@ class Registration extends Component {
             </div>
             <div className='col-lg-4'></div>
           </div>
-          </div>
+          </div>*/
           
           
           <div className="row padd">
@@ -210,7 +210,7 @@ class Registration extends Component {
                           error : 'Username should be alpha-numeric and 5-20 characters'
                         })
                         return ;
-                      }*/
+                      }
                       if(!password_regex.test(this.state.password)){
                         this.setState({
                           error : 'Password should be alpha-numeric and 5-20 characters'
@@ -241,6 +241,7 @@ class Registration extends Component {
                         })
                         return ;
                       }
+                      */
 
                       
                       this.setState({
@@ -251,9 +252,7 @@ class Registration extends Component {
                       this.props.register(this.state.username,
                                 this.state.password,
                                 this.state.fname,
-                                this.state.lname,
-                                this.state.dob,
-                                this.state.gender)
+                                this.state.lname)
 
 
                     }}>Submit</button>
@@ -295,7 +294,7 @@ class Registration extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    register : (username , password , fname , lname , dob , gender ) => dispatch(register(username , password , fname , lname , dob , gender)),
+    register : (username , password , fname , lname ) => dispatch(register(username , password , fname , lname )),
     setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess()),
   }
 }
