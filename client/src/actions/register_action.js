@@ -5,8 +5,8 @@ const headers = {
     'Accept': 'application/json'
 };
 
-export function register(username , password , fname , lname , dob , gender ){
-	console.log(username , password , fname , lname , dob , gender ) ; 
+export function register(username , password , fname , lname  ){
+	console.log(username , password , fname , lname  ) ; 
 
 		return function(dispatch){
 			fetch('http://localhost:3002/register', {
