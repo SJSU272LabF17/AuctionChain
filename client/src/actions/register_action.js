@@ -80,6 +80,7 @@ export function login(username , password ){
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
+			      	console.log(res);
 			      	dispatch({ type : 'CASE_LOGIN' , payload : res})
 				})
 																		        

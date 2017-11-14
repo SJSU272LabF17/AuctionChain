@@ -41,6 +41,11 @@ export default function(InnerComponent){
 
       	this.props.setBackRegisteredSuccess();
 
+      	if(newProps.isAuthenticated){
+      		this.setState({
+      		modalIsOpenLogin : false
+      	})
+      	}
 
 
       }
