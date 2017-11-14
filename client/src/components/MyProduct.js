@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 import {myProductList} from './MyProductList'
-
+import {getAllUserProduct  } from '../actions/product_action'
 
 class myProduct extends Component {
   
@@ -15,6 +15,11 @@ class myProduct extends Component {
         desc : '' ,
         category : ''
       }
+    }
+
+
+    componentWillMount(){
+      this.props.getAllUserProduct(this.props.user.email)
     }
 
 
@@ -51,14 +56,15 @@ class myProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-    
+      getAllUserProduct : (email) => dispatch(getAllUserProduct(email))
     }
   }
 
   function mapStateToProps(state) {
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
-        myProducts : state.ProductReducer.myProduct
+        myProducts : state.ProductReducer.myProduct,
+        user : state.AuthReducer.user
       };
   }
 
