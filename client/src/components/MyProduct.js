@@ -19,8 +19,10 @@ class myProduct extends Component {
     }
 
 
-    componentWillMount(){
-      this.props.getAllUserProduct(this.props.user.email)
+    componentWillReceiveProps(newProps) {
+      if(newProps.user != null){
+        this.props.getAllUserProduct(newProps.user.email);
+      }      
     }
 
 

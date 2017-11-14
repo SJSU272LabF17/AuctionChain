@@ -57,16 +57,15 @@ module.exports = function(app , db ){
 		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product', apiObject)
 		.then(function (response) {			
 
-			var strOwner = urlencode("resource:org.cmpe272.evergreen.auction.Member#" + owner);
+			getAllUserProducts(owner, function(bSuccessful, arrProducts){
 
-			axios.get('http://localhost:3004/api/queries/GetAllUserProducts?owner=' + strOwner, {})
-			.then(function (response) {							
-				console.log(response.data);
-				res.status(200).json({products: response.data});				
-			})
-			.catch(function (error) {
-				console.log("This is error calling Composer API: Product added Could not fetch all user products");
-				res.status(500).json({products: []});				
+				if(bSuccessful){
+					console.log(arrProducts);
+					res.status(200).json({products: arrProducts});				
+					return;
+				}
+				res.status(500).json({error: "Internal server error."})
+				
 			});
 
 		})
@@ -76,8 +75,18 @@ module.exports = function(app , db ){
 		});		
 	});
 
-	
-	
+	app.post('/getAllUserProducts' , function(req , res){
+		var email =  req.body.email; 
+
+		getAllUserProducts(email, function(bSuccessful, arrProducts){
+			if(bSuccessful){
+				res.status(200).json({products: arrProducts});
+				return;
+			}
+			res.status(500).json({error: "Internal server error."})
+		});
+
+	});
 	
 	app.post('/checkIfAlreadyLoggedIn' , authenticate , function(req,res){
 		 var email = req.user ; 
@@ -193,7 +202,19 @@ module.exports = function(app , db ){
 
 
 	
-	
+
+function getAllUserProducts(email, callback){
+
+	var strEmail = urlencode("resource:org.cmpe272.evergreen.auction.Member#" + email);
+	axios.get('http://localhost:3004/api/queries/GetAllUserProducts?owner=' + strEmail, {})
+	.then(function (response) {	
+		callback(true, response.data);
+	})
+	.catch(function (error) {
+		console.log("This is error calling Composer API: Product added Could not fetch all user products");
+		callback(false, []);
+	});
+}	
 	
 
 passport.serializeUser(function(user_id, done) {

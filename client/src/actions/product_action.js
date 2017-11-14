@@ -45,7 +45,7 @@ export function getAllUserProduct(email  ){
 	console.log( email ) ; 
 
 		return function(dispatch){
-			fetch('http://localhost:3002/getAllUserProduct', {
+			fetch('http://localhost:3002/getAllUserProducts', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
