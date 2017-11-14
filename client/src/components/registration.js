@@ -150,38 +150,7 @@ class Registration extends Component {
           </div>
           </div>
           
-          /*<div className="row padd">
-          <div className='form-group'>
-          <div className='col-lg-3'></div>
-            <div className='col-sm-1 col-md-1 col-sm-12'>
-              <label htmlFor='lname' className="label label-primary" >DOB :</label>
-            </div>
-            <div className='col-sm-2 col-md-2 col-sm-12'>
-              <input type="date" onChange={this.onChangeDOB.bind(this)}  name='dob' id='fname'   className="form-control"  aria-describedby="basic-addon1"  required/>
-            </div>
-            <div className='col-lg-6'></div>
-          </div>
-          </div>
-          
-          <div className="row padd">
-          <div className='form-group'>
-          <div className='col-lg-3'></div>
-            <div className='col-sm-1 col-md-1 col-sm-12'>
-              <label htmlFor='lname' className="label label-primary" >GENDER :</label>
-            </div>
-            <div className='col-sm-4 col-md-4 col-sm-12'>
-              <div className="radio-group" >
-                      <div className="radio">
-
-                        <label ><input type="radio" name="optradio" required value='Male' onChange={this.onChangeGender.bind(this)}/>Male </label>
-                        <label><input type="radio" name="optradio" required value='Female'onChange={this.onChangeGender.bind(this)}/>Female </label>
-                        <label><input type="radio" name="optradio" required value='Other' onChange={this.onChangeGender.bind(this)}/>Other </label>
-                      </div >
-                    </div>
-            </div>
-            <div className='col-lg-4'></div>
-          </div>
-          </div>*/
+         
           
           
           <div className="row padd">

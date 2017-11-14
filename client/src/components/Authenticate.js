@@ -209,40 +209,8 @@ export default function(InnerComponent){
 					          </div>
 					          </div>
 					          
-					          <div className="row padd">
-					          <div className='form-group'>
-					          <div className='col-lg-3 col-md-3 col-sm-3'></div>
-					            
-					            <div className='input-group col-lg-6 col-md-6 col-sm-6'>
-					              <span className="input-group-addon"><i className="glyphicon glyphicon-calendar"></i></span>
-					              <input type="date" onChange={this.onChangeDOB.bind(this)}  name='dob' id='fname'   className="form-control"  aria-describedby="basic-addon1"  required/>
-					            </div>
-					            <div className='col-lg-3 col-md-3 col-sm-3'></div>
-					          </div>
-					          </div>
 					          
-					          <div className="row ">
-					          <div className='form-group'>
-					          <div className='col-lg-3 col-md-3 col-sm-3'></div>
-					           
-					            <div className='col-lg-7 col-md-7 col-sm-7'>
-					              <div className="radio-group" >
-					                      <div className="radio">
-					                      	<div className='col-lg-4 col-md-4 col-sm-4 text-left'>
-					                      		<label ><input type="radio" name="optradio" required value='Male' onChange={this.onChangeGender.bind(this)}/>Male </label>
-					                      	</div>
-					                      	<div className='col-lg-4 col-md-4 col-sm-4'>
-					                      		<label><input type="radio" name="optradio" required value='Female'onChange={this.onChangeGender.bind(this)}/>Female </label>
-					                      	</div>
-					                      	<div className='col-lg-4 col-md-4 col-sm-4'>
-					                      		<label><input type="radio" name="optradio" required value='Other' onChange={this.onChangeGender.bind(this)}/>Other </label>
-					                      	</div>
-					                      </div >
-					              </div>
-					            </div>
-					           
-					          </div>
-					          </div>
+					          
 					          
 					          
 					          <div className="row topPadd">
@@ -266,7 +234,7 @@ export default function(InnerComponent){
 					                                this.state.gender)
 
 
-					                      if(!username_regex.test(this.state.username)){
+					                   /*   if(!username_regex.test(this.state.username)){
 					                        this.setState({
 					                          error : 'Username should be alpha-numeric and 5-20 characters'
 					                        })
@@ -302,14 +270,12 @@ export default function(InnerComponent){
 					                        })
 					                        return ;
 					                      }
-
+*/
 					                      
 					                      this.props.register(this.state.username,
 					                                this.state.password,
 					                                this.state.fname,
-					                                this.state.lname,
-					                                this.state.dob,
-					                                this.state.gender)
+					                                this.state.lname)
 
 
 					                    }}>Submit</button>
@@ -423,7 +389,7 @@ export default function(InnerComponent){
 	function mapDispatchToProps(dispatch){
 	  return {
 	  	checkIfAlreadyLoggedIn : () => dispatch(checkIfAlreadyLoggedIn()),
-	  	register : (username , password , fname , lname , dob , gender ) => dispatch(register(username , password , fname , lname , dob , gender ))
+	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  ))
 	  }
 	}
 

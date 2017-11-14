@@ -73,6 +73,10 @@ module.exports = function(app , db ){
 		const saltRounds = 10;
 		console.log(email , password , firstName , lastName , balance , className );
 		
+		
+		
+		
+		
 		bcrypt.hash(password, saltRounds, function(err, hash) {
 			var apiObject = {
 					 "$class": className,
