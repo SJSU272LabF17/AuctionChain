@@ -90,23 +90,27 @@ module.exports = function(app , db ){
 
 			axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
 			.then(function (response) {
-				console.log("Verify existing email. Success");
+				console.log("User already exists with this email.");
 			  	console.log(response.data);
-			  	res.status(200).json({registered: false, registeredError: "Email already exists."})
+				  res.status(200).json({registered: false, registeredError: "Email already exists."
+				  , isAuthenticated: false, user: null})
 			})
 			.catch(function (error) {
 				
-				console.log("Verify existing email. Fail ");
-				console.log(error);
+				console.log("No user found with this email.");
 				
 				axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
 				.then(function (response) {
 					console.log(response.data);
-					res.status(200).json({registered: true, registeredError: ""})
+
+					res.status(200).json({registered: true, registeredError: ""
+					, isAuthenticated: false, user: null});
+					//, isAuthenticated: true, user: {email: email, fname: firstName, lname: lastName}});
 				})
 				.catch(function (error) {
 					console.log("This is error calling Composer API");
-					res.status(400).json({registered: false, registeredError: "Internal server error."})
+					res.status(400).json({registered: false, registeredError: "Internal server error."
+					, isAuthenticated: false, user: null})
 				});
 
 			});
@@ -123,7 +127,7 @@ module.exports = function(app , db ){
 		        if(user === false ){
 		        	res.status(200).json({loggedIn : false , user : null})
 		        }else{
-		        	req.login(user.username , function(err ){
+		        	req.login(user.email , function(err ){
 			        	console.log(' ...Requesting');
 			        	res.status(200).json({loggedIn : true , user : user})
 			        })
