@@ -23,7 +23,7 @@ class myProduct extends Component {
       if(!this.props.isAuthenticated){
         this.props.history.push('/')
       }else{
-        this.props.getAllUserProduct(newProps.user.email);
+        this.props.getAllUserProduct(this.props.user.email);
       }
     }
 
