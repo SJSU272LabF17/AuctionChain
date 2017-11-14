@@ -66,7 +66,7 @@ export function setBackRegisteredSuccess(){
 
 
 export function login(username , password ){
-	
+		console.log("---------" , username , password)
 		return function(dispatch){
 			fetch('http://localhost:3002/login', {
 	        method: 'POST',
@@ -80,7 +80,7 @@ export function login(username , password ){
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
-			      	dispatch({ type : 'USER_LOGGED_IN' , payload : res})
+			      	dispatch({ type : 'CASE_LOGIN' , payload : res})
 				})
 																		        
 	   		})

@@ -405,7 +405,8 @@ export default function(InnerComponent){
 	  return {
 	  	checkIfAlreadyLoggedIn : () => dispatch(checkIfAlreadyLoggedIn()),
 	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  )),
-	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess())
+	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess()),
+	  	login : (username , password ) => dispatch(login(username , password ))
 	  }
 	}
 
