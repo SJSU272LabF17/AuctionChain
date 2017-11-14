@@ -1,6 +1,6 @@
 const initialState = {
 	
-	myProduct :  null 
+	myProduct :  [] 
 }
 
 
