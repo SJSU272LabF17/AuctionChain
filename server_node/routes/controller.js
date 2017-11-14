@@ -71,7 +71,7 @@ module.exports = function(app , db ){
 		var className =  req.body.class ; 
 		
 		const saltRounds = 10;
-		console.log(email , password , firstName , lastName , balance , className );
+		//console.log(email , password , firstName , lastName , balance , className );
 		
 		bcrypt.hash(password, saltRounds, function(err, hash) {
 			var apiObject = {
@@ -83,18 +83,29 @@ module.exports = function(app , db ){
 					  "password" : hash	
 			}
 			
-			
-			axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
-			  .then(function (response) {
-			    console.log(response.data);
-			    res.status(200).json({})
-			  })
-			  .catch(function (error) {
-			    console.log("This is error calling Composer API");
-			    res.status(200).json({})
-			  });
-			
-			
+
+			axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
+			.then(function (response) {
+				console.log("Verify existing email. Success");
+			  	console.log(response.data);
+			  	res.status(200).json({registered: false, registeredError: "Email already exists."})
+			})
+			.catch(function (error) {
+				
+				console.log("Verify existing email. Fail ");
+				console.log(error);
+				
+				axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
+				.then(function (response) {
+					console.log(response.data);
+					res.status(200).json({registered: true, registeredError: ""})
+				})
+				.catch(function (error) {
+					console.log("This is error calling Composer API");
+					res.status(400).json({registered: false, registeredError: "Internal server error."})
+				});
+
+			});
 		});
 	})
 		
