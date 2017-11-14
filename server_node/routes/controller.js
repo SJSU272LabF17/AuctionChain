@@ -62,19 +62,21 @@ module.exports = function(app , db ){
 			axios.get('http://localhost:3004/api/queries/GetAllUserProducts?owner=' + strOwner, {})
 			.then(function (response) {							
 				console.log(response.data);
-				res.status(200).json([{products: response.data}]);				
+				res.status(200).json({products: response.data});				
 			})
 			.catch(function (error) {
 				console.log("This is error calling Composer API: Product added Could not fetch all user products");
-				res.status(200).json([]);				
+				res.status(500).json({products: []});				
 			});
 
 		})
 		.catch(function (error) {
 			console.log("This is error calling Composer API", error);
-			res.status(400).json({error: "Internal server error."})
+			res.status(500).json({error: "Internal server error."})
 		});		
-	})
+	});
+
+	
 	
 	
 	app.post('/checkIfAlreadyLoggedIn' , authenticate , function(req,res){
@@ -188,6 +190,7 @@ module.exports = function(app , db ){
 	});
 	
 };
+
 
 	
 	
