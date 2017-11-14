@@ -19,12 +19,15 @@ class myProduct extends Component {
     }
 
 
-    componentWillReceiveProps(newProps) {
-      if(newProps.user != null){
+    componentWillMount(){
+      if(!this.props.isAuthenticated){
+        this.props.history.push('/')
+      }else{
         this.props.getAllUserProduct(newProps.user.email);
-      }      
+      }
     }
 
+ 
 
     render() {
 
