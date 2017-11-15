@@ -68,7 +68,7 @@ class AuctionProduct extends Component {
                   <div className="input-group">
                           <button className="btn btn-success" onClick={() => {
                             this.props.putProductOnAuction(this.props.user.email , this.state.productObj.pid ,
-                            this.state.productObj.name , this.state.productObj.description , this.state.productObj.category 
+                            this.state.productObj.name , this.state.productObj.description , this.state.productObj.category )
                           }}>Submit</button>                                        
                      </div>
               </div>
