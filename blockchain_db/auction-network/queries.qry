@@ -1,0 +1,20 @@
+query Q1{
+  description: "Select all drivers older than 65."
+  statement:
+      SELECT org.cmpe272.evergreen.auction.Member
+          WHERE (balance==_$ageParam)
+}
+
+query GetAllUserProducts{
+  description: "Select All User Products"
+  statement: 
+        SELECT org.cmpe272.evergreen.auction.Product
+            WHERE (owner==_$owner)
+}
+
+query GetAllProductsByCategory{
+    description: "Select All Products Details by category"
+    statement:
+        SELECT org.cmpe272.evergreen.auction.ProductListing
+            
+}

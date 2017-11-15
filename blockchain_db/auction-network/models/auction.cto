@@ -5,7 +5,16 @@ namespace org.cmpe272.evergreen.auction
 
 asset Product identified by pid {
   o String pid
+  o String name
+  o String description
+  o String category
+  o ProductState state
   --> Member owner
+}
+
+enum ProductState {
+  o ADDED 
+  o FOR_SALE
 }
 
 enum ListingState {
@@ -17,9 +26,12 @@ enum ListingState {
 asset ProductListing identified by listingId {
   o String listingId
   o Double reservePrice
+  o String name
   o String description
+  o String category
   o ListingState state
   o Offer[] offers optional
+  --> Member owner
   --> Product product
 }
 
@@ -27,6 +39,7 @@ abstract participant User identified by email {
   o String email
   o String firstName
   o String lastName
+  o String password
 }
 
 participant Member extends User {
