@@ -77,7 +77,7 @@ export function getAllUserProduct(email  ){
 
 
 export function putProductOnAuction(email , pid , name , desc , category , price  ){
-	cnsole.log(email , pid , name , desc , category , price)
+	console.log(email , pid , name , desc , category , price)
 	return function(dispatch){
 			fetch('http://localhost:3002/putProductOnAuction', {
 	        method: 'POST',
