@@ -20,6 +20,7 @@ class AuctionProduct extends Component {
     componentWillMount(){
       for(var i=0 ; i< this.props.myProducts.length ; i++){
         var obj = this.props.myProducts[i] ; 
+        console.log("Checking current object " , this.props.myProducts[i] )
         if(obj.pid === this.state.productId){
             this.setState({
               productObj : obj
