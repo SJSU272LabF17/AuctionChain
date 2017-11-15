@@ -17,19 +17,6 @@ class AuctionProduct extends Component {
     }
 
 
-    componentWillMount(){
-      for(var i=0 ; i< this.props.myProducts.length ; i++){
-        var obj = this.props.myProducts[i] ; 
-        console.log("Checking current object " , this.props.myProducts[i] )
-        if(obj.pid === this.state.productId){
-            this.setState({
-              productObj : obj
-            })
-        }
-      }
-
-      console.log("Object to auction " , this.state.productObj );
-    }
 
 
 
@@ -67,8 +54,18 @@ class AuctionProduct extends Component {
               <div className="margin30 col-md-12 col-sm-12 col-lg-12 ">
                   <div className="input-group">
                           <button className="btn btn-success" onClick={() => {
-                            this.props.putProductOnAuction(this.props.user.email , this.state.productObj.pid ,
-                            this.state.productObj.name , this.state.productObj.description , this.state.productObj.category )
+
+                             for(var i=0 ; i< this.props.myProducts.length ; i++){
+                                var obj = this.props.myProducts[i] ; 
+                                if(obj.pid === this.state.productId){
+                                    this.props.putProductOnAuction(this.props.user.email , obj.pid ,
+                                  obj.name , obj.description , obj.category )
+                                }
+                              }
+
+
+
+                            
                           }}>Submit</button>                                        
                      </div>
               </div>
