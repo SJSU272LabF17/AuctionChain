@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
-
+import {putProductOnAuction } from '../actions/product_action'
 
 class AuctionProduct extends Component {
   
@@ -10,13 +10,24 @@ class AuctionProduct extends Component {
 
       this.state={
         productId : this.props.location.pathname.indexOf('/setUpAuction/') === -1 ? '' : 
-                  this.props.location.pathname.replace('/setUpAuction/' , '')
+                  this.props.location.pathname.replace('/setUpAuction/' , '') ,
+        productObj : null ,
+        reservedPrice : 0
       }
     }
 
 
     componentWillMount(){
-      console.log("Product " , this.state.productId) ; 
+      for(var i=0 ; i< this.props.myProducts.length ; i++){
+        var obj = this.props.myProducts[i] ; 
+        if(obj.pid === this.state.productId){
+            this.setState({
+              productObj : obj
+            })
+        }
+      }
+
+      console.log("Object to auction " , this.state.productObj );
     }
 
 
@@ -46,13 +57,18 @@ class AuctionProduct extends Component {
               <div className="margin30 col-md-12 col-sm-12 col-lg-12 ">
                   <div className="input-group">
                           <span className="input-group-addon"><i>$</i></span>
-                          <input  type="number"   className="form-control"  placeholder="Amount" aria-describedby="basic-addon1"  required />                                        
+                          <input  type="number"   className="form-control" onChange={(e) => {
+                            this.setState({reservedPrice : e.target.value})
+                          }} placeholder="Amount" aria-describedby="basic-addon1"  required />                                        
                   </div>
               </div>
               
               <div className="margin30 col-md-12 col-sm-12 col-lg-12 ">
                   <div className="input-group">
-                          <button className="btn btn-success">Submit</button>                                        
+                          <button className="btn btn-success" onClick={() => {
+                            this.props.putProductOnAuction(this.props.user.email , this.state.productObj.pid ,
+                            this.state.productObj.name , this.state.productObj.description , this.state.productObj.category 
+                          }}>Submit</button>                                        
                      </div>
               </div>
               
@@ -66,13 +82,15 @@ class AuctionProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-    
+      putProductOnAuction : (email , pid , name , desc , category ) => dispatch(putProductOnAuction(email , pid , name , desc , category ))
     }
   }
 
   function mapStateToProps(state) {
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
+        myProducts : state.ProductReducer.myProduct,
+        user : state.AuthReducer.user
       };
   }
 

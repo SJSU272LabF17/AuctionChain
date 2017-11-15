@@ -74,3 +74,39 @@ export function getAllUserProduct(email  ){
 	        })
 		}
 }
+
+
+function putProductOnAuction(email , pid , name , desc , category   ){
+	return function(dispatch){
+			fetch('http://localhost:3002/putProductOnAuction', {
+	        method: 'POST',
+	        headers: {
+	            ...headers,
+	            'Content-Type': 'application/json'
+	        },
+	        credentials:'include',
+	   	    body: JSON.stringify({
+	   	    			"email" : email ,
+	   	    			"pid" : pid , 
+	   	    			"productName" : name ,
+	   	    			"productDesc" : desc ,
+	   	    			"productCategory" : category
+	   	    })
+
+	  		}).then(function (response) {
+			        console.log("Response from server " , response);
+			      response.json().then(res => {
+			      	
+			      	
+			     console.log(res) ; 
+
+			      	
+				})
+																		        
+	   		})
+	        .catch(error => {
+	        	console.log(error)
+	            
+	        })
+		}
+}
