@@ -80,7 +80,7 @@ class AuctionProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-      putProductOnAuction : (email , pid , name , desc , category ) => dispatch(putProductOnAuction(email , pid , name , desc , category ))
+      putProductOnAuction : (email , pid , name , desc , category , price ) => dispatch(putProductOnAuction(email , pid , name , desc , category, price ))
     }
   }
 
