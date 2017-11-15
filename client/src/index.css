@@ -144,3 +144,67 @@ body {
     margin-left: 15px ;
     margin-top: 45px
   }
+
+  .divForLiveAuctionimageAttr{
+    width: 25%;
+    min-width: 350px;
+    height: available;
+    float: left;
+    border-collapse: collapse;
+  }
+
+  .divForLiveAuctionImage{
+    width: 25%;
+    min-width: 350px;
+    height: available;
+    min-height: 400px;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  .divForAuctionInfo{
+    width: 50%;
+    min-width: 600px;
+    height: available;
+    min-height: 400px;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  .divForGraph{
+    width: 25%;
+    min-width: 350px;
+    height: available;
+    min-height: 400px;
+    float: right;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  .divForRemainingLots{
+    width: 25%;
+    min-width: 350px;
+    height: available;
+    min-height: 110px;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  .divForBidOption{
+    width: 50%;
+    min-width: 600px;
+    height: available;
+    min-height: 110px;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  .divForMetrix{
+    width: 25%;
+    min-width: 350px;
+    height: available;
+    min-height: 110px;
+    float: right;
+    border: 1px solid #ddd;
+    border-radius : 3px
+  }
+  

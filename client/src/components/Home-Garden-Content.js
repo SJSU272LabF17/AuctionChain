@@ -15,10 +15,6 @@ class HomeGardenContent extends Component {
 
 
     render() {
-
-
-
-
       return (
           <div className="rightDiv">
             <section className="sectionattr">
