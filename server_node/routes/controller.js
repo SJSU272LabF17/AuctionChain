@@ -51,7 +51,8 @@ module.exports = function(app , db ){
 			 "description": description,
 			 "category": category,
 			 "imageurl": "imageurl",
-			 "owner" : owner	
+			 "owner" : owner,
+			 "state" : "ADDED"	
   		};
 		
 		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product', apiObject)
@@ -61,7 +62,7 @@ module.exports = function(app , db ){
 
 				if(bSuccessful){
 					console.log(arrProducts);
-					res.status(200).json({products: arrProducts});				
+					res.status(200).json({products: arrProducts});
 					return;
 				}
 				res.status(500).json({error: "Internal server error."})
@@ -111,8 +112,7 @@ module.exports = function(app , db ){
 	});
 	
 	
-	app.post('/register' , function(req,res)
-	{
+	app.post('/register' , function(req,res){
 		var email = req.body.email ;
 		var password = req.body.password ; 
 		var firstName = req.body.firstName ; 
@@ -168,7 +168,62 @@ module.exports = function(app , db ){
 	})
 		
 	
-	  
+	app.post('/putProductOnAuction' , function(req,res){
+		var listingId = Guid.raw();
+		var reservePrice = req.body.reservePrice;
+		var productName = req.body.productName;
+		var productDesc = req.body.productDesc;
+		var productCategory = req.body.productCategory ;
+		var pid = req.body.pid;
+		var email =  req.body.email;
+		var productState = 'FOR_SALE';
+		var offers = [];
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.ProductListing",
+			"listingId": listingId,
+			"reservePrice": reservePrice,
+			"name": productName,
+			"description": productDesc,
+			"category": productCategory,
+			"state": productState,
+			"offers": offers,
+			"owner": email,
+			"product": pid
+		  }
+
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.ProductListing', apiObject)
+		.then(function (response) {
+
+			console.log("Product Listing Added.");
+			var apiObject = {
+				"$class": "org.cmpe272.evergreen.auction.Product",
+				 "pid": pid,
+				 "name": productName,
+				 "description": productDesc,
+				 "category": productCategory,
+				 "imageurl": "imageurl",
+				 "owner" : email,
+				 "state" : "FOR_SALE"	
+			  };
+	
+			axios.put('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product/' + pid, apiObject)
+			.then(function (response) {
+				console.log("Product State Updated.");
+				res.status(200).json({});
+			})
+			.catch(function (error) {
+				console.log("Could not update product State. ", error);
+				res.status(200).json({});
+			});
+
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API", error);
+			res.status(500).json({error: "Internal server error."})
+		});		
+
+	});
 		
 	app.post('/login' , function(req , res){
 		
