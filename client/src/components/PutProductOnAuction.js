@@ -9,14 +9,14 @@ class AuctionProduct extends Component {
       super(props);
 
       this.state={
-        product : this.props.location.pathname.indexOf('/setUpAuction/') === -1 ? '' : 
+        productId : this.props.location.pathname.indexOf('/setUpAuction/') === -1 ? '' : 
                   this.props.location.pathname.replace('/setUpAuction/' , '')
       }
     }
 
 
     componentWillMount(){
-      console.log("Product " , this.state.product) ; 
+      console.log("Product " , this.state.productId) ; 
     }
 
 
