@@ -91,7 +91,8 @@ export function putProductOnAuction(email , pid , name , desc , category , price
 	   	    			"pid" : pid , 
 	   	    			"productName" : name ,
 	   	    			"productDesc" : desc ,
-	   	    			"productCategory" : category
+	   	    			"productCategory" : category,
+	   	    			"reservePrice" : price
 	   	    })
 
 	  		}).then(function (response) {
