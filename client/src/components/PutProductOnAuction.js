@@ -59,7 +59,7 @@ class AuctionProduct extends Component {
                                 var obj = this.props.myProducts[i] ; 
                                 if(obj.pid === this.state.productId){
                                     this.props.putProductOnAuction(this.props.user.email , obj.pid ,
-                                  obj.name , obj.description , obj.category )
+                                  obj.name , obj.description , obj.category , this.state.reservedPrice )
                                 }
                               }
 
