@@ -1,4 +1,4 @@
-body {
+[1:56 PM, 11/21/2017] Sjsu Palash Hedau Fall 17 272 Proj: body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -16,17 +16,17 @@ body {
 }
 
 #panelMargin{
-	margin:20px
+  margin:20px
 }
 
 #registrationdiv{
-	style=margin:5px
+  style=margin:5px
 }
 
 #usernameExistDiv{
-	border-top: 1px solid#888;
-	 padding-top:15px; 
-	 font-size:85%
+  border-top: 1px solid#888;
+   padding-top:15px; 
+   font-size:85%
 }
 
 .padd {
@@ -40,7 +40,7 @@ body {
 
 
 .text-red{
-	color: red
+  color: red
 }
 
 .text-green{
@@ -228,4 +228,3 @@ body {
     border: 1px solid #ddd;
     border-radius : 3px
   }
-  
