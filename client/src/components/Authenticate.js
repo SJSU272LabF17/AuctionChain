@@ -119,7 +119,7 @@ export default function(InnerComponent){
 	      }
 	    };
 		return(
-			<div>
+			<div className="totalBackGround">
 				 <div >
 		            <nav className="navbar navbar-inverse ">
 		              <div className="container-fluid">

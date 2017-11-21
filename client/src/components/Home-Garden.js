@@ -89,7 +89,7 @@ export default function(InnerComponent){
 
 
               
-            </div>
+          </div>
             <InnerComponent   {...this.props}></InnerComponent>
           </div>
           
