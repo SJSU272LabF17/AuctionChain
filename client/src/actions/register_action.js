@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:3002'
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://5f9cb3b3.ngrok.io/'
 
 const headers = {
     'Accept': 'application/json'
@@ -9,7 +9,7 @@ export function register(username , password , fname , lname  ){
 	console.log(username , password , fname , lname  ) ; 
 
 		return function(dispatch){
-			fetch('http://localhost:3002/register', {
+			fetch(api + 'register', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
@@ -68,7 +68,7 @@ export function setBackRegisteredSuccess(){
 export function login(username , password ){
 		console.log("---------" , username , password)
 		return function(dispatch){
-			fetch('http://localhost:3002/login', {
+			fetch(api + 'login', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
@@ -97,7 +97,7 @@ export function login(username , password ){
 export function checkIfAlreadyLoggedIn( ){
 	
 		return function(dispatch){
-			fetch('http://localhost:3002/checkIfAlreadyLoggedIn', {
+			fetch(api + 'checkIfAlreadyLoggedIn', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
@@ -125,7 +125,7 @@ export function checkIfAlreadyLoggedIn( ){
 export function logout( ){
 	
 		return function(dispatch){
-			fetch('http://localhost:3002/logout', {
+			fetch(api + 'logout', {
 	        method: 'POST',
 	        headers: {
 	            ...headers,
