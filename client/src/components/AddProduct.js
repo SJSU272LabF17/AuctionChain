@@ -25,8 +25,8 @@ class addProduct extends Component {
 
 
       return (
-          <div className ='container marginLeft '>
-            <div className="row">
+          <div className ='container addProductDiv '>
+            <div className="row  addProductChildDiv">
               <div className="  col-md-12 col-sm-12 col-lg-12 text-center">
                 <h3>Enter the product details you wish to auction</h3>
               </div>
@@ -123,8 +123,7 @@ class addProduct extends Component {
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
                     <button className="btn btn-success"  onClick={() => {
-                      console.log("Data to submit " , this.state.productName , " " , this.state.pic ,
-                        " " , this.state.desc , " " , this.state.category) ; 
+                     
                         this.props.addNewProduct(this.props.user.email 
                         , this.state.productName , this.state.desc , this.state.category) ;
                       

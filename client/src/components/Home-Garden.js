@@ -23,9 +23,9 @@ export default function(InnerComponent){
 
 
       return (
-        <div >
+        <div className="content-section">
           <div className="container-fluid">
-            <div className ='foo container'>
+            <div className ='foo container CategoryDiv'>
               
               <div >
                 <h4 className="textColorBlack">Shop by Category</h4>
