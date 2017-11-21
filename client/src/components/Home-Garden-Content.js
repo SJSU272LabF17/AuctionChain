@@ -62,7 +62,7 @@ class HomeGardenContent extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-    
+     
     }
   }
 

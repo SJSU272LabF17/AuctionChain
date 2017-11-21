@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
-import {addNewProduct } from '../actions/product_action'
+import {addNewProduct  , setBackProductSuccess} from '../actions/product_action'
+import Loading from 'react-loading-spinner';
 
 class addProduct extends Component {
   
@@ -12,10 +13,40 @@ class addProduct extends Component {
         productName : '' ,
         pic : {name : ''} ,
         desc : '' ,
-        category : ''
+        category : '' ,
+        addProductClientError : '' , 
+        addProductServerError : '' ,
+        loading : false
       }
     }
 
+
+     componentWillReceiveProps(newProps) {    
+        if(newProps.productAddSuccess === true && newProps.productAddSuccess != null){
+          console.log("Not required ") ;
+             this.setState({
+                productName : '' ,
+                pic : {name : ''} ,
+                desc : '' ,
+                category : '' ,
+                addProductClientError : '' , 
+                addProductServerError : '',
+                loading : false
+          })
+
+             this.props.setBackProductSuccess() ; 
+        }
+
+        if(newProps.productAddSuccess === false){
+          console.log("Not required  1") ;
+          this.setState({
+            addProductServerError : "Error occured while adding a product!!! Please try after sometime" ,
+            loading : false
+
+          })
+        }
+
+      }
 
     render() {
 
@@ -23,7 +54,7 @@ class addProduct extends Component {
         display : "none"
       }
 
-
+      console.log("XXXXXXXX " , this.state.loading) ;
       return (
           <div className ='container addProductDiv '>
             <div className="row  addProductChildDiv">
@@ -35,7 +66,7 @@ class addProduct extends Component {
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
                     <label htmlFor="name">Product Name</label>
-                    <input type="text"   onChange={(e) => {
+                    <input type="text" value={this.state.productName}  onChange={(e) => {
                               this.setState({
                                 productName : e.target.value
                               })
@@ -77,7 +108,7 @@ class addProduct extends Component {
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
                     <label htmlFor="desc">Description</label>
-                    <textarea rows="3"   onChange={(e) => {
+                    <textarea rows="3"  value={this.state.desc}  onChange={(e) => {
                               this.setState({
                                 desc : e.target.value
                               })
@@ -90,7 +121,7 @@ class addProduct extends Component {
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
                     <label htmlFor="category">Category</label>
-                    <select onChange={(e) => {
+                    <select value={this.state.category}  onChange={(e) => {
                               this.setState({
                                 category : e.target.value
                               })
@@ -119,16 +150,52 @@ class addProduct extends Component {
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
               </div>
               
-              <div className=" outline col-md-12 col-sm-12 col-lg-12 ">
+              <div className=" col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
-                    <button className="btn btn-success"  onClick={() => {
-                     
-                        this.props.addNewProduct(this.props.user.email 
-                        , this.state.productName , this.state.desc , this.state.category) ;
-                      
+                    <p className="text-red">{this.state.addProductClientError}</p>
+                    <p className="text-red">{this.state.addProductServerError}</p>
+                    <p className="Spinner"><Loading isLoading={this.state.loading} ></Loading></p>
+                 </div>
+                 <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
+              </div>
 
-                    }} >Submit</button>
+
+              <div className=" col-md-12 col-sm-12 col-lg-12 ">
+                 <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
+                <div className="form-group col-md-6 col-sm-6 col-lg-6">
+                    
+                    {
+                          this.state.loading === false ? 
+                           <button className="btn btn-success"  onClick={() => {
+                                    if(this.state.productName === ""){
+                                      this.setState({ addProductClientError : 'Please specify Product Name '});
+                                      return
+                                    }
+                                    if(this.state.desc === ""){
+                                      this.setState({ addProductClientError : 'Please provide some description '})
+                                       return
+                                    }
+                                    if(this.state.category === ""){
+                                       this.setState({ addProductClientError : 'Category is must'})
+                                       return
+                                    }
+
+                                    this.props.setBackProductSuccess();
+
+                                    this.setState({ addProductClientError : '' , loading : true})
+
+
+                                      this.props.addNewProduct(this.props.user.email 
+                                      , this.state.productName , this.state.desc , this.state.category) ;
+                        }} >Submit</button>
+
+                        :
+
+                        <h4 className="text-red">In Progress...</h4>
+                    }
+
+                   
                  </div>
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
               </div>
@@ -145,13 +212,15 @@ class addProduct extends Component {
 function mapDispatchToProps(dispatch){
     return {
       addNewProduct : (email , name , desc , category) => dispatch(addNewProduct(email , name , desc , category)),
+      setBackProductSuccess : () => dispatch(setBackProductSuccess())
     }
   }
 
   function mapStateToProps(state) {
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
-        user : state.AuthReducer.user
+        user : state.AuthReducer.user , 
+        productAddSuccess : state.ProductReducer.productAddSuccess,
       };
   }
 
