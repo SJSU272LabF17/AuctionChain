@@ -165,8 +165,8 @@ module.exports = function(app , db ){
 				}
 				
 				var Member = response.data.offers[j].member;
-				var splitArray = Member.split("#");
-				var email = splitArray[splitArray.length - 1];
+				var splitEmail = Member.split("#");
+				var email = splitEmail[splitEmail.length - 1];
 
 				var dateObj = new Date(response.data.offers[j].timestamp);
 				var date = dateFormat(dateObj, "mmm d, h:MM:ss TT");
@@ -177,6 +177,9 @@ module.exports = function(app , db ){
 				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
 				arrOffers.push(offer);
 			}
+			
+			var splitOwner = response.data.owner.split("#");
+			var owner = splitOwner[splitOwner.length - 1];;
 
 			var product = {};
 			product.productName = response.data.name;
@@ -185,7 +188,7 @@ module.exports = function(app , db ){
 			product.productListingId = response.data.listingId;
 			product.numberOfBids = response.data.offers.length;
 			product.maxBidPrice = maxBid;
-			product.owner = response.data.owner;
+			product.owner = owner;
 			product.offers = arrOffers;		
 
 			res.status(200).json(product);
