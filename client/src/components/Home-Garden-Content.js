@@ -20,9 +20,9 @@ class HomeGardenContent extends Component {
 
 
     render() {
-      const listOfProducts = this.props.productList.map((product) => {
+      const listOfProducts = this.props.productList.map((product , key) => {
         return (
-              <li className="liAttr">
+              <li key={key} className="liAttr">
                 <div className="row">
                   <div className="divForImage col-lg-3">
                     <a>
