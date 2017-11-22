@@ -6,9 +6,6 @@ import { Modal as BootStrapModal } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 export default function(InnerComponent){
-	
-
-
    class Authenticate extends Component{
 
    	constructor(props){
@@ -27,7 +24,6 @@ export default function(InnerComponent){
       		  passwordLogin : '' ,
 		}
 	}
-
 
 	componentWillMount(){
 		console.log("Initial")
@@ -51,16 +47,6 @@ export default function(InnerComponent){
 
       }
    }
-
-
-   
-
-
-
-
-
-
-
 
 	onChangeUsernameLogin(e){
     
@@ -98,10 +84,8 @@ export default function(InnerComponent){
 	    this.setState({
 	      lname : e.target.value
 	    })
-	  }
-	 
-	
-
+		}
+		
 	  handleSubmit(e) {
       	e.preventDefault()
    	  }
@@ -137,11 +121,9 @@ export default function(InnerComponent){
 			                		 <a className="navbar-brand" onClick={() => {
 	                      				this.setState({modalIsOpenLogin: true});
 	                      				}} >Sign in</a>
-			                  	   	 <a className="navbar-brand" onClick={() => {
-			                  	   	 	this.setState({
-			                  	   	 		modalIsOpen : true
-			                  	   	 	})
-			                  	   	 }}>Register</a>
+			                  	<a className="navbar-brand" onClick={() => {
+			                  	   	 	this.setState({modalIsOpen : true})
+			                  	   	 }}> Register</a>
 			                  	   	 </div>
 			                	}
 			                 
@@ -152,12 +134,12 @@ export default function(InnerComponent){
 			                  <li><a href="#">Gift Cards</a></li>
 			                  <li><a href="#">Help & Contact</a></li>
 			                </ul>
-
-			               <ul className="nav navbar-nav navbar-right">
-			                <li>      <Link to="/addProduct">Sell</Link>     </li>
-			                <li><Link to="/myProduct">My eBay</Link></li>
-			              </ul>
-		              </div>
+											
+											<ul className="nav navbar-nav navbar-right">
+			               		<li><Link to="/addProduct">Sell</Link></li>
+			                	<li><Link to="/myProduct">My eBay</Link></li>
+			              	</ul>
+										</div>
 		            </nav>
 		        </div>
 		         <div>
