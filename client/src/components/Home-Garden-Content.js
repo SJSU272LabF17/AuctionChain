@@ -22,7 +22,10 @@ class HomeGardenContent extends Component {
     render() {
       const listOfProducts = this.props.productList.map((product , key) => {
         return (
-              <li key={key} className="liAttr">
+              <li onClick={() => {
+                  var url = '/productDetails/' + product.productListingId ; 
+                  this.props.history.push(url) ; 
+              }} key={key} className="liAttr">
                 <div className="row">
                   <div className="divForImage col-lg-3">
                     <a>
