@@ -16,6 +16,8 @@ body {
     padding: 20px
 }
 
+
+
 .totalBackGround{
   background-color: rgb(247 , 247 , 247);
 }
@@ -25,6 +27,10 @@ body {
 
 .CategoryDiv{
   background-color: white
+}
+
+.sharpButton{
+  border-radius : 0px;
 }
 
 #panelMargin{
