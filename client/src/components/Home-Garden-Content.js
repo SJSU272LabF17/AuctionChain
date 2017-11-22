@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
-
+import { getAllProducts } from '../actions/product_listing_action';
 
 class HomeGardenContent extends Component {
   
@@ -13,62 +13,64 @@ class HomeGardenContent extends Component {
       }
     }
 
+    componentWillMount(){
+      this.props.getAllProducts('Mobiles');
+  }
+
 
     render() {
+      const listOfProducts = this.props.productList.map((product) => {
+        return (
+              <li className="liAttr">
+                <div className="row">
+                  <div className="divForImage col-lg-3">
+                    <a>
+                      <div >
+                        <img className="imageAttr" alt="" src={require("../assets/1.jpg")} />
+                      </div>
+                    </a>
+                  </div>
+                  <div className="DivForImageInfo col-lg-9 textColorBlack">
+                    <ul className="">
+                      <li className="">  
+                        <span classNme="bold"> ${product.productName} </span>
+                      </li>
+                      <li className="">  
+                        <span classNme="bold"> Description: {product.productDesc} </span>
+                      </li>
+                      <li className="">  
+                        <span classNme="bold"> ${product.maxBidPrice} </span>
+                      </li>
+                      <li className="">  
+                        <span classNme="bold"> {product.numberOfBids} Bids</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+      );
+    })
       return (
           <div className="rightDiv">
             <section className="sectionattr">
               <ul className="ulattr">
-                <li className="liAttr">
-                  <div className="row">
-                    <div className="divForImage col-lg-3">
-                      <a>
-                        <div >
-                          <img className="imageAttr" alt="" src={require("../assets/1.jpg")} />
-                        </div>
-                        
-                      </a>
-                    </div>
-                    <div className="DivForImageInfo col-lg-9 textColorBlack">
-                      BRAND-NEW-Apple-iPhone-6-Plus-5-5-Display-16GB-GSM-UNLOCKED-Smartphone
-                    </div>
-                  </div>
-                </li>
-                
-                <li className="liAttr">
-                  <div className="row">
-                    <div className="divForImage col-lg-3 ">
-                      <a>
-                        <div >
-                          <img className="imageAttr" alt="" src={require("../assets/shopping.jpg")} />
-                        </div>
-                        
-                      </a>
-                    </div>
-                    <div className="DivForImageInfo col-lg-9 textColorBlack">
-                      Samsung Galaxy S8
-                    </div>
-                  </div>
-                </li>
-              
+                {listOfProducts}
               </ul>
-            
             </section>
           </div>
-
-      );
+      )
     }
   }
 
 function mapDispatchToProps(dispatch){
     return {
-    
+      getAllProducts : (category) => dispatch(getAllProducts(category))
     }
   }
 
   function mapStateToProps(state) {
       return {
-        isAuthenticated : state.AuthReducer.isAuthenticated,
+        productList :state.ProductListingReducer.productList,
       };
   }
 
