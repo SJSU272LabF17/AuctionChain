@@ -1,7 +1,7 @@
 const initialState = {
 	
 	productList :  [] ,
-	currentAuctionedProduct : []
+	currentAuctionedProduct : null
 }
 
 
