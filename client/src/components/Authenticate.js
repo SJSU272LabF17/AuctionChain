@@ -112,9 +112,7 @@ export default function(InnerComponent){
 			                  
 			                	{
 			                		this.props.isAuthenticated === true ? 
-			                		 <a className="navbar-brand" onClick={()=> {
-			                		 	this.props.logout();
-			                		 }}>Logout</a>
+			                		 <a className="navbar-brand active" >Hi {this.props.user.email} !!</a>
 			                  	
 			                		:
 			                		 <div>
@@ -131,14 +129,22 @@ export default function(InnerComponent){
 			                <ul className="nav navbar-nav">
 			                  <li className="active"><a href="/">Home</a></li>
 			                  <li><Link to="/home-garden">Products</Link></li>
-			                  <li><a href="#">Gift Cards</a></li>
 			                  <li><a href="#">Help & Contact</a></li>
 			                </ul>
 											
 											<ul className="nav navbar-nav navbar-right">
-			               		<li><Link to="/addProduct">Sell</Link></li>
-			                	<li><Link to="/myProduct">My eBay</Link></li>
+			               		<li><Link to="/addProduct">Add Product</Link></li>
+			                	<li><Link to="/myProduct">My Products</Link></li>
+												<li><a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1">Account & Lists</a>
+												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bids</a></li>
+    											<li role="presentation"><Link to="/myProduct">Purchase History</Link></li>
+    										  <li role="presentation"><Link to="/addProduct">Sell</Link></li>
+													<li role="presentation"><a onClick={() => {this.props.logout()}}>Logout</a></li>
+  											</ul>
+												</li>
 			              	</ul>
+
 										</div>
 		            </nav>
 		        </div>
@@ -366,7 +372,8 @@ export default function(InnerComponent){
 	    return {
 	    	isAuthenticated : state.AuthReducer.isAuthenticated,
 	    	register_success : state.AuthReducer.register_success , 
-	    	registration_error : state.AuthReducer.registration_error
+				registration_error : state.AuthReducer.registration_error,
+				user : state.AuthReducer.user
 	    };
 	}
 
