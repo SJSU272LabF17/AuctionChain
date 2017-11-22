@@ -269,6 +269,25 @@ module.exports = function(app , db ){
 
 	});
 
+	app.post('/closeBidding', function(req, res){
+		var listingId =  req.body.listingId;
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.CloseBidding",
+			"listing": "resource:org.cmpe272.evergreen.auction.ProductListing#" + listingId
+		  }
+
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.CloseBidding', apiObject)
+		.then(function (response) {
+			console.log("Bidding Closed.");
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("Error while Closing bidding.", error);
+			res.status(500).json({});
+		});
+
+	});
 
 	app.post('/login' , function(req , res){
 		
