@@ -8,6 +8,7 @@ asset Product identified by pid {
   o String name
   o String description
   o String category
+  o String listingId
   o ProductState state
   --> Member owner
 }

@@ -53,7 +53,8 @@ module.exports = function(app , db ){
 			 "category": category,
 			 "imageurl": "imageurl",
 			 "owner" : owner,
-			 "state" : "ADDED"	
+			 "state" : "ADDED",
+			 "listingId" : ""
   		};
 		
 		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product', apiObject)
@@ -177,7 +178,7 @@ module.exports = function(app , db ){
 				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
 				arrOffers.push(offer);
 			}
-			
+
 			var splitOwner = response.data.owner.split("#");
 			var owner = splitOwner[splitOwner.length - 1];;
 
@@ -236,7 +237,8 @@ module.exports = function(app , db ){
 				 "category": productCategory,
 				 "imageurl": "imageurl",
 				 "owner" : email,
-				 "state" : "FOR_SALE"	
+				 "state" : "FOR_SALE",
+				 "listingId" : listingId
 			  };
 	
 			axios.put('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product/' + pid, apiObject)
