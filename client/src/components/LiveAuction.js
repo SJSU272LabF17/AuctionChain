@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 import {getCurrentProductAuctioned} from '../actions/product_listing_action'
-import {placeBid} from '../actions/bidding'
+import {placeBid , closeBid } from '../actions/bidding'
 
 class LiveAuction extends Component {
   
@@ -56,7 +56,9 @@ class LiveAuction extends Component {
                        {
                           this.props.user.email === this.props.currentAuctionedProduct.owner ? 
                           <div className="form-control sharpCorner bidPriceTextBox" >
-                            <button className="btn btn-danger sharpCorner">Close Bid</button>
+                            <button className="btn btn-danger sharpCorner" onClick={() => {
+                              this.props.closeBid(this.state.listingId) ; 
+                            }}>Close Bid</button>
                           </div>
                           :
 
@@ -121,7 +123,8 @@ class LiveAuction extends Component {
 function mapDispatchToProps(dispatch){
     return {
       getCurrentProductAuctioned : (listingId) => dispatch(getCurrentProductAuctioned(listingId)),
-      placeBid : (email , amount , listingId) => dispatch(placeBid(email , amount , listingId))
+      placeBid : (email , amount , listingId) => dispatch(placeBid(email , amount , listingId)) , 
+      closeBid : (listingId) => dispatch(closeBid(listingId))
     }
   }
 

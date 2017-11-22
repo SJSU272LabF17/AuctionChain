@@ -33,3 +33,35 @@ export function placeBid(email , amount , listingId  ){
 	        })
 		}
 }
+
+
+
+export function closeBid(listingId  ){
+	
+
+		return function(dispatch){
+			fetch(url + 'closeBidding', {
+	        method: 'POST',
+	        headers: {
+	            ...headers,
+	            'Content-Type': 'application/json'
+	        },
+	        credentials:'include',
+	   	    body: JSON.stringify({
+	   	    		
+	   	    			"listingId" : listingId 
+	   	    })
+
+	  		}).then(function (response) {
+			        console.log("Response from server " , response);
+			      response.json().then(res => {
+					dispatch({ type : 'BIDDING_END_SUCCESS' , payload : true })
+				})
+																		        
+	   		})
+	        .catch(error => {
+	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
+	            
+	        })
+		}
+}
