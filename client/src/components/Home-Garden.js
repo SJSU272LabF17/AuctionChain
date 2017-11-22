@@ -32,68 +32,66 @@ export default function(InnerComponent){
               </div>
               
               <div className="margin15">
-                <ul className="list-group">
-                <li className="list-group-item padd">
-                  <h4>Electronics</h4>
-                </li>
-                <li className="list-group-item padd">
-                  <Link className="padd" to="/home-garden/category/Mobiles">Mobiles</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Camera">Camera</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Hard drive">Hard drive</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Consumer Electronics">Consumer Electronics</Link>
-                </li>
+              <ul className="list-group">
+              <li className="list-group-item padd">
+                <h4 className="bold">Electronics</h4>
+              </li>
+              <li className="list-group-item padd">
+                <Link className="padd" to="/home-garden/category/Mobiles">Mobiles</Link>
+              </li>
+              <li className="list-group-item padd">
                 
-                <li className="list-group-item padd">
-                  <h4>Fashion</h4>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Men">Men</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Women">Women</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Watches">Watches</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Shoes">Shoes</Link>
-                </li>
+                <Link className="padd" to="/home-garden/category/Camera">Camera</Link>
+              </li>
+              <li className="list-group-item padd">
                 
+                <Link className="padd" to="/home-garden/category/Hard drive">Hard drive</Link>
+              </li>
+              <li className="list-group-item padd">
                 
+                <Link className="padd" to="/home-garden/category/Consumer Electronics">Consumer Electronics</Link>
+              </li>
+             <hr></hr> 
+              <li className="list-group-item padd">
+                <h4>Fashion</h4>
+              </li>
+              <li className="list-group-item padd">
                 
-                <li className="list-group-item padd">
-                  <h4>Sports</h4>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Football">Football</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Soccer">Soccer</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Cricket">Cricket</Link>
-                </li>
-                <li className="list-group-item padd">
-                  
-                  <Link className="padd" to="/home-garden/category/Tennis">Tennis</Link>
-                </li>
+                <Link className="padd" to="/home-garden/category/Men">Men</Link>
+              </li>
+              <li className="list-group-item padd">
                 
+                <Link className="padd" to="/home-garden/category/Women">Women</Link>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Watches">Watches</Link>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Shoes">Shoes</Link>
+              </li>
+              <hr></hr>
+              <li className="list-group-item padd">
+                <h4>Sports</h4>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Football">Football</Link>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Soccer">Soccer</Link>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Cricket">Cricket</Link>
+              </li>
+              <li className="list-group-item padd">
+                
+                <Link className="padd" to="/home-garden/category/Tennis">Tennis</Link>
+              </li>
+              <hr></hr>
               </ul>
               </div>
               
