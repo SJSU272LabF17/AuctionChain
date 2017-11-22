@@ -5,6 +5,7 @@ require('../middleware/passport')(passport);
 var session = require('express-session');
 var Guid = require('guid');
 var urlencode = require('urlencode');
+var dateFormat = require('dateformat');
 
 //mongo connection
 var mongoURL =        "mongodb://localhost:27017/272_Auction_Project";
@@ -113,9 +114,14 @@ module.exports = function(app , db ){
 			for(var i=0 ; i < response.data.length; i++){
 
 				var maxBid = response.data[i].reservePrice;
-				for (var j = 0 ; j < response.data[i].offers.length; j++){
-					if(response.data[i].offers[j].bidPrice > maxBid){
-						maxBid = response.data[i].offers[j].bidPrice;
+				var countBids = 0;
+
+				if(response.data[i].offers != undefined && response.data[i].offers != "undefined"){
+					for (var j = 0 ; j < response.data[i].offers.length; j++){
+						if(response.data[i].offers[j].bidPrice > maxBid){
+							maxBid = response.data[i].offers[j].bidPrice;
+						}
+						countBids++;
 					}
 				}
 
@@ -124,7 +130,7 @@ module.exports = function(app , db ){
 				product.productDesc = response.data[i].description;
 				product.productCategory = response.data[i].category;
 				product.productListingId = response.data[i].listingId;
-				product.numberOfBids = response.data[i].offers.length;
+				product.numberOfBids = countBids;
 				product.maxBidPrice = maxBid;
 				arrRes.push(product);
 			}
@@ -162,11 +168,13 @@ module.exports = function(app , db ){
 				var splitArray = Member.split("#");
 				var email = splitArray[splitArray.length - 1];
 
+				var dateObj = new Date(response.data.offers[j].timestamp);
+				var date = dateFormat(dateObj, "mmm d, h:MM:ss TT");
+
 				var offer = {}
 				offer.bidPrice = response.data.offers[j].bidPrice;
-				offer.timestamp = response.data.offers[j].timestamp;
+				offer.timestamp = date;
 				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
-
 				arrOffers.push(offer);
 			}
 
@@ -177,6 +185,7 @@ module.exports = function(app , db ){
 			product.productListingId = response.data.listingId;
 			product.numberOfBids = response.data.offers.length;
 			product.maxBidPrice = maxBid;
+			product.owner = response.data.owner;
 			product.offers = arrOffers;		
 
 			res.status(200).json(product);
