@@ -94,7 +94,7 @@ module.exports = function(app , db ){
 		var strRequestQuery = "";
 
 		console.log("category", category)
-		if(category != undefined){
+		if(category != null && category != undefined && category != ""){
 			strRequestQuery = "http://localhost:3004/api/queries/GetAllProductsByCategory?category=" + category;
 		}
 		else{
@@ -111,20 +111,20 @@ module.exports = function(app , db ){
 
 			var arrRes = [];
 			for(var i=0 ; i < response.data.length; i++){
-				var product = {};
-				product.productName = response.data[i].name;
-				product.productDesc = response.data[i].description;
-				product.productCategory = response.data[i].category;
-				product.productListingId = response.data[i].listingId;
-				product.numberOfBids = response.data[i].offers.length;
-				var maxBid = response.data[i].reservePrice;
 
+				var maxBid = response.data[i].reservePrice;
 				for (var j = 0 ; j < response.data[i].offers.length; j++){
 					if(response.data[i].offers[j].bidPrice > maxBid){
 						maxBid = response.data[i].offers[j].bidPrice;
 					}
 				}
 
+				var product = {};
+				product.productName = response.data[i].name;
+				product.productDesc = response.data[i].description;
+				product.productCategory = response.data[i].category;
+				product.productListingId = response.data[i].listingId;
+				product.numberOfBids = response.data[i].offers.length;
 				product.maxBidPrice = maxBid;
 				arrRes.push(product);
 			}
