@@ -37,19 +37,19 @@ export default function(InnerComponent){
                   <h4>Electronics</h4>
                 </li>
                 <li className="list-group-item padd">
-                  <Link className="padd" to="/home-garden/product/Mobiles">Mobiles</Link>
+                  <Link className="padd" to="/home-garden/category/Mobiles">Mobiles</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Camera">Camera</Link>
+                  <Link className="padd" to="/home-garden/category/Camera">Camera</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Hard drive">Hard drive</Link>
+                  <Link className="padd" to="/home-garden/category/Hard drive">Hard drive</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Consumer Electronics">Consumer Electronics</Link>
+                  <Link className="padd" to="/home-garden/category/Consumer Electronics">Consumer Electronics</Link>
                 </li>
                 
                 <li className="list-group-item padd">
@@ -57,19 +57,19 @@ export default function(InnerComponent){
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Men">Men</Link>
+                  <Link className="padd" to="/home-garden/category/Men">Men</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Women">Women</Link>
+                  <Link className="padd" to="/home-garden/category/Women">Women</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Watches">Watches</Link>
+                  <Link className="padd" to="/home-garden/category/Watches">Watches</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Shoes">Shoes</Link>
+                  <Link className="padd" to="/home-garden/category/Shoes">Shoes</Link>
                 </li>
                 
                 
@@ -79,19 +79,19 @@ export default function(InnerComponent){
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Football">Football</Link>
+                  <Link className="padd" to="/home-garden/category/Football">Football</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Soccer">Soccer</Link>
+                  <Link className="padd" to="/home-garden/category/Soccer">Soccer</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Cricket">Cricket</Link>
+                  <Link className="padd" to="/home-garden/category/Cricket">Cricket</Link>
                 </li>
                 <li className="list-group-item padd">
                   
-                  <Link className="padd" to="/home-garden/product/Tennis">Tennis</Link>
+                  <Link className="padd" to="/home-garden/category/Tennis">Tennis</Link>
                 </li>
                 
               </ul>

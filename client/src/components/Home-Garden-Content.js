@@ -9,8 +9,8 @@ class HomeGardenContent extends Component {
       super(props);
 
       this.state={
-        category : this.props.location.pathname.indexOf('/home-garden/product/') === -1 ? '' : 
-                   this.props.location.pathname.replace('/home-garden/product/' , '')
+        category : this.props.location.pathname.indexOf('/home-garden/category/') === -1 ? '' : 
+                   this.props.location.pathname.replace('/home-garden/category/' , '')
       }
     }
 

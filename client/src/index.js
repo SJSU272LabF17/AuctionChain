@@ -30,7 +30,7 @@ const Main = () => (
           <Route exact path="/myProduct" component={Authenticate(HomeGarden(myProduct))}/>
           <Route exact path="/liveAuction" component={Authenticate(HomeGarden(liveAuction))}/>
           <Route exact path="/setUpAuction/:productId" component={Authenticate(HomeGarden(AuctionProduct))}/>
-          <Route exact path="/home-garden/product/:category" component={Authenticate(HomeGarden(HomeGardenContent))}/>
+          <Route exact path="/home-garden/category/:category" component={Authenticate(HomeGarden(HomeGardenContent))}/>
     </Switch>
   
 )
