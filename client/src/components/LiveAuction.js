@@ -23,6 +23,13 @@ class LiveAuction extends Component {
       }
     }
 
+    componentWillReceiveProps(newProps){
+      var self = this ; 
+             setInterval(function(){
+                self.props.getCurrentProductAuctioned(self.state.listingId)
+             } , 5000)
+    
+    }
 
     render() {
       
