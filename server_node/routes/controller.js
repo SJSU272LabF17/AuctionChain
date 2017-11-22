@@ -88,84 +88,56 @@ module.exports = function(app , db ){
 		});
 
 	});
-	
-	app.post('/checkIfAlreadyLoggedIn' , authenticate , function(req,res){
-		 var email = req.user ; 
-		 console.log('user ' , email ); 
 
-		 axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
-		 .then(function (response) {
-			 console.log("User already exists with this email.");
-			   console.log(response.data);
-					
-			   res.status(200).json({loggedIn : true, user : {email : response.data.email , 
-				fname : response.data.firstName , 
-				lname : response.data.lastName
-			}});
+	app.post('/getAllProductsByCategory' , function(req , res){
+		var category =  req.body.category; 
+		var strRequestQuery = "";
 
-		 })
-		 .catch(function (error) {
-			 
-			 	
-			res.status(200).json({loggedIn : false, user : null});
-		 });
-	});
-	
-	
-	app.post('/register' , function(req,res){
-		var email = req.body.email ;
-		var password = req.body.password ; 
-		var firstName = req.body.firstName ; 
-		var lastName = req.body.lastName ; 
-		var balance = req.body.balance ;
-		var className =  req.body.class ; 
+		console.log("category", category)
+		if(category != undefined){
+			strRequestQuery = "http://localhost:3004/api/queries/GetAllProductsByCategory?category=" + category;
+		}
+		else{
+			strRequestQuery = "http://localhost:3004/api/org.cmpe272.evergreen.auction.ProductListing";
+		}
+
+		console.log(strRequestQuery);
 		
-		const saltRounds = 10;
-		//console.log(email , password , firstName , lastName , balance , className );
-		
-		
-		
-		
-		
-		bcrypt.hash(password, saltRounds, function(err, hash) {
-			var apiObject = {
-					 "$class": className,
-					  "balance": balance,
-					  "email": email,
-					  "firstName": firstName,
-					  "lastName": lastName ,
-					  "password" : hash	
+		axios.get(strRequestQuery, {})
+		.then(function (response) {	
+			//callback(true, response.data);
+			console.log("getAllProductsByCategory response arrived ")
+			console.log(response.data)
+
+			var arrRes = [];
+			for(var i=0 ; i < response.data.length; i++){
+				var product = {};
+				product.productName = response.data[i].name;
+				product.productDesc = response.data[i].description;
+				product.productCategory = response.data[i].category;
+				product.productListingId = response.data[i].listingId;
+				product.numberOfBids = response.data[i].offers.length;
+				var maxBid = response.data[i].reservePrice;
+
+				for (var j = 0 ; j < response.data[i].offers.length; j++){
+					if(response.data[i].offers[j].bidPrice > maxBid){
+						maxBid = response.data[i].offers[j].bidPrice;
+					}
+				}
+
+				product.maxBidPrice = maxBid;
+				arrRes.push(product);
 			}
-			
 
-			axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
-			.then(function (response) {
-				console.log("User already exists with this email.");
-			  	console.log(response.data);
-				  res.status(200).json({registered: false, registeredError: "Email already exists."
-				  , isAuthenticated: false, user: null})
-			})
-			.catch(function (error) {
-				
-				console.log("No user found with this email.");
-				
-				axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
-				.then(function (response) {
-					console.log(response.data);
-
-					res.status(200).json({registered: true, registeredError: ""
-					, isAuthenticated: false, user: null});
-					//, isAuthenticated: true, user: {email: email, fname: firstName, lname: lastName}});
-				})
-				.catch(function (error) {
-					console.log("This is error calling Composer API");
-					res.status(400).json({registered: false, registeredError: "Internal server error."
-					, isAuthenticated: false, user: null})
-				});
-
-			});
+			res.status(200).json(arrRes);
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API: Product added Could not fetch all user products");
+			//console.log(error)
+			res.status(500).json({error: "Internal server error."})
 		});
-	})
+	});
+
 		
 	
 	app.post('/putProductOnAuction' , function(req,res){
@@ -252,6 +224,84 @@ module.exports = function(app , db ){
 		res.status(200).json({loggedIn : false , user : null }); 
 		
 	});
+
+	
+	app.post('/checkIfAlreadyLoggedIn' , authenticate , function(req,res){
+		var email = req.user ; 
+		console.log('user ' , email ); 
+
+		axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
+		.then(function (response) {
+			console.log("User already exists with this email.");
+			  console.log(response.data);
+				   
+			  res.status(200).json({loggedIn : true, user : {email : response.data.email , 
+			   fname : response.data.firstName , 
+			   lname : response.data.lastName
+		   }});
+
+		})
+		.catch(function (error) {
+			
+				
+		   res.status(200).json({loggedIn : false, user : null});
+		});
+   	});
+	
+	app.post('/register' , function(req,res){
+		var email = req.body.email ;
+		var password = req.body.password ; 
+		var firstName = req.body.firstName ; 
+		var lastName = req.body.lastName ; 
+		var balance = req.body.balance ;
+		var className =  req.body.class ; 
+		
+		const saltRounds = 10;
+		//console.log(email , password , firstName , lastName , balance , className );
+		
+		
+		
+		
+		
+		bcrypt.hash(password, saltRounds, function(err, hash) {
+			var apiObject = {
+					 "$class": className,
+					  "balance": balance,
+					  "email": email,
+					  "firstName": firstName,
+					  "lastName": lastName ,
+					  "password" : hash	
+			}
+			
+
+			axios.get('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member/' + email, {})
+			.then(function (response) {
+				console.log("User already exists with this email.");
+			  	console.log(response.data);
+				  res.status(200).json({registered: false, registeredError: "Email already exists."
+				  , isAuthenticated: false, user: null})
+			})
+			.catch(function (error) {
+				
+				console.log("No user found with this email.");
+				
+				axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Member', apiObject)
+				.then(function (response) {
+					console.log(response.data);
+
+					res.status(200).json({registered: true, registeredError: ""
+					, isAuthenticated: false, user: null});
+					//, isAuthenticated: true, user: {email: email, fname: firstName, lname: lastName}});
+				})
+				.catch(function (error) {
+					console.log("This is error calling Composer API");
+					res.status(400).json({registered: false, registeredError: "Internal server error."
+					, isAuthenticated: false, user: null})
+				});
+
+			});
+		});
+	})
 	
 };
 
