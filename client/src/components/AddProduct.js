@@ -167,7 +167,7 @@ class addProduct extends Component {
                     
                     {
                           this.state.loading === false ? 
-                           <button className="btn btn-success"  onClick={() => {
+                           <button className="btn btn-success sharpButton"  onClick={() => {
                                     if(this.state.productName === ""){
                                       this.setState({ addProductClientError : 'Please specify Product Name '});
                                       return

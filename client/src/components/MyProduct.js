@@ -39,16 +39,18 @@ class myProduct extends Component {
       const displayNone = {
         display : "none"
       }
-      console.log("My current Products " , this.props.myProducts.length) ; 
-
+      console.log("XXXXXXXXXX " , this.props.myProducts)
+      
       return (
          <div className="rightDiv">
             <section className="sectionattr">
               <ul className="ulattr">
                 
-                {  listOfProducts }
-              
-              
+               {
+                this.props.myProducts == null ? <h2>LOADING... </h2> :
+
+                 listOfProducts               
+              }
 
                 
               </ul>
