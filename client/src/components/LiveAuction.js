@@ -24,10 +24,10 @@ class LiveAuction extends Component {
     }
 
     componentWillReceiveProps(newProps){
-      var self = this ; 
+     /* var self = this ; 
              setInterval(function(){
                 self.props.getCurrentProductAuctioned(self.state.listingId)
-             } , 5000)
+             } , 15000)*/
     
     }
 
@@ -52,7 +52,15 @@ class LiveAuction extends Component {
                        <span>{this.props.currentAuctionedProduct.productDesc } </span> 
                        </div>
 
-                       <div> 
+                       
+                       {
+                          this.props.user.email === this.props.currentAuctionedProduct.owner ? 
+                          <div className="form-control sharpCorner bidPriceTextBox" >
+                            <button className="btn btn-danger sharpCorner">Close Bid</button>
+                          </div>
+                          :
+
+                           <div> 
                           <input className="form-control sharpCorner bidPriceTextBox" id="carid" type="number"  onChange={(e) => {
                             this.setState({
                               bidAmount : e.target.value
@@ -62,6 +70,8 @@ class LiveAuction extends Component {
                             this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
                           }}className="btn btn-primary btn-circle btn-md lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
                        </div>
+                       }
+                      
                  </div>
 
 
