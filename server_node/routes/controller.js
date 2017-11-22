@@ -245,6 +245,30 @@ module.exports = function(app , db ){
 
 	});
 		
+	app.post('/placeBid', function(req, res){
+		var listingId =  req.body.listingId;
+		var email =  req.body.email;
+		var bidPrice =  req.body.bidPrice;
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.Offer",
+			"listing": "resource:org.cmpe272.evergreen.auction.ProductListing#" + listingId,
+			"bidPrice": bidPrice,
+			"member": "resource:org.cmpe272.evergreen.auction.Member#" + email
+		  }
+
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Offer', apiObject)
+		.then(function (response) {
+			console.log("Bid Placed.");
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("Error while placing bid.", error);
+			res.status(500).json({});
+		});
+
+	});
+
 
 	app.post('/login' , function(req , res){
 		
