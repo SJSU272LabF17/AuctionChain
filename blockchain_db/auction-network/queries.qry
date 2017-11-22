@@ -16,5 +16,6 @@ query GetAllProductsByCategory{
     description: "Select All Products Details by category"
     statement:
         SELECT org.cmpe272.evergreen.auction.ProductListing
+            WHERE (category==_$category)
             
 }

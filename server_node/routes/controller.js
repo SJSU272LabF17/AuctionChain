@@ -138,7 +138,43 @@ module.exports = function(app , db ){
 		});
 	});
 
+	app.post('/getProductDetailsById' , function(req , res){
+		var listingId =  req.body.listingId; 
+
+		strRequestQuery = "http://localhost:3004/api/org.cmpe272.evergreen.auction.ProductListing/" + listingId;
+
+		console.log(strRequestQuery);
 		
+		axios.get(strRequestQuery, {})
+		.then(function (response) {	
+			//callback(true, response.data);
+			console.log("getproduct listing response arrived ")
+			console.log(response.data);
+
+			var maxBid = response.data.reservePrice;
+			for (var j = 0 ; j < response.data.offers.length; j++){
+				if(response.data.offers[j].bidPrice > maxBid){
+					maxBid = response.data.offers[j].bidPrice;
+				}
+			}
+
+			var product = {};
+			product.productName = response.data.name;
+			product.productDesc = response.data.description;
+			product.productCategory = response.data.category;
+			product.productListingId = response.data.listingId;
+			product.numberOfBids = response.data.offers.length;
+			product.maxBidPrice = maxBid;
+			product.offers = response.data.offers;		
+
+			res.status(200).json(product);
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API: Product added Could not fetch all user products");
+			//console.log(error)
+			res.status(500).json({error: "Internal server error."})
+		});
+	});		
 	
 	app.post('/putProductOnAuction' , function(req,res){
 		var listingId = Guid.raw();
