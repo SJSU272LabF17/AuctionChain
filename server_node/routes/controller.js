@@ -5,6 +5,7 @@ require('../middleware/passport')(passport);
 var session = require('express-session');
 var Guid = require('guid');
 var urlencode = require('urlencode');
+var dateFormat = require('dateformat');
 
 //mongo connection
 var mongoURL =        "mongodb://localhost:27017/272_Auction_Project";
@@ -113,9 +114,14 @@ module.exports = function(app , db ){
 			for(var i=0 ; i < response.data.length; i++){
 
 				var maxBid = response.data[i].reservePrice;
-				for (var j = 0 ; j < response.data[i].offers.length; j++){
-					if(response.data[i].offers[j].bidPrice > maxBid){
-						maxBid = response.data[i].offers[j].bidPrice;
+				var countBids = 0;
+
+				if(response.data[i].offers != undefined && response.data[i].offers != "undefined"){
+					for (var j = 0 ; j < response.data[i].offers.length; j++){
+						if(response.data[i].offers[j].bidPrice > maxBid){
+							maxBid = response.data[i].offers[j].bidPrice;
+						}
+						countBids++;
 					}
 				}
 
@@ -124,7 +130,7 @@ module.exports = function(app , db ){
 				product.productDesc = response.data[i].description;
 				product.productCategory = response.data[i].category;
 				product.productListingId = response.data[i].listingId;
-				product.numberOfBids = response.data[i].offers.length;
+				product.numberOfBids = countBids;
 				product.maxBidPrice = maxBid;
 				arrRes.push(product);
 			}
@@ -152,10 +158,24 @@ module.exports = function(app , db ){
 			console.log(response.data);
 
 			var maxBid = response.data.reservePrice;
-			for (var j = 0 ; j < response.data.offers.length; j++){
+			var arrOffers = []
+			for (var j = response.data.offers.length - 1 ; j >= 0; j--){
 				if(response.data.offers[j].bidPrice > maxBid){
 					maxBid = response.data.offers[j].bidPrice;
 				}
+				
+				var Member = response.data.offers[j].member;
+				var splitArray = Member.split("#");
+				var email = splitArray[splitArray.length - 1];
+
+				var dateObj = new Date(response.data.offers[j].timestamp);
+				var date = dateFormat(dateObj, "mmm d, h:MM:ss TT");
+
+				var offer = {}
+				offer.bidPrice = response.data.offers[j].bidPrice;
+				offer.timestamp = date;
+				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
+				arrOffers.push(offer);
 			}
 
 			var product = {};
@@ -165,7 +185,8 @@ module.exports = function(app , db ){
 			product.productListingId = response.data.listingId;
 			product.numberOfBids = response.data.offers.length;
 			product.maxBidPrice = maxBid;
-			product.offers = response.data.offers;		
+			product.owner = response.data.owner;
+			product.offers = arrOffers;		
 
 			res.status(200).json(product);
 		})
@@ -233,6 +254,50 @@ module.exports = function(app , db ){
 
 	});
 		
+	app.post('/placeBid', function(req, res){
+		var listingId =  req.body.listingId;
+		var email =  req.body.email;
+		var bidPrice =  req.body.bidPrice;
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.Offer",
+			"listing": "resource:org.cmpe272.evergreen.auction.ProductListing#" + listingId,
+			"bidPrice": bidPrice,
+			"member": "resource:org.cmpe272.evergreen.auction.Member#" + email
+		  }
+
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Offer', apiObject)
+		.then(function (response) {
+			console.log("Bid Placed.");
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("Error while placing bid.", error);
+			res.status(500).json({});
+		});
+
+	});
+
+	app.post('/closeBidding', function(req, res){
+		var listingId =  req.body.listingId;
+
+		var apiObject = {
+			"$class": "org.cmpe272.evergreen.auction.CloseBidding",
+			"listing": "resource:org.cmpe272.evergreen.auction.ProductListing#" + listingId
+		  }
+
+		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.CloseBidding', apiObject)
+		.then(function (response) {
+			console.log("Bidding Closed.");
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("Error while Closing bidding.", error);
+			res.status(500).json({});
+		});
+
+	});
+
 	app.post('/login' , function(req , res){
 		
 			passport.authenticate('login', function(err, user) {
