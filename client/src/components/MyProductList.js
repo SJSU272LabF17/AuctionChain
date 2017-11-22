@@ -35,7 +35,7 @@ class MyProductList extends Component {
                       {this.props.product.name } : {this.props.product.description} 
                     </div>
                      <div className="col-lg-2 textColorBlack">
-                       <button className="btn btn-info"><Link to={ "/setUpAuction/" +  this.props.product.pid}>Put on Auction</Link></button>
+                       <button className="btn btn-info sharpButton"><Link to={ "/setUpAuction/" +  this.props.product.pid}>Put on Auction</Link></button>
                     </div>
                   </div>
          </li>

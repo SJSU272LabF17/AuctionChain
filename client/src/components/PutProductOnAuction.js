@@ -56,7 +56,7 @@ class AuctionProduct extends Component {
                       
                       <div className="margin30 col-md-12 col-sm-12 col-lg-12 ">
                           <div className="input-group">
-                                  <button className="btn btn-success" onClick={() => {
+                                  <button className="btn btn-success sharpButton" onClick={() => {
 
                                      for(var i=0 ; i< this.props.myProducts.length ; i++){
                                         var obj = this.props.myProducts[i] ; 
