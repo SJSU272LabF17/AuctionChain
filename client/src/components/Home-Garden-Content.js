@@ -9,12 +9,13 @@ class HomeGardenContent extends Component {
       super(props);
 
       this.state={
-        sampleArray : ['name' , 'age']
+        category : this.props.location.pathname.indexOf('/home-garden/product/') === -1 ? '' : 
+                   this.props.location.pathname.replace('/home-garden/product/' , '')
       }
     }
 
     componentWillMount(){
-      this.props.getAllProducts('Mobiles');
+      this.props.getAllProducts(this.state.category);
   }
 
 
@@ -33,16 +34,19 @@ class HomeGardenContent extends Component {
                   <div className="DivForImageInfo col-lg-9 textColorBlack">
                     <ul className="">
                       <li className="">  
-                        <span classNme="bold"> ${product.productName} </span>
+                        <span className="bold"> Product Name: {product.productName} </span>
                       </li>
                       <li className="">  
-                        <span classNme="bold"> Description: {product.productDesc} </span>
+                        <span className="bold"> Description: {product.productDesc} </span>
                       </li>
                       <li className="">  
-                        <span classNme="bold"> ${product.maxBidPrice} </span>
+                        <span className="bold"> ${product.maxBidPrice} </span>
                       </li>
                       <li className="">  
-                        <span classNme="bold"> {product.numberOfBids} Bids</span>
+                        <span className="bold"> {product.numberOfBids} Bids</span>
+                      </li>
+                      <li className="">  
+                        <span className="bold"> Product Category: {product.productCategory} </span>
                       </li>
                     </ul>
                   </div>

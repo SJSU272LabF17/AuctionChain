@@ -4,7 +4,7 @@ const headers = {
     'Accept': 'application/json'
 };
 
-export function getAllProducts(){
+export function getAllProducts(category){
 		return function(dispatch){
 			fetch(url + 'getAllProductsByCategory', {
 	        method: 'POST',
@@ -14,7 +14,7 @@ export function getAllProducts(){
 	        },
 	        credentials:'include',
 	   	    body: JSON.stringify({
-	   	    			"cateogory" : 'Mobiles',			
+	   	    			category : category,			
 	   	    })
 
 	  		}).then(function (response) {
