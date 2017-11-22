@@ -38,7 +38,7 @@ body {
 }
 
 #registrationdiv{
-  style=margin:5px
+  margin: 5px
 }
 
 #usernameExistDiv{
@@ -78,7 +78,7 @@ body {
   }
   
    .padd {
-  padding: 15px 0 0 0 ;
+  padding: 15px 100 100 100 ;
   color : #333;
   border : none;
   
