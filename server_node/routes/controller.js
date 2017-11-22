@@ -152,10 +152,22 @@ module.exports = function(app , db ){
 			console.log(response.data);
 
 			var maxBid = response.data.reservePrice;
-			for (var j = 0 ; j < response.data.offers.length; j++){
+			var arrOffers = []
+			for (var j = response.data.offers.length - 1 ; j >= 0; j--){
 				if(response.data.offers[j].bidPrice > maxBid){
 					maxBid = response.data.offers[j].bidPrice;
 				}
+				
+				var Member = response.data.offers[j].member;
+				var splitArray = Member.split("#");
+				var email = splitArray[splitArray.length - 1];
+
+				var offer = {}
+				offer.bidPrice = response.data.offers[j].bidPrice;
+				offer.timestamp = response.data.offers[j].timestamp;
+				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
+
+				arrOffers.push(offer);
 			}
 
 			var product = {};
@@ -165,7 +177,7 @@ module.exports = function(app , db ){
 			product.productListingId = response.data.listingId;
 			product.numberOfBids = response.data.offers.length;
 			product.maxBidPrice = maxBid;
-			product.offers = response.data.offers;		
+			product.offers = arrOffers;		
 
 			res.status(200).json(product);
 		})
@@ -233,6 +245,7 @@ module.exports = function(app , db ){
 
 	});
 		
+
 	app.post('/login' , function(req , res){
 		
 			passport.authenticate('login', function(err, user) {
