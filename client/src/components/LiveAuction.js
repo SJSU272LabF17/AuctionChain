@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 import {getCurrentProductAuctioned} from '../actions/product_listing_action'
+import {placeBid} from '../actions/bidding'
 
 class LiveAuction extends Component {
   
@@ -10,7 +11,8 @@ class LiveAuction extends Component {
 
       this.state={
         listingId : this.props.location.pathname.indexOf('/productDetails/') === -1 ? '' : 
-                   this.props.location.pathname.replace('/productDetails/' , '')
+                   this.props.location.pathname.replace('/productDetails/' , '')  , 
+        bidAmount : 0 
       }
     }
 
@@ -23,72 +25,76 @@ class LiveAuction extends Component {
 
 
     render() {
+      
+     
       return (
         <div className="rightDiv">
 
-          <div className="DivForImageInfo">
-            BRAND-NEW-Apple-iPhone-6-Plus-5-5-Display-16GB-GSM-UNLOCKED-Smartphone
-          </div>
+          <div className="rightDiv">
+            <section className="sectionattr backGroundWhite ">
+             
+                {
+                 this.props.currentAuctionedProduct != null ? 
+                  <div >
+                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionMainDiv">
+                        <img className="mainAuctionImage" alt="" src={require("../assets/1.jpg")} /> 
+                 </div>
+                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionMainDiv2 ">
+                       <div><span>{this.props.currentAuctionedProduct.productName }</span> | <span></span>
+                       <span>{this.props.currentAuctionedProduct.productCategory } </span>| <span></span>
+                       <span>{this.props.currentAuctionedProduct.productDesc } </span> 
+                       </div>
 
-          <div className="row">
-                  <div className="divForLiveAuctionImage">
-                    <a>
-                      <div>
-                        <img className="divForLiveAuctionimageAttr" alt="" src={require("../assets/1.jpg")} />
-                      </div>
-                    </a>
-                  </div>
-
-                  <div className="divForAuctionInfo">
-                    <ul>
-                      <li>$400 FLOOR</li>
-                      <li>New Ask Price $500</li>
-                      <li>$400 FLOOR</li>
-                      <li>New Ask Price $500</li>
-                      <li>$400 FLOOR</li>
-                      <li>New Ask Price $500</li>
-                    </ul> 
-                  </div>  
-                
-                  <div className="divForGraph">
-                    <a>
-                      <div>
-                        <img className="divForLiveAuctionimageAttr" alt="" src={require("../assets/1.jpg")} />
-                      </div>
-                    </a>
-                  </div>
-          </div>
-
-          
+                       <div> 
+                          <input className="form-control sharpCorner bidPriceTextBox" id="carid" type="number"  onChange={(e) => {
+                            this.setState({
+                              bidAmount : e.target.value
+                            })
+                          }} aria-describedby="basic-addon1"  placeholder="$" />
+                          <label onClick={() => {
+                            this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
+                          }}className="btn btn-primary btn-circle btn-md lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
+                       </div>
+                 </div>
 
 
-          <div className="row">
-               <div className="divForRemainingLots">681 of 1037 Lots</div>
+                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionStatusDiv">
+                        
 
-                <div className="divForBidOption">
-                  <button>Bid Now</button>
-                  <h6>By bidding, you agree to buy this item if you win.</h6>
-                    <div>
-                      <a href="#">Sign in to bid</a>
-                    </div>
+                        {
+                          this.props.currentAuctionedProduct.offers.map((offer , key) => {
+                            
+
+
+                          return <div className="individualAuctionDiv" key={key}> 
+                            
+                            <span className="glyphicon glyphicon-circle-arrow-right individualAuctionGlyph"></span>
+                              <span className="individualAuctionGlyph">{offer.email}</span>
+                           
+                            
+                             
+                            <span className="individualAuctionGlyph"><span className="dollarSign">$</span>{offer.bidPrice}</span> 
+                           
+                           
+                                <span className="individualAuctionGlyph">{offer.timestamp}</span> 
+                           
+                            
+                            <hr></hr>
+                             </div>
+                        })  
+
+                        } 
+
                 </div> 
-
-                <div className="divForMetrix">
-                  <ul>
-                    <li>
-                      <div>21</div>
-                      <div>Bids</div>
-                    </li>
-
-                    <li>
-                      <div>00:89</div>
-                      <div>Time Elapsed</div>
-                    </li>
-                  </ul>
                 </div>
+                :
+                <p> </p>
+                }
+                
+              
+            
+            </section>
           </div>
-
-
           
        </div> 
       );
@@ -97,13 +103,16 @@ class LiveAuction extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-      getCurrentProductAuctioned : (listingId) => dispatch(getCurrentProductAuctioned(listingId))
+      getCurrentProductAuctioned : (listingId) => dispatch(getCurrentProductAuctioned(listingId)),
+      placeBid : (email , amount , listingId) => dispatch(placeBid(email , amount , listingId))
     }
   }
 
   function mapStateToProps(state) {
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
+        currentAuctionedProduct : state.ProductListingReducer.currentAuctionedProduct ,
+        user : state.AuthReducer.user
       };
   }
 

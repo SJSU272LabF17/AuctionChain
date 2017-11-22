@@ -253,4 +253,65 @@ body {
   }
 
 
-  
+  .LiveAucionMainDiv{
+    background-color: white ; 
+    min-height : 300px;
+    min-width:  200px ;
+    padding: 20px ;
+    font-size: 25px;
+    font-weight: inherit;
+  }
+
+
+.LiveAucionMainDiv2{
+    background-color: white ; 
+    min-height : 300px;
+    max-width:  200px ;
+    padding: 20px ;
+    font-size: 25px;
+    font-weight: inherit;
+  }
+
+
+  .LiveAucionStatusDiv{
+     background-color: white ; 
+      max-height : 500px;
+      min-width:  440px ;
+      padding: 20px ;
+      overflow-y:scroll;
+  }
+
+  .backGroundWhite{
+    background-color: white
+  }
+
+  .mainAuctionImage{
+    width: 250px ;
+    height: 250px
+  } 
+
+
+  .individualAuctionDiv{
+    padding: 10px ;
+    margin-bottom: 10px ;
+    margin-left: 20px
+  }
+
+  .individualAuctionGlyph{
+    margin-right: 35px
+  }
+
+
+  .dollarSign{
+    margin-right: 2px
+  }
+
+  .submittedSuctionDate{
+    margin-left: 45px
+  }
+
+  .bidPriceTextBox{
+    margin-top: 30px ; 
+    max-width: 100px ; 
+    margin-right: 10px
+  }
