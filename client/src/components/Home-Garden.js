@@ -37,32 +37,39 @@ export default function(InnerComponent){
                   <h4>Electronics</h4>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Mobiles</a>
+                  <Link className="padd" to="/home-garden/product/Mobiles">Mobiles</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Camera</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Camera">Camera</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Hard drive</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Hard drive">Hard drive</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Consumer Electronics</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Consumer Electronics">Consumer Electronics</Link>
                 </li>
                 
                 <li className="list-group-item padd">
                   <h4>Fashion</h4>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Men</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Men">Men</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Women</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Women">Women</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Watches</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Watches">Watches</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Shoes</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Shoes">Shoes</Link>
                 </li>
                 
                 
@@ -71,16 +78,20 @@ export default function(InnerComponent){
                   <h4>Sports</h4>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Football</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Football">Football</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Soccer</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Soccer">Soccer</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Cricket</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Cricket">Cricket</Link>
                 </li>
                 <li className="list-group-item padd">
-                  <a className="padd" href="">Tennis</a>
+                  
+                  <Link className="padd" to="/home-garden/product/Tennis">Tennis</Link>
                 </li>
                 
               </ul>
@@ -89,7 +100,7 @@ export default function(InnerComponent){
 
 
               
-            </div>
+          </div>
             <InnerComponent   {...this.props}></InnerComponent>
           </div>
           

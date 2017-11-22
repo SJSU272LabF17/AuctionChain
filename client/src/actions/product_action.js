@@ -4,6 +4,13 @@ const headers = {
     'Accept': 'application/json'
 };
 
+//add Product
+
+
+export function setBackProductSuccess(){
+	return {type : 'PRODUCT_ADD_SET_BACK' , payload : null}
+}
+
 export function addNewProduct(email , productName , productDesc , productCategory  ){
 	console.log( email , productName , productDesc , productCategory ) ; 
 
@@ -25,18 +32,25 @@ export function addNewProduct(email , productName , productDesc , productCategor
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
-					dispatch({ type : 'PRODUCT_ADDED' , payload : true})
+					  
+				
+			      	
+			      dispatch({ type : 'PRODUCT_ADD_SUCCESS' , payload : true })
+
+			      	
 				})
 																		        
 	   		})
 	        .catch(error => {
-	        	dispatch({ type : 'PRODUCT_ADDED_FAILURE' , payload : false})
+	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
 	            
 	        })
 		}
 }
 
 
+
+//Get All User Products
 
 export function getAllUserProduct(email  ){
 	console.log( email ) ; 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux' ; 
 import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn , logout } from '../actions/register_action'
 import Modal from 'react-modal'
+import { Modal as BootStrapModal } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 export default function(InnerComponent){
@@ -119,7 +120,7 @@ export default function(InnerComponent){
 	      }
 	    };
 		return(
-			<div>
+			<div className="totalBackGround">
 				 <div >
 		            <nav className="navbar navbar-inverse ">
 		              <div className="container-fluid">
@@ -163,24 +164,13 @@ export default function(InnerComponent){
 		        	<InnerComponent {...this.props}></InnerComponent>
 		        </div>
 
-	            <Modal
-                        isOpen={this.state.modalIsOpen}
-                        style= {customStyles}
-                        onRequestClose={this.closeModal}
-                        shouldCloseOnOverlayClick={false}
-                        contentLabel="Profile">
+	            <BootStrapModal show={this.state.modalIsOpen}>
+
+	            	<BootStrapModal.Footer>
 
 
 
-
-
-                        <div  id="registrationdiv">
-					        
-					       
-					     
-					       
-					        
-					        
+                        <div  id="registrationdiv topPadd">
 					        <div>
 					        
 					          <div className="row padd">
@@ -244,11 +234,11 @@ export default function(InnerComponent){
 					            <div className='col-lg-6 col-md-6 col-sm-6'>
 					            </div>
 					            <div className='col-lg-2 col-md-2 col-sm-2'>
-					              <button className='btn btn-info' onClick={() => {
+					              <button className='btn btn-info sharpButton' onClick={() => {
 					                      
-					                      var username_regex = /^[a-z0-9]{5,20}$/i ; 
-					                      var name_regex = /^[a-z]{5,20}$/i ;
-					                      var lname_regex = /^[a-z]{5,20}$/i ;
+					                      var username_regex = /^[a-z0-9]{3,20}$/i ; 
+					                      var name_regex = /^[a-z]{3,20}$/i ;
+					                      var lname_regex = /^[a-z]{3,20}$/i ;
 					                      var password_regex = /^[a-z0-9]{5,20}$/i ; 
 
 					                      console.log(this.state.username,
@@ -259,7 +249,7 @@ export default function(InnerComponent){
 					                                this.state.gender)
 
 
-					                   /*   if(!username_regex.test(this.state.username)){
+					                      if(!username_regex.test(this.state.username)){
 					                        this.setState({
 					                          error : 'Username should be alpha-numeric and 5-20 characters'
 					                        })
@@ -283,19 +273,7 @@ export default function(InnerComponent){
 					                        })
 					                        return ;
 					                      }
-					                      if(this.state.dob === ''){
-					                        this.setState({
-					                          error : 'Select Date of Birth'
-					                        })
-					                        return ;
-					                      }
-					                      if(this.state.gender === ''){
-					                        this.setState({
-					                          error : 'Select Gender'
-					                        })
-					                        return ;
-					                      }
-*/
+					                      
 					                      
 					                      this.props.register(this.state.username,
 					                                this.state.password,
@@ -308,18 +286,10 @@ export default function(InnerComponent){
 					            <div className='col-lg-2 col-md-2 col-sm-2'>
 					            	<button onClick={() => {
                       				this.setState({modalIsOpen: false});
-                      				}} className="btn btn-danger">Close</button>
+                      				}} className="btn btn-danger sharpButton">Close</button>
 					            </div>
 					          </div>
 					          </div>
-					          
-					        
-					        
-					        
-					        
-					        
-					        
-					      
 					      </div>
 					      
 
@@ -336,23 +306,18 @@ export default function(InnerComponent){
 					      </div>
 
 					      </div>
-                        
+                      
+                      </BootStrapModal.Footer>  
 						
-                </Modal>
+                </BootStrapModal>
 
 
-                <Modal
-                        isOpen={this.state.modalIsOpenLogin}
-                        style= {customStyles}
-                        onRequestClose={this.closeModal}
-                        shouldCloseOnOverlayClick={false}
-                        contentLabel="Profile">
+                <BootStrapModal show={this.state.modalIsOpenLogin}>
+                		
 
+					             <BootStrapModal.Footer>
 
-                         
-
-
-					                      <div>
+					                      <div className="topPadd">
 
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
 						                          <div className="col-md-2 col-lg-2 col-sm-2"></div>
@@ -382,27 +347,21 @@ export default function(InnerComponent){
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
 					                          <div className='col-lg-4 col-sm-12 col-md-4 '></div>
 					                          <div className='col-sm-12 col-lg-2 col-md-2 text-right'>
-					                            <button className='btn btn-info' onClick={() => {
+					                            <button className='btn btn-info sharpButton' onClick={() => {
 					                              this.props.login(this.state.username , this.state.password)
 					                            }}> Login</button>
 					                          </div>
 					                            <div className='col-lg-2 col-md-2 col-sm-12 text-right'>
 											            	<button onClick={() => {
 						                      				this.setState({modalIsOpenLogin: false});
-						                      				}} className="btn btn-danger">Close</button>
+						                      				}} className="btn btn-default sharpButton">Close</button>
 											    </div>
 					                        </div>
 
 					                     </div>
-
-			                   
-
-
-
-
-
+					             </BootStrapModal.Footer>
                       
-                 </Modal>
+                 </BootStrapModal>
 
 
 	       
