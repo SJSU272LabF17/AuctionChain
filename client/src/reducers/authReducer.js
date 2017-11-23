@@ -15,6 +15,10 @@ export default function reducer (state=initialState , action )  {
 			return  {...state , isAuthenticated : action.payload.loggedIn,
 								user : action.payload.user} ; 
 		}
+		case 'SET_BACK_LOGIN' : {
+			return  {...state , isAuthenticated : action.payload.loggedIn,
+								user : null } ; 
+		}
 		case 'REGISTERED' : {
 			return  {...state , register_success : action.payload.registered,
 								registration_error : action.payload.registeredError,
@@ -34,7 +38,7 @@ export default function reducer (state=initialState , action )  {
 								user : action.payload.user} ; 
 		}
 		case 'USER_LOGGED_OUT' : {
-			return  {...state , isAuthenticated : action.payload.loggedIn,
+			return  {...state , isAuthenticated : null,
 								user : action.payload.user} ; 
 		}
 

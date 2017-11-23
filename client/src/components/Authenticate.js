@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux' ; 
-import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn , logout } from '../actions/register_action'
+import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn , logout , setBackLoginSuccess } from '../actions/register_action'
 import Modal from 'react-modal'
 import { Modal as BootStrapModal } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
@@ -22,6 +22,8 @@ export default function(InnerComponent){
 		      modalIsOpenLogin : false ,
 		      usernameLogin : '' , 
       		  passwordLogin : '' ,
+      		  loginError : '' ,
+      		  errorLoginServer : ''
 		}
 	}
 
@@ -30,23 +32,50 @@ export default function(InnerComponent){
 	}
 
 	 componentWillReceiveProps(newProps) {    
-      console.log("CHeck " , this.props.register_success) ;
+     
       if(newProps.register_success){
       	this.setState({
       		modalIsOpen : false
       	})
 
       	this.props.setBackRegisteredSuccess();
+	   }
 
-      	if(newProps.isAuthenticated){
-      		this.setState({
-      		modalIsOpenLogin : false
+
+
+
+
+      if(this.props.isAuthenticated === true ){
+      	this.setState({
+      		modalIsOpenLogin : false ,
+      		errorLoginServer : ''
       	})
-      	}
-
-
       }
+
+      console.log("Login incoreect or not  ?? " , this.props.isAuthenticated)
+
+      if(this.props.isAuthenticated === false){
+      		this.setState({ errorLoginServer : 'Username or password is incorrect'})
+      		this.props.setBackLoginSuccess() ; 
+      }
+
+
    }
+
+   componentDidUpdate(){
+   		if(this.props.isAuthenticated === false){
+      		this.setState({ errorLoginServer : 'Username or password is incorrect'})
+      		this.props.setBackLoginSuccess() ; 
+     	 }
+
+     	 if(this.props.isAuthenticated === true &&  this.state.modalIsOpenLogin === true ){
+	      	this.setState({
+	      		modalIsOpenLogin : false ,
+	      		errorLoginServer : ''
+	      	})
+	      }
+   }
+
 
 	onChangeUsernameLogin(e){
     
@@ -105,49 +134,63 @@ export default function(InnerComponent){
 	    };
 		return(
 			<div className="totalBackGround">
-				 <div >
-		            <nav className="navbar navbar-inverse ">
-		              <div className="container-fluid">
-			                <div className="navbar-header">
-			                  
-			                	{
-			                		this.props.isAuthenticated === true ? 
-			                		 <a className="navbar-brand active" >Hi {this.props.user.email} !!</a>
-			                  	
-			                		:
-			                		 <div>
-			                		 <a className="navbar-brand" onClick={() => {
-	                      				this.setState({modalIsOpenLogin: true});
-	                      				}} >Sign in</a>
-			                  	<a className="navbar-brand" onClick={() => {
-			                  	   	 	this.setState({modalIsOpen : true})
-			                  	   	 }}> Register</a>
-			                  	   	 </div>
-			                	}
-			                 
-			                </div>
-			                <ul className="nav navbar-nav">
-			                  <li className="active"><a href="/">Home</a></li>
-			                  <li><Link to="/home-garden">Products</Link></li>
-			                  <li><a href="#">Help & Contact</a></li>
-			                </ul>
-											
-											<ul className="nav navbar-nav navbar-right">
-			               		<li><Link to="/addProduct">Add Product</Link></li>
-			                	<li><Link to="/myProduct">My Products</Link></li>
-												<li><a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1">Account & Lists</a>
-												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bids</a></li>
-    											<li role="presentation"><Link to="/myProduct">Purchase History</Link></li>
-    										  <li role="presentation"><Link to="/addProduct">Sell</Link></li>
-													<li role="presentation"><a onClick={() => {this.props.logout()}}>Logout</a></li>
-  											</ul>
-												</li>
-			              	</ul>
+			<div >
+			<nav className="navbar navbar-inverse ">
+			<div className="container-fluid">
+			<div className="navbar-header">
 
-										</div>
-		            </nav>
-		        </div>
+			{
+				this.props.isAuthenticated === true ? 
+				<span> </span>
+
+				:
+				<div>
+				<a className="navbar-brand" onClick={() => {
+					this.setState({modalIsOpenLogin: true});
+				}} >Sign in</a>
+				<a className="navbar-brand" onClick={() => {
+					this.setState({modalIsOpen : true})
+				}}> Register</a>
+				</div>
+			}
+
+			</div>
+			<ul className="nav navbar-nav">
+				<li className="active"><a href="/">Home</a></li>
+				<li><Link to="/home-garden">Products</Link></li>
+				<li><a href="#">Help & Contact</a></li>
+			</ul>
+
+			<ul className="nav navbar-nav navbar-right">
+
+				{
+					this.props.isAuthenticated === true ?
+					<li><Link to="/addProduct">Add Product</Link></li>
+					: <span></span>
+				}
+
+				<li><Link to="/myProduct">My Products</Link></li>
+				<li><a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1"><i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a>
+					<ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabIndex="-1" href="#">Bids</a></li>
+						<li role="presentation"><Link to="/myProduct">Purchase History</Link></li>
+
+						<li role="presentation"><Link to="/addProduct">Sell</Link></li>
+
+						{
+							this.props.isAuthenticated === true ?
+							<li role="presentation"><a onClick={() => {this.props.logout()}}>Logout</a></li>
+							: <span></span>
+						}
+
+						
+					</ul>
+				</li>
+			</ul>
+
+			</div>
+			</nav>
+			</div>
 		         <div>
 		        	<InnerComponent {...this.props}></InnerComponent>
 		        </div>
@@ -318,33 +361,42 @@ export default function(InnerComponent){
 					                        </div>
 					                        
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
-						                          
-					                        	
-
-								                  <div className="col-md-2 col-lg-2 col-sm-2"></div>
+						                          <div className="col-md-2 col-lg-2 col-sm-2"></div>
 						                           <div className="input-group col-md-8 col-lg-8 col-sm-8">
 								                           <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
 								                           <input type="password"  onChange={this.onChangePassword.bind(this)} name='password' id='pwd'   className="form-control"  placeholder="Password..." aria-describedby="basic-addon1"  required/>
 								                  </div>
 						                           <div className="col-md-2 col-lg-2 col-sm-2"></div>
+											</div>
 
-						                            
-						                          
-					                        </div>
 					                        
+					                         <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
+						                          <div className="col-md-2 col-lg-2 col-sm-2"></div>
+						                           <div className="input-group col-md-8 col-lg-8 col-sm-8">
+								                          <p className="text-red">{this.state.errorLoginServer}</p>
+								                  </div>
+						                           <div className="col-md-2 col-lg-2 col-sm-2"></div>
+											</div>
+
+
 					                        <div className='col-sm-12 col-lg-12 col-md-12 form-group'>
 					                          <div className='col-lg-4 col-sm-12 col-md-4 '></div>
 					                          <div className='col-sm-12 col-lg-2 col-md-2 text-right'>
-					                            <button className='btn btn-info sharpButton' onClick={() => {
+					                            <button className='btn btn-info sharpButton login-close' onClick={() => {
+					                            	console.log("Credentials " , this.state.usernameLogin , this.state.passwordLogin)
+					                            	this.props.setBackLoginSuccess() ; 
+					                            	this.setState({ errorLoginServer : ''})
 					                              this.props.login(this.state.username , this.state.password)
 					                            }}> Login</button>
 					                          </div>
-					                            <div className='col-lg-2 col-md-2 col-sm-12 text-right'>
+					                            <div className='col-lg-2 col-md-2 col-sm-12 text-right login-close'>
 											            	<button onClick={() => {
-						                      				this.setState({modalIsOpenLogin: false});
+						                      				this.setState({modalIsOpenLogin: false , errorLoginServer : ''});
 						                      				}} className="btn btn-default sharpButton">Close</button>
 											    </div>
 					                        </div>
+
+
 
 					                     </div>
 					             </BootStrapModal.Footer>
@@ -364,7 +416,8 @@ export default function(InnerComponent){
 	  	register : (username , password , fname , lname  ) => dispatch(register(username , password , fname , lname  )),
 	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess()),
 	  	login : (username , password ) => dispatch(login(username , password )),
-	  	logout : () => dispatch(logout())
+	  	logout : () => dispatch(logout()) , 
+	  	setBackLoginSuccess : () => dispatch(setBackLoginSuccess())
 	  }
 	}
 

@@ -1,8 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  
+  font-family: 'Podkova', serif;
 
 }
 
@@ -21,12 +20,16 @@ body {
 .totalBackGround{
   background-color: rgb(247 , 247 , 247);
 }
+
+
 #panelDivHome{ 
    text-align: center;
 }
 
 .CategoryDiv{
-  background-color: white
+  background-color: white ;
+  box-shadow: 1px 1px 1px 1px #DCDCDC ; 
+
 }
 
 .sharpButton{
@@ -111,7 +114,7 @@ body {
     display: inline-block;
     list-style: none;
     padding: 0;
-    margin: 0 ;
+    margin-left: 50px ; 
     width: 100%;
   }
   
@@ -122,16 +125,13 @@ body {
     right: 0;
     bottom: 0;
     text-align: center;
-    width: 180px;
-    
-    margin-left: 20px;
-    margin-bottom: 20px;
+    width: 140px;
     border-radius : 3px
   }
   
   .imageAttr{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     max-height: 100%;
     max-width: 100%;
     vertical-align: middle;
@@ -140,14 +140,20 @@ body {
   
   .liAttr{
     padding: 20px;
-    
     background-color: white ;
-    min-width: 900px ;
-    margin-bottom: 10px
+    min-width: 700px ;
+    margin-bottom: 10px ;
+    box-shadow: 1px 1px 1px 1px #DCDCDC ; 
   }
 
   .textColorBlack{
     color : #333; 
+  }
+
+  .headingLeftPanel{
+    color : #333; 
+    margin-top: 20px ;
+    margin-left: 25px
   }
 
   .displayNone{
@@ -315,3 +321,131 @@ body {
     max-width: 100px ; 
     margin-right: 10px
   }
+
+  .login-close{
+    margin-left: 90px;
+  }
+
+  .login{
+
+  }
+
+  .putonAuctionButtonDiv{
+    border-left: 1px solid #e4e5ea;
+    height: 100px
+  }
+
+
+
+  .auctionImage{
+    font-size: 2.5em ;
+        margin-left: 60px;
+    margin-top: 35px
+  }
+
+  .DivForImageInfo .DivForImageInfoName{
+        font-size: 20px;
+    font-weight: normal ;
+    color : darkcyan;
+    padding: 0
+  }
+
+
+
+.rightHandFa{
+  color: darkcyan ;
+  margin-right: 10px
+}
+
+ .ImageDescription{
+      color : lightgrey;
+      font-size: 13px
+  }
+
+
+  .DivForImageInfo .ImageCategory{
+       margin-top: 31px ; 
+      font-size: 15px ; 
+      color: darkcyan
+  }
+
+
+.cross{
+
+    font-size: 1.3em;
+    color: palevioletred;
+}
+
+
+
+.AuctionPriceDiv {
+  margin-top: 10px ; 
+  margin-left: 20px ;
+  color: darkcyan
+}
+
+.auctionPrice{
+  color: darkcyan ; 
+  font-weight: normal
+}
+
+.noOfBids{
+  font-size: 15px ;
+  margin-top: 10px  ;
+}
+
+
+.allProductsDiv{
+  
+  width : 900px;
+  height: 350px ; 
+  margin-left: 50px
+}
+
+
+.singleProductDiv{
+  box-shadow: 1px 1px 1px 1px #DCDCDC ; 
+  width: 220px ; 
+  height: 305px ;
+  background-color: white ;
+  margin-bottom: 40px ; 
+  margin-right : 80px;
+}
+
+.singleImageDiv{
+  padding-top: 10px ; 
+  margin-left: 20px
+}
+
+
+
+
+.DivForSingleImageAllAuction .DivForImageInfoName{
+    margin-top: 20px ; 
+    font-size: 20px;
+    font-weight: normal ;
+    color : darkcyan;
+    padding: 0 ;
+    margin-left: 20px ;
+    margin-bottom: 10px
+  }
+
+
+.DivForSingleImageAllAuction{
+  padding : 0;
+}
+
+
+
+.singleImageAuctioned{
+    width: 150px;
+    height: 150px;
+    
+  }
+
+
+  .rightDivForAllProducts{
+    margin-left: 250px ; 
+  }
+
+

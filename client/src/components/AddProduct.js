@@ -20,6 +20,12 @@ class addProduct extends Component {
       }
     }
 
+    componentWillMount(){
+      if(this.props.isAuthenticated !== true ){
+        this.props.history.push('/')
+      }
+    }
+
 
      componentWillReceiveProps(newProps) {    
         if(newProps.productAddSuccess === true && newProps.productAddSuccess != null){

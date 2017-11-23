@@ -27,8 +27,9 @@ export default function(InnerComponent){
           <div className="container-fluid">
             <div className ='foo container CategoryDiv'>
               
-              <div >
-                <h4 className="textColorBlack">Shop by Category</h4>
+              <div className="Panel-header">
+                <h4 className="headingLeftPanel">Shop by Category</h4>
+                <hr></hr>
               </div>
               
               <div className="margin15">
