@@ -78,6 +78,32 @@ module.exports = function(app , db ){
 		});		
 	});
 
+	app.post('/deleteProduct', function(req, res){
+		var pid = req.body.pid ;
+
+		axios.delete('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product/' + pid, {})
+		.then(function (response) {	
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API", error);
+			res.status(500).json({error: "Internal server error."})
+		});	
+	});
+
+	app.post('/deleteProductListing', function(req, res){
+		var productListingId = req.body.productListingId ;
+
+		axios.delete('http://localhost:3004/api/org.cmpe272.evergreen.auction.ProductListing/' + productListingId, {})
+		.then(function (response) {	
+			res.status(200).json({});
+		})
+		.catch(function (error) {
+			console.log("This is error calling Composer API", error);
+			res.status(500).json({error: "Internal server error."})
+		});	
+	});
+
 	app.post('/getAllUserProducts' , function(req , res){
 		var email =  req.body.email; 
 
