@@ -1,4 +1,4 @@
-var url = "http://d8c47c5c.ngrok.io/" ; 
+var url = "http://0c2e7d60.ngrok.io/" ; 
 
 const headers = {
     'Accept': 'application/json'
@@ -87,6 +87,11 @@ export function getAllUserProduct(email  ){
 }
 
 
+
+export function setBackPutProductOnAuction(){
+	return { type : 'SETBACK_PUT_PRODUCT_ON_AUCTION_SUCCESS' , payload : null}
+}
+
 export function putProductOnAuction(email , pid , name , desc , category , price  ){
 	console.log(email , pid , name , desc , category , price)
 	return function(dispatch){
@@ -110,8 +115,41 @@ export function putProductOnAuction(email , pid , name , desc , category , price
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
 			      	
-			      	
+			      	dispatch({ type : 'PUT_ON_AUCTION_SUCCESS' , payload : true })
 			     console.log(res) ; 
+
+			      	
+				})
+																		        
+	   		})
+	        .catch(error => {
+	        	console.log(error)
+	            	dispatch({ type : 'PUT_ON_AUCTION_FAILURE' , payload : false })
+	        })
+		}
+}
+
+
+export function getSingleProductForAuction(id ){
+	
+	return function(dispatch){
+			fetch(url + 'getProduct', {
+	        method: 'POST',
+	        headers: {
+	            ...headers,
+	            'Content-Type': 'application/json'
+	        },
+	        credentials:'include',
+	   	    body: JSON.stringify({
+	   	    			pid : id 
+	   	    })
+
+	  		}).then(function (response) {
+			       
+			      response.json().then(res => {
+			      	
+			      	
+			    	dispatch({ type : "GET_SINGLE_PRODUCT_SUCCESS" , payload : res })
 
 			      	
 				})

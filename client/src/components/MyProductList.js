@@ -47,7 +47,7 @@ class MyProductList extends Component {
                             this.props.product.state === "FOR_SALE" ? 
                              <a ><i className="fa fa-university fa-usd auctionImage" aria-hidden="true"></i></a>
                             :
-                            <Link to={ "/setUpAuction/" +  this.props.product.pid}><i className="fa fa-university fa-lg auctionImage" aria-hidden="true"></i></Link>
+                            <Link to={ "/setUpAuction/" +  this.props.product.pid}><i className="fa fa-gavel fa-lg auctionImage" aria-hidden="true"></i></Link>
                           }
                     </div>
 

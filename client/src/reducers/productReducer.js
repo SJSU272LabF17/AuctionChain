@@ -1,7 +1,9 @@
 const initialState = {
 	
 	myProduct :  [] ,
-	productAddSuccess : null 
+	productAddSuccess : null ,
+	singleProduct : [] ,
+	putOnAuctionSuccess : null 
 }
 
 
@@ -22,6 +24,18 @@ export default function productReducer (state=initialState , action )  {
 		}
 		case 'PRODUCT_ADD_SET_BACK' : {
 			return  {...state , productAddSuccess :  action.payload} ; 
+		}
+		case 'GET_SINGLE_PRODUCT_SUCCESS' : {
+			return  {...state , singleProduct :  action.payload} ; 
+		}
+		case 'PUT_ON_AUCTION_SUCCESS' : {
+			return  {...state , putOnAuctionSuccess :  action.payload} ; 
+		}
+		case 'PUT_ON_AUCTION_FAILURE' : {
+			return  {...state , putOnAuctionSuccess :  action.payload} ; 
+		}
+		case 'SETBACK_PUT_PRODUCT_ON_AUCTION_SUCCESS' : {
+			return  {...state , putOnAuctionSuccess :  action.payload} ; 
 		}
 
 

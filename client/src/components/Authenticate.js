@@ -172,6 +172,15 @@ export default function(InnerComponent){
 				<li><Link to="/myProduct">My Products</Link></li>
 				<li><a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1"><i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a>
 					<ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						
+						
+
+						{
+							this.props.isAuthenticated === true ?
+							<li role="presentation"><a role="menuitem" tabIndex="-1" href="#">{this.props.user.email}</a></li>
+							: <span></span>
+
+						}
 						<li role="presentation"><a role="menuitem" tabIndex="-1" href="#">Bids</a></li>
 						<li role="presentation"><Link to="/myProduct">Purchase History</Link></li>
 
