@@ -40,13 +40,13 @@ body {
   margin:20px
 }
 
-#registrationdiv{
-  margin: 5px
+.registrationDiv{
+  margin-left: 25px
 }
 
 #usernameExistDiv{
-  border-top: 1px solid#888;
-   padding-top:15px; 
+  
+   padding-top:10px; 
    font-size:85%
 }
 
@@ -449,3 +449,41 @@ body {
   }
 
 
+.loginModal{
+  margin-top: 30px ;
+  margin-left: 200px
+}
+
+
+
+.loginTextModal{
+  border-right: 1px solid#888;
+  height: 200px;
+    width: 150px;
+}
+
+
+.loginHeading{
+  float: left;
+    margin-top: 70px;
+    font-size: 24px;
+}
+
+
+
+.registerTextModal{
+  border-right: 1px solid#888;
+  height: 330px;
+    width: 150px;
+}
+
+
+.RegisterHeading{
+  float: left;
+    margin-top: 0px;
+    font-size: 24
+}
+
+.273Heading{
+      margin-top: 10px
+}
