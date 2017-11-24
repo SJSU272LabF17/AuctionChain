@@ -39,7 +39,7 @@ class myProduct extends Component {
       const displayNone = {
         display : "none"
       }
-      console.log("XXXXXXXXXX " , this.props.myProducts)
+      
       
       return (
          <div className="rightDiv">
@@ -51,7 +51,7 @@ class myProduct extends Component {
 
                  listOfProducts               
               }
-
+        
                 
               </ul>
             

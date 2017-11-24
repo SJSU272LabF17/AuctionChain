@@ -1,4 +1,4 @@
-var url = "http://5f9cb3b3.ngrok.io/" ; 
+var url = "http://d8c47c5c.ngrok.io/" ; 
 const headers = {
     'Accept': 'application/json'
 };
@@ -24,6 +24,38 @@ export function placeBid(email , amount , listingId  ){
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
 					dispatch({ type : 'PRODUCT_ADD_SUCCESS' , payload : true })
+				})
+																		        
+	   		})
+	        .catch(error => {
+	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
+	            
+	        })
+		}
+}
+
+
+
+export function closeBid(listingId  ){
+	
+
+		return function(dispatch){
+			fetch(url + 'closeBidding', {
+	        method: 'POST',
+	        headers: {
+	            ...headers,
+	            'Content-Type': 'application/json'
+	        },
+	        credentials:'include',
+	   	    body: JSON.stringify({
+	   	    		
+	   	    			"listingId" : listingId 
+	   	    })
+
+	  		}).then(function (response) {
+			        console.log("Response from server " , response);
+			      response.json().then(res => {
+					dispatch({ type : 'BIDDING_END_SUCCESS' , payload : true })
 				})
 																		        
 	   		})

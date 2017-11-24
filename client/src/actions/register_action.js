@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://5f9cb3b3.ngrok.io/'
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://d8c47c5c.ngrok.io/'
 
 const headers = {
     'Accept': 'application/json'
@@ -78,21 +78,30 @@ export function login(username , password ){
 	   	    body: JSON.stringify({username: username, password: password})
 
 	  		}).then(function (response) {
-			        console.log("Response from server " , response);
+			        
 			      response.json().then(res => {
-			      	console.log(res);
+			      	
 			      	dispatch({ type : 'CASE_LOGIN' , payload : res})
 				})
 																		        
 	   		})
 	        .catch(error => {
-	            console.log("This is error");
+	            dispatch({ type : 'LOGIN_ERROR' , payload : 'Internal Server Error'})
 	            
 	        })
 		}
 	
 }
 
+
+
+
+export function setBackLoginSuccess(){
+	return({
+		type : 'SET_BACK_LOGIN',
+		payload : {user : '' , loggedIn : null}
+	})
+}
 
 export function checkIfAlreadyLoggedIn( ){
 	
@@ -107,8 +116,10 @@ export function checkIfAlreadyLoggedIn( ){
 	  		}).then(response => {
 			        
 			        response.json().then(res => {
-			        	console.log(res);
-			      		dispatch({ type : 'USER_ALREADY_LOGGED_IN_SUCCESS' , payload : res})
+			        	if(res.loggedIn === true){
+			        		dispatch({ type : 'USER_ALREADY_LOGGED_IN_SUCCESS' , payload : res})
+			        	}
+			      		
 					})
 	   		})
 	        .catch(error => {

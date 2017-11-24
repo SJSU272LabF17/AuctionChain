@@ -6,42 +6,54 @@ import { connect } from 'react-redux' ;
 
 class MyProductList extends Component {
   
-    constructor(props){
-      super(props);
-
-      
-    }
-
-
     render() {
 
       const displayNone = {
         display : "none"
       }
-      console.log("My current Products " , this.props.myProducts.length) ; 
+      
 
       return (
-         <li className="liAttr">
+        <li className="liAttr">
                   <div className="row">
-                    <div className="divForImage col-lg-3 ">
-                      <a>
-                        <div >
-                          <img className="imageAttr" alt="" src={require("../assets/1.jpg")} />
-                        </div>
+                    
+                    <div className="divForImage col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                      <img className="imageAttr" alt="" src={require("../assets/placeholder.png")} />
+                    </div>
+                    
+                    
+                    <div className="DivForImageInfo col-lg-7 col-sm-7 col-md-7 col-xs-7 textColorBlack">
+                      <div >
+                         <div className="DivForImageInfoName col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                              {this.props.product.name }
+                             <div className="ImageDescription">
+                              {this.props.product.description}  
+                            </div> 
+                            <div className="ImageCategory">
+                              <i className="fa fa-hand-o-right rightHandFa" aria-hidden="true"></i> {this.props.product.category} 
+                            </div>
+                         </div>
+                         <div className=" col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                            <a className="cross"> <i className="fa fa-times" aria-hidden="true"></i></a>
+                         </div>
                         
-                      </a>
+                      </div>
                     </div>
-                    <div className="DivForImageInfo col-lg-7 textColorBlack">
-                      {this.props.product.name } : {this.props.product.description} 
+                      
+
+
+                     <div className="col-lg-2 col-sm-2 col-md-2 col-xs-2 putonAuctionButtonDiv textColorBlack">
+                          {
+                            this.props.product.state === "FOR_SALE" ? 
+                             <a ><i className="fa fa-university fa-usd auctionImage" aria-hidden="true"></i></a>
+                            :
+                            <Link to={ "/setUpAuction/" +  this.props.product.pid}><i className="fa fa-university fa-lg auctionImage" aria-hidden="true"></i></Link>
+                          }
                     </div>
-                     <div className="col-lg-2 textColorBlack">
-                       <button className="btn btn-info sharpButton"><Link to={ "/setUpAuction/" +  this.props.product.pid}>Put on Auction</Link></button>
-                    </div>
+
                   </div>
          </li>
                 
-                
-           
       );
     }
   }
@@ -54,9 +66,8 @@ function mapDispatchToProps(dispatch){
 
   function mapStateToProps(state) {
       return {
-        isAuthenticated : state.AuthReducer.isAuthenticated,
-        myProducts : state.ProductReducer.myProduct
+        
       };
   }
 
-  export default connect(mapStateToProps,mapDispatchToProps)(MyProductList) ; 
+export default connect(mapStateToProps,mapDispatchToProps)(MyProductList) ; 

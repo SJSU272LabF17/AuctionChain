@@ -20,51 +20,47 @@ class HomeGardenContent extends Component {
 
 
     render() {
-      const listOfProducts = this.props.productList.map((product , key) => {
-        return (
-              <li onClick={() => {
-                  var url = '/productDetails/' + product.productListingId ; 
-                  this.props.history.push(url) ; 
-              }} key={key} className="liAttr">
-                <div className="row">
-                  <div className="divForImage col-lg-3">
-                    <a>
-                      <div >
-                        <img className="imageAttr" alt="" src={require("../assets/1.jpg")} />
-                      </div>
-                    </a>
-                  </div>
-                  <div className="DivForImageInfo col-lg-9 textColorBlack">
-                    <ul className="">
-                      <li className="">  
-                        <span className="bold"> Product Name: {product.productName} </span>
-                      </li>
-                      <li className="">  
-                        <span className="bold"> Description: {product.productDesc} </span>
-                      </li>
-                      <li className="">  
-                        <span className="bold"> ${product.maxBidPrice} </span>
-                      </li>
-                      <li className="">  
-                        <span className="bold"> {product.numberOfBids} Bids</span>
-                      </li>
-                      <li className="">  
-                        <span className="bold"> Product Category: {product.productCategory} </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-      );
-    })
+      
+      const listOfProducts = this.props.productList.map((product , key ) => {
+          return <div  onClick={() => {
+                                          var url = '/productDetails/' + product.productListingId ; 
+                                          this.props.history.push(url) ; 
+                                      }}  key={key} className="singleProductDiv col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                          <div className="DivForSingleImageAllAuction  textColorBlack">
+                             <div >
+                               <div className="DivForImageInfoName col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                                   {product.productName}
+                                   <div className="ImageDescription">
+                                   {product.productDesc} 
+                                  </div> 
+                               </div>
+                            </div>
+                          </div>
+
+                         <div className="singleImageDiv ">
+                              <img className="singleImageAuctioned" alt="" src={require("../assets/placeholder.png")} />
+                         </div>
+                         
+                          <div className="AuctionPriceDiv">
+                             <a className="auctionPrice"> <i className="fa fa-usd fa-lg" aria-hidden="true"> ${product.maxBidPrice}</i> </a>
+                          </div>
+
+                           <div className="AuctionPriceDiv">
+                             <a className="auctionPrice"> Total # of Bids : {product.numberOfBids} </a>
+                          </div>
+
+                    </div>
+      })
+
       return (
-          <div className="rightDiv">
-            <section className="sectionattr">
-              <ul className="ulattr">
-                {listOfProducts}
-              </ul>
-            </section>
-          </div>
+          <div className="rightDivForAllProducts">
+            
+                  <div className="allProductsDiv">
+                    {
+                      listOfProducts
+                    }  
+                  </div>
+            </div>
       )
     }
   }
