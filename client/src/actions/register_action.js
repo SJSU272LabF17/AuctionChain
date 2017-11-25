@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://d8c47c5c.ngrok.io/'
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://0c2e7d60.ngrok.io/'
 
 const headers = {
     'Accept': 'application/json'

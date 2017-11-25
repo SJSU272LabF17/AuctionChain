@@ -1,4 +1,4 @@
-var api = "http://d8c47c5c.ngrok.io/" ; 
+var api = "http://0c2e7d60.ngrok.io/" ; 
 
 const headers = {
     'Accept': 'application/json'

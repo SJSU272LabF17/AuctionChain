@@ -17,6 +17,9 @@ class LiveAuction extends Component {
     }
 
     componentWillMount(){
+
+
+
       if(this.state.listingId !== ""){
         console.log("Calling all the data " , this.state.listingId) ;
         this.props.getCurrentProductAuctioned(this.state.listingId)
@@ -37,8 +40,8 @@ class LiveAuction extends Component {
       return (
         <div className="rightDiv">
 
-          <div className="rightDiv">
-            <section className="sectionattr backGroundWhite ">
+          <div className="">
+            <section className="sectionattr backGroundWhite currentAuctioonDiv">
              
                 {
                  this.props.currentAuctionedProduct != null ? 
@@ -46,16 +49,28 @@ class LiveAuction extends Component {
                  <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionMainDiv">
                         <img className="mainAuctionImage" alt="" src={require("../assets/1.jpg")} /> 
                  </div>
-                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionMainDiv2 ">
-                       <div><span>{this.props.currentAuctionedProduct.productName }</span> | <span></span>
-                       <span>{this.props.currentAuctionedProduct.productCategory } </span>| <span></span>
-                       <span>{this.props.currentAuctionedProduct.productDesc } </span> 
+                 <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3 LiveAucionMainDiv2 ">
+                       <div><span className="name">{this.props.currentAuctionedProduct.productName }</span> 
+                       
                        </div>
-
+                       <div className="LiveAucionMainDiv2Desc">
+                         <span className="desc">{this.props.currentAuctionedProduct.productDesc } </span>
+                       </div>
+                       <div className="LiveAucionMainDiv2Category">
+                         <span className="category">{this.props.currentAuctionedProduct.productCategory } </span>
+                       </div>
                        
                        {
-                          this.props.user.email === this.props.currentAuctionedProduct.owner ? 
-                          <div className="form-control sharpCorner bidPriceTextBox" >
+                         
+                          this.props.user == null ? 
+                           (<div> 
+                              <span className="text-red">Login To Bid</span>
+                            </div> )
+                       : 
+
+
+                         ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
+                          <div >
                             <button className="btn btn-danger sharpCorner" onClick={() => {
                               this.props.closeBid(this.state.listingId) ; 
                             }}>Close Bid</button>
@@ -71,13 +86,13 @@ class LiveAuction extends Component {
                           <label onClick={() => {
                             this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
                           }}className="btn btn-primary btn-circle btn-md lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
-                       </div>
+                       </div> )
                        }
                       
                  </div>
 
 
-                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionStatusDiv">
+                 <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 LiveAucionStatusDiv">
                         
 
                         {
