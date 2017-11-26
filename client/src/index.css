@@ -627,3 +627,95 @@ padding-top: 20px ;
   margin-right: 7px ;
   border-radius: 50%
 }
+
+
+
+
+
+.banner {
+  margin-top: -25px;
+  background:url(./assets/banner.jpg)no-repeat 0px bottom;
+  -webkit-background-size:cover;
+   background-size:cover;
+ -moz-background-size:cover;
+ -o-background-size:cover;
+ -ms-background-size:cover;
+  min-height:799px;
+}
+
+.banner-text {
+  padding-top: 100px;
+  width: 40%;
+  margin: 0px auto;
+  text-align: center;
+  font-family: serif;
+}
+.banner-text h2.bnr-title {
+  color: #24FFED;
+  font-size: 7em;
+}
+.banner-text p {
+  font-size: 1em;
+  color: #fff;
+  margin-top: 1.5em;
+  letter-spacing: 3px;
+  line-height: 1.8em;
+  font-family: 'Roboto', sans-serif;
+}
+
+/*--button--*/
+.button {
+  display: inline-block;
+  margin: 2em 0 0;
+  padding: 1em 2.1em;
+  border: none;
+  position: relative;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  background: #24FFED;
+  color: #000;
+  overflow: hidden;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+-moz-transition: color 0.3s;
+}
+.button::before,
+.button::after {
+content: '';
+position: absolute;
+height: 100%;
+width: 100%;
+bottom: 100%;
+left: 0;
+z-index: -1;
+-webkit-transition: -webkit-transform 0.3s;
+transition: transform 0.3s;
+-moz-transition: transform 0.3s;
+-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+-moz-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button::before {
+background: #F6AFB4;
+}
+.button::after {
+background: #ef717a;
+}
+.button:hover {
+color: #fff;
+}
+.button:hover::before,
+.button:hover::after {
+-webkit-transform: translate3d(0, 100%, 0);
+transform: translate3d(0, 100%, 0);
+-moz-transform: translate3d(0, 100%, 0);
+-o-transform: translate3d(0, 100%, 0);
+-ms-transform: translate3d(0, 100%, 0);
+}
+.button:hover::after {
+-webkit-transition-delay: 0.175s;
+transition-delay: 0.175s;
+-moz-transition-delay: 0.175s;
+}
+

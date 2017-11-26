@@ -18,52 +18,18 @@ class Home extends Component {
 
 
     return (
-      <div >
-       
-
-
-        <div id="myCarousel" className="carousel slide" data-ride="carousel">
-         
-          <ol className="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-          </ol>
-        
-         
-          <div className="carousel-inner">
-            <div className="item active">
-              <img src={require("../assets/1.jpg")} onClick={() => {
-                this.props.history.push('/home-garden') ;
-              }} width="100%"  alt="Los Angeles"/>
-            </div>
-        
-            <div className="item">
-              <img src={require("../assets/goods.JPG")} onClick={() => {
-                this.props.history.push('/home-garden') ;
-              }} width="100%"  alt="Chicago"/>
-            </div>
-        
-            <div className="item">
-              <img src={require("../assets/shopping.jpg")}  onClick={() => {
-                this.props.history.push('/home-garden') ;
-              }} width="100%"  alt="New York"/>
-            </div>
+      <div className="banner">
+        <div className="banner-text">
+          <h2 className="bnr-title wow zoomIn animated" data-wow-delay=".5s">Buying & Selling</h2>	
+          <p className="wow fadeInUp animated" data-wow-delay=".7s">Are You Ready To Sell? Auctions Speak Louder. Turning Assets Into Cash. Let’s Get Buying!!! 
+</p>	
+          <div className="more">
+            
+            <Link to="/home-garden" className="button scroll" data-text="More About">Explore</Link>
           </div>
-        
-         
-          <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span className="glyphicon glyphicon-chevron-left"></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="right carousel-control" href="#myCarousel" data-slide="next">
-            <span className="glyphicon glyphicon-chevron-right"></span>
-            <span className="sr-only">Next</span>
-          </a>
-        </div>
-
-
-
+          <div className="social-icons wow slideInUp animated" data-wow-delay=".9s">
+          </div>
+        </div>	
       </div>
 
     );
