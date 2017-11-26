@@ -19,6 +19,7 @@ body {
 
 .currentAuctioonDiv{
   box-shadow: 1px 1px 1px 1px #DCDCDC ; 
+  margin-left: 30px
 }
 .descForProductOnAuction{
   margin-left: 16px
@@ -113,7 +114,6 @@ body {
   .sectionattr{
     display: inline-block;
     width: 100%;
-   margin-left: 20px ; 
     border-radius : 4px ;
     
   }
@@ -209,7 +209,7 @@ body {
 
   .divForLiveAuctionImage{
     width: 25%;
-    min-width: 350px;
+    min-width: 320px;
     height: available;
     min-height: 400px;
     float: left;
@@ -318,16 +318,15 @@ padding-top: 20px ;
   }
 
   .mainAuctionImage{
-    width: 250px ;
-    height: 250px
+    width: 200px ;
+    height: 200px;
+    border-radius: 5% ;
+    margin-left: 20px;
+    margin-top: 5px;
   } 
 
 
-  .individualAuctionDiv{
-    padding: 10px ;
-    margin-bottom: 10px ;
-    margin-left: 20px
-  }
+ 
 
   .individualAuctionGlyph{
     margin-right: 35px
@@ -344,8 +343,17 @@ padding-top: 20px ;
 
   .bidPriceTextBox{
     margin-top: 30px ; 
-    max-width: 100px ; 
-    margin-right: 10px
+    max-width: 120px ; 
+    margin-right: 10px ;
+    border: 0px;
+    border-bottom: 1px solid #d8d8d8;
+    
+    line-height: 18px;
+    padding-bottom: 3px;
+    outline: none;
+    font-size: 14px ;
+    color : darkcyan;
+    font-weight: normal
   }
 
   .login-close{
@@ -512,4 +520,110 @@ padding-top: 20px ;
 
 .273Heading{
       margin-top: 10px
+}
+
+
+
+.auction-main-div{
+   
+    position: relative;
+    min-height:50px;
+     float: left;
+     margin-left: 250px
+     min-height300px ; 
+     margin-left: 100px ;
+     background-color: white ;
+  }
+
+
+ .auction-main-div .auction-main-div-container{
+  width : 750px
+ }
+
+
+ .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv{
+  padding: 0 ; 
+  margin-bottom: 20px ; 
+ }
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div {
+  margin-left: 30px ;
+  margin-top: 30px ; 
+}
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .current-max-bid-div{
+  margin-left: 30px ;
+  color : darkcyan;
+  font-size: 15px ;
+
+}
+
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .bid-suggestion{
+  margin-left: 13px ; 
+  font-size: 12px ;
+  color : darkcyan;
+}
+
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .shipping{
+ 
+  font-size: 16px ;
+  color : darkcyan;
+  width : 200px;
+  margin-top: 40px ; 
+  border-top : 1px solid #d8d8d8;
+  text-align: center;
+
+
+}
+
+
+ .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv2{
+   padding-left: 0 ;
+   padding-right: 0 ;
+   padding-top: 5px
+
+ }
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv2 .name{
+  font-size: 20px ; 
+  color: darkcyan
+}
+
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv2 .desc{
+  font-size: 13px ; 
+  color: darkcyan ;
+}
+
+
+ .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv3{
+   padding-left: 0 ;
+   padding-right: 0 ;
+   background-color: white ; 
+      border-left: 1px solid #e4e5ea;
+      max-height : 500px;
+      overflow-y:scroll;
+      color: darkcyan
+ }
+
+
+ .individualAuctionDiv{
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px
+  }
+
+
+
+ .individualAuctionDiv .offer-timestamp{
+    
+    width : 70px;
+    outline: none;
+     border: 0px;
+  }
+
+
+.bidImage{
+  margin-right: 7px ;
+  border-radius: 50%
 }

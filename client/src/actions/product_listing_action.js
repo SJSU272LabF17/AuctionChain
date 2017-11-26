@@ -49,14 +49,20 @@ export function getCurrentProductAuctioned(listing){
 
 	  		}).then(function (response) {
 			        response.json().then(res => {
-			        	console.log("Response for auction " , res) ; 
-					dispatch({ type : 'GET_CURRENT_AUCTIONED_PRODUCT_SUCCESS' , payload : res})
+			        	console.log("Response for auction " , res.error) ; 
+
+			        	if(res.error === "Internal server error."){
+
+			        	}else{
+			        		dispatch({ type : 'GET_CURRENT_AUCTIONED_PRODUCT_SUCCESS' , payload : res})
+			        	}
+					
 				})
 																		        
 	   		})
 	        .catch(error => {
 				console.log("****************ERROR - Response from server " , error);
-	        	dispatch({ type : 'GET_CURRENT_AUCTIONED_PRODUCT_FAILURE' , payload : null})
+	        	
 	            
 	        })
 		}

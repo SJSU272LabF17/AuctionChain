@@ -17,9 +17,6 @@ class LiveAuction extends Component {
     }
 
     componentWillMount(){
-
-
-
       if(this.state.listingId !== ""){
         console.log("Calling all the data " , this.state.listingId) ;
         this.props.getCurrentProductAuctioned(this.state.listingId)
@@ -35,100 +32,107 @@ class LiveAuction extends Component {
     }
 
     render() {
-      
+      console.log("Current suction product " , this.props.currentAuctionedProduct)
      
       return (
-        <div className="rightDiv">
+        <div className="auction-main-div">
+          
 
-          <div className="">
-            <section className="sectionattr backGroundWhite currentAuctioonDiv">
-             
-                {
+
+            {
                  this.props.currentAuctionedProduct != null ? 
-                  <div >
-                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 LiveAucionMainDiv">
-                        <img className="mainAuctionImage" alt="" src={require("../assets/1.jpg")} /> 
-                 </div>
-                 <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3 LiveAucionMainDiv2 ">
-                       <div><span className="name">{this.props.currentAuctionedProduct.productName }</span> 
-                       
-                       </div>
-                       <div className="LiveAucionMainDiv2Desc">
-                         <span className="desc">{this.props.currentAuctionedProduct.productDesc } </span>
-                       </div>
-                       <div className="LiveAucionMainDiv2Category">
-                         <span className="category">{this.props.currentAuctionedProduct.productCategory } </span>
-                       </div>
-                       
-                       {
-                         
+                 <div className="auction-main-div-container row">
+                    <div className="auction-main-div-container-subdiv col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                      <div>
+                           <img className="mainAuctionImage" alt="" src={require("../assets/placeholder.png")} /> 
+                      </div>
+                     
+                      <div className="bid-action-div">
+                        {
                           this.props.user == null ? 
                            (<div> 
                               <span className="text-red">Login To Bid</span>
                             </div> )
-                       : 
+                           : 
 
 
-                         ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
-                          <div >
-                            <button className="btn btn-danger sharpCorner" onClick={() => {
-                              this.props.closeBid(this.state.listingId) ; 
-                            }}>Close Bid</button>
-                          </div>
-                          :
+                             ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
+                              <div >
+                                <button className="btn btn-danger sharpCorner" onClick={() => {
+                                  this.props.closeBid(this.state.listingId) ; 
+                                }}>Close Bid</button>
+                              </div>
+                              :
 
-                           <div> 
-                          <input className="form-control sharpCorner bidPriceTextBox" id="carid" type="number"  onChange={(e) => {
-                            this.setState({
-                              bidAmount : e.target.value
-                            })
-                          }} aria-describedby="basic-addon1"  placeholder="$" />
-                          <label onClick={() => {
-                            this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
-                          }}className="btn btn-primary btn-circle btn-md lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
-                       </div> )
-                       }
+                               <div className="bid-action-div-content"> 
+                                  
+                                  <div className="current-max-bid-div">
+                                    Current Bid : {this.props.currentAuctionedProduct.offers[0].bidPrice}
+                                  </div>
+                                  <div>
+                                          <span><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
+                                          <input className="bidPriceTextBox" id="carid" type="number"  onChange={(e) => {
+                                            this.setState({
+                                              bidAmount : e.target.value
+                                            })
+                                          }} aria-describedby="basic-addon1"  placeholder="Enter Bid Amount" />
+                                      <label onClick={() => {
+                                        this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
+                                      }}className="btn btn-primary btn-circle btn-xs lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
+                                  </div>
+                                  <div className="bid-suggestion">
+                                    Enter US {this.props.currentAuctionedProduct.offers[0].bidPrice * 1.01} or more
+                                  </div>
+                                  <div className="shipping">
+                                    Shipping: $23.00 Economy Shipping
+                                  </div>
+                           </div> )
+                        }
+                      </div>
+                     
+                    </div>
+                    <div className="auction-main-div-container-subdiv2 col-md-3 col-lg-3 col-sm-3 col-xs-3">
                       
-                 </div>
+                       <div>
+                        <span className="name">{this.props.currentAuctionedProduct.productName }</span> 
+                       </div>
+                       <div>
+                        <span className="desc">{this.props.currentAuctionedProduct.productDesc } </span>
+                       </div>
+                       <div>
+                        <span className="desc">{this.props.currentAuctionedProduct.productCategory } </span>
+                       </div>
 
-
-                 <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 LiveAucionStatusDiv">
-                        
-
-                        {
+                    </div>
+                    <div className="auction-main-div-container-subdiv3 col-md-5 col-lg-5 col-sm-5 col-xs-5">
+                      {
                           this.props.currentAuctionedProduct.offers.map((offer , key) => {
                             
-
-
-                          return <div className="individualAuctionDiv" key={key}> 
-                            
-                            <span className="glyphicon glyphicon-circle-arrow-right individualAuctionGlyph"></span>
+                            return <div className="individualAuctionDiv" key={key}> 
+                              
+                              <span className="glyphicon glyphicon-circle-arrow-right individualAuctionGlyph"></span>
                               <span className="individualAuctionGlyph">{offer.email}</span>
-                           
-                            
-                             
-                            <span className="individualAuctionGlyph"><span className="dollarSign">$</span>{offer.bidPrice}</span> 
-                           
-                           
-                                <span className="individualAuctionGlyph">{offer.timestamp}</span> 
-                           
-                            
-                            <hr></hr>
-                             </div>
-                        })  
+                              <span className="individualAuctionGlyph"><span className="dollarSign">$</span>{offer.bidPrice}</span> 
+                              <input className="offer-timestamp" type="text" onChange={() => {
+
+                              }} value={offer.timestamp} />
+                               </div>
+                            })  
 
                         } 
-
-                </div> 
+                    </div>
                 </div>
+
                 :
-                <p> </p>
-                }
-                
-              
+
+                <div>
+                </div>
+            }
+
+
+
+        
             
-            </section>
-          </div>
           
        </div> 
       );
