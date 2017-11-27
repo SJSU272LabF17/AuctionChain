@@ -49,15 +49,11 @@ module.exports = function(app , db ){
 		var owner =  req.body.email; 
 		const file = req.files[0]; 
 
-		console.log("#######################################################################");
-		console.log(name, description);
 		//console.log(file);
 		var originalName = file.originalname;
 		var extension = "." + originalName.substr(originalName.lastIndexOf('.') + 1);
 		var imageurl = "uploadedfiles/" + pid + extension;
 		fs.renameSync(file.path, "./public/" + imageurl);
-
-		//res.status(200).json({});
 		
 		var apiObject = {
 			"$class": "org.cmpe272.evergreen.auction.Product",
@@ -246,6 +242,7 @@ module.exports = function(app , db ){
 			product.productDesc = response.data.description;
 			product.productCategory = response.data.category;
 			product.productListingId = response.data.listingId;
+			product.imageurl = response.data.imageurl;
 			product.numberOfBids = response.data.offers.length;
 			product.maxBidPrice = maxBid;
 			product.owner = owner;

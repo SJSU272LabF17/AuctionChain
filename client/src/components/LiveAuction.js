@@ -44,7 +44,7 @@ class LiveAuction extends Component {
                  <div className="auction-main-div-container row">
                     <div className="auction-main-div-container-subdiv col-md-4 col-lg-4 col-sm-4 col-xs-4">
                       <div>
-                           <img className="mainAuctionImage" alt="" src={require("../assets/placeholder.png")} /> 
+                           <img className="mainAuctionImage" alt="" src={this.props.serverURL + this.props.currentAuctionedProduct.imageurl} /> 
                       </div>
                      
                       <div className="bid-action-div">
@@ -151,7 +151,8 @@ function mapDispatchToProps(dispatch){
       return {
         isAuthenticated : state.AuthReducer.isAuthenticated,
         currentAuctionedProduct : state.ProductListingReducer.currentAuctionedProduct ,
-        user : state.AuthReducer.user
+        user : state.AuthReducer.user,
+        serverURL : state.AuthReducer.nodeServerURL
       };
   }
 
