@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 
-
-
 class MyProductList extends Component {
   
     render() {
@@ -18,7 +16,7 @@ class MyProductList extends Component {
                   <div className="row">
                     
                     <div className="divForImage col-lg-3 col-sm-3 col-md-3 col-xs-3">
-                      <img className="imageAttr" alt="" src={require("../assets/placeholder.png")} />
+                      <img className="imageAttr" alt="" src={this.props.serverURL + this.props.product.imageurl} />
                     </div>
                     
                     
@@ -66,7 +64,7 @@ function mapDispatchToProps(dispatch){
 
   function mapStateToProps(state) {
       return {
-        
+        serverURL : state.AuthReducer.nodeServerURL
       };
   }
 

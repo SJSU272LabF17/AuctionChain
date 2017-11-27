@@ -9,6 +9,7 @@ asset Product identified by pid {
   o String description
   o String category
   o String listingId
+  o String imageurl
   o ProductState state
   --> Member owner
 }
@@ -30,6 +31,7 @@ asset ProductListing identified by listingId {
   o String name
   o String description
   o String category
+  o String imageurl
   o ListingState state
   o Offer[] offers optional
   --> Member owner

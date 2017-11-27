@@ -38,11 +38,11 @@ class HomeGardenContent extends Component {
                           </div>
 
                          <div className="singleImageDiv ">
-                              <img className="singleImageAuctioned" alt="" src={require("../assets/placeholder.png")} />
+                              <img className="singleImageAuctioned" alt="" src={this.props.serverURL + product.imageurl} />
                          </div>
                          
                           <div className="AuctionPriceDiv">
-                             <a className="auctionPrice"> <i className="fa fa-usd fa-lg" aria-hidden="true"> ${product.maxBidPrice}</i> </a>
+                             <a className="auctionPrice"> <i className="fa fa-usd fa-lg" aria-hidden="true"> {product.maxBidPrice}</i> </a>
                           </div>
 
                            <div className="AuctionPriceDiv">
@@ -74,6 +74,7 @@ function mapDispatchToProps(dispatch){
   function mapStateToProps(state) {
       return {
         productList :state.ProductListingReducer.productList,
+        serverURL : state.AuthReducer.nodeServerURL
       };
   }
 

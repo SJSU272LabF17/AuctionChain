@@ -56,7 +56,7 @@ class AuctionProduct extends Component {
              
                        <div className="  col-md-12 col-sm-12 col-lg-12 ">
                           <div className="col-md-2 col-sm-2 col-lg-2">
-                            <img className="outline" alt="image" src={require("../assets/placeholder.png")}  height="100px" width="100px" />
+                            <img className="outline" alt="image" src={this.props.serverURL + this.props.singleProduct.imageurl}  height="100px" width="100px" />
                           </div>
                           <div className="col-md-10 col-sm-10 col-lg-10">
                             <h3>{this.props.singleProduct.name} </h3>
@@ -99,7 +99,8 @@ class AuctionProduct extends Component {
                                   <button className="btn btn-success sharpButton" onClick={() => {
                                     this.setState({putOnAuctionError : ''})
                                this.props.putProductOnAuction(this.props.user.email , this.props.singleProduct.pid ,
-                                          this.props.singleProduct.name , this.props.singleProduct.description , this.props.singleProduct.category , this.state.reservedPrice )
+                                          this.props.singleProduct.name , this.props.singleProduct.description , 
+                                          this.props.singleProduct.category , this.state.reservedPrice, this.props.singleProduct.imageurl)
                                        
                                   }}>Submit</button>                                        
                              </div>
@@ -140,7 +141,7 @@ class AuctionProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-      putProductOnAuction : (email , pid , name , desc , category , price ) => dispatch(putProductOnAuction(email , pid , name , desc , category, price )) , 
+      putProductOnAuction : (email , pid , name , desc , category , price, imageurl) => dispatch(putProductOnAuction(email , pid , name , desc , category, price, imageurl )) , 
       getSingleProductForAuction : (id) => dispatch(getSingleProductForAuction(id)) , 
       setBackPutProductOnAuction : ( ) => dispatch(setBackPutProductOnAuction())
     }
@@ -152,7 +153,8 @@ function mapDispatchToProps(dispatch){
         myProducts : state.ProductReducer.myProduct,
         user : state.AuthReducer.user , 
         singleProduct : state.ProductReducer.singleProduct  ,
-        putOnAuctionSuccess : state.ProductReducer.putOnAuctionSuccess
+        putOnAuctionSuccess : state.ProductReducer.putOnAuctionSuccess,
+        serverURL : state.AuthReducer.nodeServerURL,
       };
   }
 

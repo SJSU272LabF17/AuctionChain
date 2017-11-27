@@ -5,7 +5,8 @@ const initialState = {
 	
 	user : null ,
 	register_success : null ,
-	registration_error : null
+	registration_error : null,
+	nodeServerURL: "http://0c2e7d60.ngrok.io/"
 }
 
 

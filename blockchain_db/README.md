@@ -20,7 +20,7 @@ This will give the steps configuring REST API for already deployed blockchain ne
     * https://hyperledger.github.io/composer/integrating/getting-started-rest-api.html
 
     ```
-    composer-rest-server -p hlfv1 -n auction-network -i admin -s adminpwd
+    composer-rest-server -p hlfv1 -n auction-network -i admin -s adminpwd -P 3004
 
     or
 

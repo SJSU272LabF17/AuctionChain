@@ -193,7 +193,7 @@ class addProduct extends Component {
 
 
                                       this.props.addNewProduct(this.props.user.email 
-                                      , this.state.productName , this.state.desc , this.state.category) ;
+                                      , this.state.productName , this.state.desc , this.state.category, this.state.pic) ;
                         }} >Submit</button>
 
                         :
@@ -217,7 +217,7 @@ class addProduct extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-      addNewProduct : (email , name , desc , category) => dispatch(addNewProduct(email , name , desc , category)),
+      addNewProduct : (email , name , desc , category, pic) => dispatch(addNewProduct(email , name , desc , category, pic)),
       setBackProductSuccess : () => dispatch(setBackProductSuccess())
     }
   }

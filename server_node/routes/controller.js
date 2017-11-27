@@ -6,6 +6,8 @@ var session = require('express-session');
 var Guid = require('guid');
 var urlencode = require('urlencode');
 var dateFormat = require('dateformat');
+var multer = require('multer');
+const fs = require('fs');
 
 //mongo connection
 var mongoURL =        "mongodb://localhost:27017/272_Auction_Project";
@@ -16,6 +18,8 @@ var ObjectID = require('mongodb').ObjectID
 
 
 var axios  = require ('axios');
+
+var upload = multer({ dest: './public/uploadedfiles'});
 
 
 module.exports = function(app , db ){
@@ -36,27 +40,40 @@ module.exports = function(app , db ){
 	var collection = db.collection('user');
 	
 	
-	app.post('/addNewProduct' , function(req , res){
+	app.post('/addNewProduct',  upload.any() , function(req , res){
 		
-		var pid = Guid.raw();;
+		var pid = Guid.raw();
 		var name = req.body.productName ; 
 		var description = req.body.productDesc ; 
 		var category = req.body.productCategory ; 
-		var imageurl = req.body.imageurl;
 		var owner =  req.body.email; 
+		const file = req.files[0]; 
 
+		console.log("#######################################################################");
+		console.log(name, description);
+		//console.log(file);
+		var originalName = file.originalname;
+		var extension = "." + originalName.substr(originalName.lastIndexOf('.') + 1);
+		var imageurl = "uploadedfiles/" + pid + extension;
+		fs.renameSync(file.path, "./public/" + imageurl);
+
+		//res.status(200).json({});
+		
 		var apiObject = {
 			"$class": "org.cmpe272.evergreen.auction.Product",
 			 "pid": pid,
 			 "name": name,
 			 "description": description,
 			 "category": category,
-			 "imageurl": "imageurl",
+			 "imageurl": imageurl,
 			 "owner" : owner,
 			 "state" : "ADDED",
-			 "listingId" : ""
+			 "listingId" : "0"
   		};
 		
+		console.log(apiObject);
+
+
 		axios.post('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product', apiObject)
 		.then(function (response) {			
 
@@ -76,6 +93,8 @@ module.exports = function(app , db ){
 			console.log("This is error calling Composer API", error);
 			res.status(500).json({error: "Internal server error."})
 		});		
+
+		
 	});
 
 	app.post('/getProduct', function(req, res){
@@ -170,6 +189,7 @@ module.exports = function(app , db ){
 				product.productDesc = response.data[i].description;
 				product.productCategory = response.data[i].category;
 				product.productListingId = response.data[i].listingId;
+				product.imageurl = response.data[i].imageurl;
 				product.numberOfBids = countBids;
 				product.maxBidPrice = maxBid;
 				arrRes.push(product);
@@ -248,6 +268,7 @@ module.exports = function(app , db ){
 		var productCategory = req.body.productCategory ;
 		var pid = req.body.pid;
 		var email =  req.body.email;
+		var imageurl =  req.body.imageurl;
 		var productState = 'FOR_SALE';
 		var offers = [];
 
@@ -258,6 +279,7 @@ module.exports = function(app , db ){
 			"name": productName,
 			"description": productDesc,
 			"category": productCategory,
+			"imageurl": imageurl,
 			"state": productState,
 			"offers": offers,
 			"owner": email,
@@ -274,7 +296,7 @@ module.exports = function(app , db ){
 				 "name": productName,
 				 "description": productDesc,
 				 "category": productCategory,
-				 "imageurl": "imageurl",
+				 "imageurl": imageurl,
 				 "owner" : email,
 				 "state" : "FOR_SALE",
 				 "listingId" : listingId

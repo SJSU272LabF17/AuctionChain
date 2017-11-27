@@ -11,23 +11,28 @@ export function setBackProductSuccess(){
 	return {type : 'PRODUCT_ADD_SET_BACK' , payload : null}
 }
 
-export function addNewProduct(email , productName , productDesc , productCategory  ){
+export function addNewProduct(email , productName , productDesc , productCategory, pic  ){
 	console.log( email , productName , productDesc , productCategory ) ; 
 
 		return function(dispatch){
+
+			var data = new FormData();
+			data.append('file', pic);
+			data.append('email', email);
+			data.append('productName', productName);
+			data.append('productDesc', productDesc);
+			data.append('productCategory', productCategory);
+
 			fetch(url + 'addNewProduct', {
 	        method: 'POST',
-	        headers: {
-	            ...headers,
-	            'Content-Type': 'application/json'
-	        },
 	        credentials:'include',
-	   	    body: JSON.stringify({
-	   	    			"email" : email ,
-	   	    			"productName" : productName,
-	   	    			"productDesc" : productDesc ,
-	   	    			"productCategory" : productCategory
-	   	    })
+			body: data
+			//    JSON.stringify({
+	   	    // 			"email" : email ,
+	   	    // 			"productName" : productName,
+	   	    // 			"productDesc" : productDesc ,
+	   	    // 			"productCategory" : productCategory
+			//    })
 
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
@@ -92,7 +97,7 @@ export function setBackPutProductOnAuction(){
 	return { type : 'SETBACK_PUT_PRODUCT_ON_AUCTION_SUCCESS' , payload : null}
 }
 
-export function putProductOnAuction(email , pid , name , desc , category , price  ){
+export function putProductOnAuction(email , pid , name , desc , category , price, imageurl ){
 	console.log(email , pid , name , desc , category , price)
 	return function(dispatch){
 			fetch(url + 'putProductOnAuction', {
@@ -108,7 +113,8 @@ export function putProductOnAuction(email , pid , name , desc , category , price
 	   	    			"productName" : name ,
 	   	    			"productDesc" : desc ,
 	   	    			"productCategory" : category,
-	   	    			"reservePrice" : price
+						"reservePrice" : price,
+						"imageurl" : imageurl
 	   	    })
 
 	  		}).then(function (response) {
