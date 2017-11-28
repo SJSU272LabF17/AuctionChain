@@ -18,7 +18,11 @@ class LiveAuction extends Component {
         this.props.location.pathname.replace('/productDetails/' , '')  , 
         bidAmount : 0 ,
         bidError : '' ,
-        isLoaded: false
+        isLoaded: false ,
+
+        loaderOptions : {
+            color: '#894EA2'
+        }
         
       }
 
@@ -52,6 +56,11 @@ class LiveAuction extends Component {
 
 
     componentDidMount(){
+
+      if(this.props.currentAuctionedProduct == null){
+        this.setState({ isLoaded : true })
+      }
+
       if(this.state.listingId !== ""){
         this.props.getCurrentProductAuctioned(this.state.listingId)
       }
@@ -76,6 +85,11 @@ class LiveAuction extends Component {
       }
 
 
+     
+
+       if(newProps.currentAuctionedProduct != null){
+          this.setState({ isLoaded : false })
+        }
 
      /* var self = this ; 
              setInterval(function(){
@@ -86,14 +100,19 @@ class LiveAuction extends Component {
 
 
     placeBid(){
+          var priceToCompare ;
+
+          this.props.currentAuctionedProduct.offers[0] == undefined ? 
+          priceToCompare = this.props.currentAuctionedProduct.maxBidPrice :
+          priceToCompare = Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )
 
           
-          if(this.state.bidAmount < Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )){
+          if(this.state.bidAmount < priceToCompare){
             this._addNotification("Error" , "Please check the expected least amount to bid") ;
             return 
           }
           
-          this.setState({ isLoaded : true} );
+          this.setState({ isLoaded : true,   } );
         this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
     }
 
@@ -104,59 +123,23 @@ class LiveAuction extends Component {
 
     render() {
       
-      var options = {
-          lines: 13,
-          length: 20,
-          width: 10,
-          radius: 30,
-          scale: 1.00,
-          corners: 1,
-          color: '#000',
-          opacity: 0.25,
-          rotate: 0,
-          direction: 1,
-          speed: 1,
-          trail: 60,
-          fps: 20,
-          zIndex: 2e9,
-          top: '50%',
-          left: '50%',
-          shadow: false,
-          hwaccel: false,
-          position: 'absolute'
-      };
+     
 
 
-     var options = {
-          lines: 13,
-          length: 20,
-          width: 10,
-          radius: 30,
-          scale: 1.00,
-          corners: 1,
-          color: '#000',
-          opacity: 0.25,
-          rotate: 0,
-          direction: 1,
-          speed: 1,
-          trail: 60,
-          fps: 20,
-          zIndex: 2e9,
-          top: '50%',
-          left: '70%',
-          shadow: true,
-          hwaccel: false,
-      };
-
-      
       return (
         <div className="auction-main-div">
           
             <NotificationSystem ref={n => this._notificationSystem = n} />
 
+            <div>
+              <Loader loaded={!this.state.isLoaded} options={this.state.loaderOptions} >
+                <div className="loaded-contents"></div>
+              </Loader>
+            </div>
 
             {
                  this.props.currentAuctionedProduct != null ? 
+
                  <div className="auction-main-div-container row">
                     <div className="auction-main-div-container-subdiv col-md-4 col-lg-4 col-sm-4 col-xs-4">
                       <div>
@@ -199,11 +182,7 @@ class LiveAuction extends Component {
                                           }} aria-describedby="basic-addon1"  />
                                           <span onClick={this.placeBid.bind(this)}><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
 
-                                           <div>
-                                                  <Loader loaded={!this.state.isLoaded} options={options}>
-                                                    <div className="loaded-contents"></div>
-                                                  </Loader>
-                                          </div>
+                                           
                                     
                                   </div>
                                   <div className="bid-suggestion">

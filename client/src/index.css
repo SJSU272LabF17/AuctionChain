@@ -323,6 +323,7 @@ padding-top: 20px ;
     border-radius: 5% ;
     margin-left: 20px;
     margin-top: 5px;
+     border : 1px solid lightgrey;
   } 
 
 
@@ -539,6 +540,7 @@ padding-top: 20px ;
  .auction-main-div .auction-main-div-container{
   width : 750px ;
   box-shadow: 1px 1px 1px 1px #DCDCDC ; 
+  background-color: white
  }
 
 
@@ -568,7 +570,7 @@ padding-top: 20px ;
 
 
 .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content {
-  padding-left: 30px
+  padding-left: 0px
 }
 
 
@@ -642,6 +644,7 @@ padding-top: 20px ;
   margin-right: 7px ;
   border-radius: 50% ;
   color : rosybrown;
+
 }
 
 
@@ -784,4 +787,15 @@ background-color: red
 
 .notification-visible{
   background-color: red
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background: white;
+  opacity:0.9
 }
