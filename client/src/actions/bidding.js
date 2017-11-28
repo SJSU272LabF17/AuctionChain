@@ -23,12 +23,12 @@ export function placeBid(email , amount , listingId  ){
 	  		}).then(function (response) {
 			        console.log("Response from server " , response);
 			      response.json().then(res => {
-					dispatch({ type : 'PRODUCT_ADD_SUCCESS' , payload : true })
+					dispatch({ type : 'BID_SUCCESS'  })
 				})
 																		        
 	   		})
 	        .catch(error => {
-	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
+	        	dispatch({ type : 'BID_FAILURE'  })
 	            
 	        })
 		}

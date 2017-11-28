@@ -11,7 +11,8 @@ class addProduct extends Component {
 
       this.state={
         productName : '' ,
-        pic : {name : ''} ,
+        pic : '' ,
+        picName : '',
         desc : '' ,
         category : '' ,
         addProductClientError : '' , 
@@ -20,11 +21,14 @@ class addProduct extends Component {
       }
     }
 
-    componentWillMount(){
+    componentDidMount(){
       if(this.props.isAuthenticated !== true ){
         this.props.history.push('/')
       }
     }
+
+
+
 
 
      componentWillReceiveProps(newProps) {    
@@ -32,7 +36,7 @@ class addProduct extends Component {
           console.log("Not required ") ;
              this.setState({
                 productName : '' ,
-                pic : {name : ''} ,
+                pic : '' ,
                 desc : '' ,
                 category : '' ,
                 addProductClientError : '' , 
@@ -54,6 +58,34 @@ class addProduct extends Component {
 
       }
 
+
+
+      submitProduct(){
+
+        if(this.state.productName === ""){
+          this.setState({ addProductClientError : 'Please specify Product Name '});
+          return
+        }
+        if(this.state.desc === ""){
+          this.setState({ addProductClientError : 'Please provide some description '})
+          return
+        }
+        if(this.state.category === ""){
+         this.setState({ addProductClientError : 'Category is must'})
+         return
+       }
+       if(this.state.pic=== ""){
+         this.setState({ addProductClientError : 'Uploading photo of the product is mandatory'})
+         return
+       }
+
+       this.props.setBackProductSuccess();
+       this.setState({ addProductClientError : '' , loading : true})
+
+
+       this.props.addNewProduct(this.props.user.email , this.state.productName , this.state.desc , this.state.category, this.state.pic) ;
+     }
+     
     render() {
 
       const displayNone = {
@@ -65,18 +97,18 @@ class addProduct extends Component {
           <div className ='container addProductDiv '>
             <div className="row  addProductChildDiv">
               <div className="  col-md-12 col-sm-12 col-lg-12 text-center">
-                <h3>Enter the product details you wish to auction</h3>
+                <h3 className="enter-product-details">Enter the product details you wish to auction</h3>
               </div>
               
               <div className=" outline col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
-                    <label htmlFor="name">Product Name</label>
+                    <label htmlFor="name" className="text-category">Product Name</label>
                     <input type="text" value={this.state.productName}  onChange={(e) => {
                               this.setState({
                                 productName : e.target.value
                               })
-                            }}  className="form-control" id="name"/>
+                            }}  className="form-control " id="name"/>
                  </div>
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
               </div>
@@ -84,14 +116,14 @@ class addProduct extends Component {
               <div className=" outline col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
-                    <label htmlFor="upload">Upload Photo</label>
+                    <label htmlFor="upload" className="text-category">Upload Photo</label>
                     <label className="btn btn-primary btn-file btn-block">
                     Upload <input type="file" onChange={(e) => {
                                           var file = e.target.files[0];
                                           console.log('File to be uploaded ' , file ) ; 
 
                                           this.setState({
-                                            pic : file
+                                            pic : file  , picName : file.name
                                           })
                                           
                                         }} accept=".jpg,.jpeg,.png" style={displayNone}/>
@@ -104,7 +136,7 @@ class addProduct extends Component {
 
               <div className="  col-md-12 col-sm-12 col-lg-12 text-right">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
-                 <div className="form-group col-md-6 col-sm-6 col-lg-6">{this.state.pic.name}</div>
+                 <div className="form-group col-md-6 col-sm-6 col-lg-6">{this.state.picName}</div>
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
               </div>
               
@@ -113,7 +145,7 @@ class addProduct extends Component {
               <div className=" outline col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
-                    <label htmlFor="desc">Description</label>
+                    <label htmlFor="desc" className="text-category">Description</label>
                     <textarea rows="3"  value={this.state.desc}  onChange={(e) => {
                               this.setState({
                                 desc : e.target.value
@@ -126,7 +158,7 @@ class addProduct extends Component {
               <div className=" outline col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
-                    <label htmlFor="category">Category</label>
+                    <label htmlFor="category" className="text-category">Category</label>
                     <select value={this.state.category}  onChange={(e) => {
                               this.setState({
                                 category : e.target.value
@@ -161,7 +193,7 @@ class addProduct extends Component {
                 <div className="form-group col-md-6 col-sm-6 col-lg-6">
                     <p className="text-red">{this.state.addProductClientError}</p>
                     <p className="text-red">{this.state.addProductServerError}</p>
-                    <p className="Spinner"><Loading isLoading={this.state.loading} ></Loading></p>
+                    
                  </div>
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
               </div>
@@ -169,32 +201,11 @@ class addProduct extends Component {
 
               <div className=" col-md-12 col-sm-12 col-lg-12 ">
                  <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
-                <div className="form-group col-md-6 col-sm-6 col-lg-6">
+                <div  className="add-product-submit-div form-group col-md-6 col-sm-6 col-lg-6">
                     
                     {
                           this.state.loading === false ? 
-                           <button className="btn btn-success sharpButton"  onClick={() => {
-                                    if(this.state.productName === ""){
-                                      this.setState({ addProductClientError : 'Please specify Product Name '});
-                                      return
-                                    }
-                                    if(this.state.desc === ""){
-                                      this.setState({ addProductClientError : 'Please provide some description '})
-                                       return
-                                    }
-                                    if(this.state.category === ""){
-                                       this.setState({ addProductClientError : 'Category is must'})
-                                       return
-                                    }
-
-                                    this.props.setBackProductSuccess();
-
-                                    this.setState({ addProductClientError : '' , loading : true})
-
-
-                                      this.props.addNewProduct(this.props.user.email 
-                                      , this.state.productName , this.state.desc , this.state.category, this.state.pic) ;
-                        }} >Submit</button>
+                           <button className="btn btn-success btn-block sharpButton add-product-submit"  onClick={this.submitProduct.bind(this)} >Submit</button>
 
                         :
 
@@ -203,7 +214,7 @@ class addProduct extends Component {
 
                    
                  </div>
-                 <div className="form-group col-md-3 col-sm-3 col-lg-3"></div>
+                 <div className="form-group col-md-3 col-sm-3 col-lg-3 "></div>
               </div>
               
               

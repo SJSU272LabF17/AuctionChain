@@ -3,40 +3,156 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 import {getCurrentProductAuctioned} from '../actions/product_listing_action'
 import {placeBid , closeBid } from '../actions/bidding'
+import  NotificationSystem from 'react-notification-system'
+import Loader from 'react-loader'
 
 class LiveAuction extends Component {
   
     constructor(props){
       super(props);
 
+      this._notificationSystem = null ; 
+
       this.state={
         listingId : this.props.location.pathname.indexOf('/productDetails/') === -1 ? '' : 
-                   this.props.location.pathname.replace('/productDetails/' , '')  , 
-        bidAmount : 0 
+        this.props.location.pathname.replace('/productDetails/' , '')  , 
+        bidAmount : 0 ,
+        bidError : '' ,
+        isLoaded: false
+        
       }
+
+      this._addNotification = this._addNotification.bind(this) ; 
     }
 
-    componentWillMount(){
+    
+
+    _addNotification( type, message ) {
+      switch(type) {
+            case  'Success' : {
+               this._notificationSystem.addNotification({
+                            message: message,
+                            level: 'info',
+                            position : 'bc' ,
+                            autoDismiss : 4
+              });
+               break
+             }
+              case  'Error' : {
+               this._notificationSystem.addNotification({
+                            message: message,
+                            level: 'error',
+                            position : 'bc',
+                            autoDismiss : 4
+              });
+               break
+             }
+        }
+    }
+
+
+    componentDidMount(){
       if(this.state.listingId !== ""){
-        console.log("Calling all the data " , this.state.listingId) ;
         this.props.getCurrentProductAuctioned(this.state.listingId)
       }
     }
 
+
+
     componentWillReceiveProps(newProps){
+    
+      if(newProps.bidSuccess != null && newProps.bidSuccess == true ){
+        this._addNotification("Success" , "Bid Submitted Successfully") ;
+        this.setState({ bidAmount : 0  , isLoaded : false})
+
+        newProps.getCurrentProductAuctioned(this.state.listingId) ;
+        newProps.setBackBidSuccess() ;
+      }
+
+      if(newProps.bidSuccess != null && newProps.bidSuccess == false){
+        this.setState({ isLoaded : false  }) ;
+        this._addNotification("Error" , "Failed to Submit the Bid") ;
+        newProps.setBackBidSuccess() ;
+      }
+
+
+
      /* var self = this ; 
              setInterval(function(){
                 self.props.getCurrentProductAuctioned(self.state.listingId)
-             } , 15000)*/
+              } , 15000)*/
     
     }
 
+
+    placeBid(){
+
+          
+          if(this.state.bidAmount < Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )){
+            this._addNotification("Error" , "Please check the expected least amount to bid") ;
+            return 
+          }
+          
+          this.setState({ isLoaded : true} );
+        this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
+    }
+
+
+
+
+   
+
     render() {
-      console.log("Current suction product " , this.props.currentAuctionedProduct)
-     
+      
+      var options = {
+          lines: 13,
+          length: 20,
+          width: 10,
+          radius: 30,
+          scale: 1.00,
+          corners: 1,
+          color: '#000',
+          opacity: 0.25,
+          rotate: 0,
+          direction: 1,
+          speed: 1,
+          trail: 60,
+          fps: 20,
+          zIndex: 2e9,
+          top: '50%',
+          left: '50%',
+          shadow: false,
+          hwaccel: false,
+          position: 'absolute'
+      };
+
+
+     var options = {
+          lines: 13,
+          length: 20,
+          width: 10,
+          radius: 30,
+          scale: 1.00,
+          corners: 1,
+          color: '#000',
+          opacity: 0.25,
+          rotate: 0,
+          direction: 1,
+          speed: 1,
+          trail: 60,
+          fps: 20,
+          zIndex: 2e9,
+          top: '50%',
+          left: '70%',
+          shadow: true,
+          hwaccel: false,
+      };
+
+      
       return (
         <div className="auction-main-div">
           
+            <NotificationSystem ref={n => this._notificationSystem = n} />
 
 
             {
@@ -67,21 +183,38 @@ class LiveAuction extends Component {
                                <div className="bid-action-div-content"> 
                                   
                                   <div className="current-max-bid-div">
-                                    Current Bid : {this.props.currentAuctionedProduct.offers[0].bidPrice}
+
+                                    Current Bid-Price : { this.props.currentAuctionedProduct.offers[0] == undefined ? 
+                                                          this.props.currentAuctionedProduct.maxBidPrice :
+                                                          this.props.currentAuctionedProduct.offers[0].bidPrice
+
+                                                      }
                                   </div>
                                   <div>
-                                          <span><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
-                                          <input className="bidPriceTextBox" id="carid" type="number"  onChange={(e) => {
+                                          
+                                          <input className="bidPriceTextBox" id="carid" type="number" value={this.state.bidAmount}  onChange={(e) => {
                                             this.setState({
                                               bidAmount : e.target.value
                                             })
-                                          }} aria-describedby="basic-addon1"  placeholder="Enter Bid Amount" />
-                                      <label onClick={() => {
-                                        this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
-                                      }}className="btn btn-primary btn-circle btn-xs lable-margin"><span className="glyphicon glyphicon-ok"></span></label>
+                                          }} aria-describedby="basic-addon1"  />
+                                          <span onClick={this.placeBid.bind(this)}><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
+
+                                           <div>
+                                                  <Loader loaded={!this.state.isLoaded} options={options}>
+                                                    <div className="loaded-contents"></div>
+                                                  </Loader>
+                                          </div>
+                                    
                                   </div>
                                   <div className="bid-suggestion">
-                                    Enter US {this.props.currentAuctionedProduct.offers[0].bidPrice * 1.01} or more
+                                    <span className="text-red">Enter USD { this.props.currentAuctionedProduct.offers[0] == undefined ? 
+                                                          this.props.currentAuctionedProduct.maxBidPrice :
+                                                          Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )
+
+                                                      } or more</span>
+                                  </div>
+                                  <div className="bid-suggestion">
+                                    <span className="text-red">{this.state.bidError}</span>
                                   </div>
                                   <div className="shipping">
                                     Shipping: $23.00 Economy Shipping
@@ -92,7 +225,8 @@ class LiveAuction extends Component {
                      
                     </div>
                     <div className="auction-main-div-container-subdiv2 col-md-3 col-lg-3 col-sm-3 col-xs-3">
-                      
+                        
+                         
                        <div>
                         <span className="name">{this.props.currentAuctionedProduct.productName }</span> 
                        </div>
@@ -105,6 +239,11 @@ class LiveAuction extends Component {
 
                     </div>
                     <div className="auction-main-div-container-subdiv3 col-md-5 col-lg-5 col-sm-5 col-xs-5">
+
+                    <div className="individualAuctionDivHead" > 
+                        <span className="auction-heading">Auction Status</span>
+                    </div>
+
                       {
                           this.props.currentAuctionedProduct.offers.map((offer , key) => {
                             
@@ -143,7 +282,8 @@ function mapDispatchToProps(dispatch){
     return {
       getCurrentProductAuctioned : (listingId) => dispatch(getCurrentProductAuctioned(listingId)),
       placeBid : (email , amount , listingId) => dispatch(placeBid(email , amount , listingId)) , 
-      closeBid : (listingId) => dispatch(closeBid(listingId))
+      closeBid : (listingId) => dispatch(closeBid(listingId)) ,
+      setBackBidSuccess : () => dispatch({ type : 'SET_BACK_BID_SUCCESS' })
     }
   }
 
@@ -152,7 +292,9 @@ function mapDispatchToProps(dispatch){
         isAuthenticated : state.AuthReducer.isAuthenticated,
         currentAuctionedProduct : state.ProductListingReducer.currentAuctionedProduct ,
         user : state.AuthReducer.user,
-        serverURL : state.AuthReducer.nodeServerURL
+        serverURL : state.AuthReducer.nodeServerURL ,
+        bidSuccess : state.bidding.bidSuccess
+
       };
   }
 

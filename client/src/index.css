@@ -537,7 +537,8 @@ padding-top: 20px ;
 
 
  .auction-main-div .auction-main-div-container{
-  width : 750px
+  width : 750px ;
+  box-shadow: 1px 1px 1px 1px #DCDCDC ; 
  }
 
 
@@ -552,7 +553,7 @@ padding-top: 20px ;
 }
 
 .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .current-max-bid-div{
-  margin-left: 30px ;
+ 
   color : darkcyan;
   font-size: 15px ;
 
@@ -560,22 +561,23 @@ padding-top: 20px ;
 
 
 .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .bid-suggestion{
-  margin-left: 13px ; 
+  
   font-size: 12px ;
   color : darkcyan;
 }
 
 
+.auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content {
+  padding-left: 30px
+}
+
+
 .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv .bid-action-div .bid-action-div-content .shipping{
  
-  font-size: 16px ;
-  color : darkcyan;
-  width : 200px;
-  margin-top: 40px ; 
-  border-top : 1px solid #d8d8d8;
-  text-align: center;
-
-
+  font-size: 15px ;
+  color : #9F139F;
+  width : 300px;
+  margin-top: 140px ; 
 }
 
 
@@ -603,6 +605,7 @@ padding-top: 20px ;
    background-color: white ; 
       border-left: 1px solid #e4e5ea;
       max-height : 500px;
+      min-height : 500px;
       overflow-y:scroll;
       color: darkcyan
  }
@@ -613,6 +616,18 @@ padding-top: 20px ;
     padding: 10px
   }
 
+ .individualAuctionDivHead .auction-heading{
+    font-size: 20px
+  }
+
+  
+ .individualAuctionDivHead {
+  text-align: center;
+   border-bottom: 1px solid #d8d8d8;
+    padding: 15px ;
+    background-color: #333 ;
+    color : white;
+ }
 
 
  .individualAuctionDiv .offer-timestamp{
@@ -625,7 +640,8 @@ padding-top: 20px ;
 
 .bidImage{
   margin-right: 7px ;
-  border-radius: 50%
+  border-radius: 50% ;
+  color : rosybrown;
 }
 
 
@@ -719,3 +735,53 @@ transition-delay: 0.175s;
 -moz-transition-delay: 0.175s;
 }
 
+
+
+
+.add-product-submit-div{
+  text-align: right
+}
+
+
+.add-product-submit{
+  background-color: #165261 ; 
+
+}
+
+
+.text-category{
+  color: #165261 ;
+  font-weight: normal
+}
+
+
+.btn-file{
+   
+   background-color: #165261
+}
+
+.enter-product-details{
+  color: darkgrey
+}
+
+
+.message {
+  padding : 20px;
+  background-color:  lightgreen;
+  width: 230px ;
+  border-radius: 5%
+}
+
+
+.notification{
+background-color: red
+  } 
+
+  .notification-info{
+    background-color: red
+  } 
+
+
+.notification-visible{
+  background-color: red
+}
