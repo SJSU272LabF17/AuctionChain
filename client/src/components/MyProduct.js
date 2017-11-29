@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux' ; 
 import {getAllUserProduct  } from '../actions/product_action'
-
 import MyProductList from './MyProductList'
+import Loader from 'react-loader'
+
 
 class myProduct extends Component {
   
@@ -14,46 +15,69 @@ class myProduct extends Component {
         productName : '' ,
         pic : {name : ''} ,
         desc : '' ,
-        category : ''
+        category : '' ,
+
+        isLoaded: false ,
+
+        loaderOptions : {
+            color: '#894EA2'
+        }
+
       }
+
     }
 
 
-    componentWillMount(){
+   
+
+
+    componentDidMount(){
       if(!this.props.isAuthenticated){
         this.props.history.push('/')
       }else{
+        this.setState({isLoaded : true })
         this.props.getAllUserProduct(this.props.user.email);
       }
     }
 
- 
+  
+
+    componentWillReceiveProps(newProps){
+        if(newProps.myProducts != null){
+          this.setState({isLoaded : false })
+        }
+    }
+
 
     render() {
 
 
-      const listOfProducts = this.props.myProducts.map((product , key) => {
-        return <MyProductList key={key} product={product}></MyProductList>
-      })
-
-      const displayNone = {
-        display : "none"
-      }
+     
       
       
       return (
          <div className="rightDiv">
             <section className="sectionattr">
-              <ul className="ulattr">
-                
-               {
-                this.props.myProducts == null ? <h2>LOADING... </h2> :
 
-                 listOfProducts               
-              }
-        
-                
-              </ul>
+               
+                <div>
+                  <Loader loaded={!this.state.isLoaded} options={this.state.loaderOptions} >
+                    <div className="loaded-contents"></div>
+                  </Loader>
+                </div>
+
+                <ul className="ulattr">
+                  
+                 {
+                     this.props.myProducts == null ? <span></span> :
+
+                     this.props.myProducts.map((product , key) => {
+                                  return <MyProductList key={key} product={product}></MyProductList>
+                                })              
+                 }
+          
+                  
+                </ul>
             
             </section>
           </div>

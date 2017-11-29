@@ -124,7 +124,7 @@ class LiveAuction extends Component {
     render() {
       
      
-
+      
 
       return (
         <div className="auction-main-div">
@@ -150,14 +150,14 @@ class LiveAuction extends Component {
                         {
                           this.props.user == null ? 
                            (<div> 
-                              <span className="text-red">Login To Bid</span>
+                              <h4 className="text-red">Login To Bid</h4>
                             </div> )
                            : 
 
 
                              ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
                               <div >
-                                <button className="btn btn-danger sharpCorner" onClick={() => {
+                                <button className="btn btn-danger closeBidButton" onClick={() => {
                                   this.props.closeBid(this.state.listingId) ; 
                                 }}>Close Bid</button>
                               </div>
@@ -223,21 +223,23 @@ class LiveAuction extends Component {
                         <span className="auction-heading">Auction Status</span>
                     </div>
 
-                      {
-                          this.props.currentAuctionedProduct.offers.map((offer , key) => {
-                            
-                            return <div className="individualAuctionDiv" key={key}> 
-                              
-                              <span className="glyphicon glyphicon-circle-arrow-right individualAuctionGlyph"></span>
-                              <span className="individualAuctionGlyph">{offer.email}</span>
-                              <span className="individualAuctionGlyph"><span className="dollarSign">$</span>{offer.bidPrice}</span> 
-                              <input className="offer-timestamp" type="text" onChange={() => {
+                         <div className="scrollable-div">
+                            {
+                                this.props.currentAuctionedProduct.offers.map((offer , key) => {
+                                  
+                                  return <div className="individualAuctionDiv" key={key}> 
+                                    
+                                    <span className="glyphicon glyphicon-circle-arrow-right individualAuctionGlyph"></span>
+                                    <span className="individualAuctionGlyph">{offer.email}</span>
+                                    <span className="individualAuctionGlyph"><span className="dollarSign">$</span>{offer.bidPrice}</span> 
+                                    <input className="offer-timestamp" type="text" onChange={() => {
 
-                              }} value={offer.timestamp} />
-                               </div>
-                            })  
+                                    }} value={offer.timestamp} />
+                                     </div>
+                                  })  
 
-                        } 
+                              } 
+                        </div>
                     </div>
                 </div>
 

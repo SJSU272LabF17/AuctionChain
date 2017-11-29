@@ -18,7 +18,7 @@ export function getAllProducts(category){
 	   	    })
 
 	  		}).then(function (response) {
-			        console.log("Response from server " , response);
+
 			      	response.json().then(res => {
 					dispatch({ type : 'GET_ALL_PRODUCTS' , payload : res})
 				})

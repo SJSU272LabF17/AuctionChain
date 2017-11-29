@@ -4,16 +4,62 @@ const headers = {
     'Accept': 'application/json'
 };
 
+
+
+
+//delete Product
+
+export function deleteProduct(id  ){
+		
+		return function(dispatch){
+
+
+			fetch(url + 'deleteProduct', {
+	        method: 'POST',
+	        credentials:'include',
+
+			body :    JSON.stringify({
+	   	    			"pid" : id ,
+	   	    	})
+			}).then(function (response) {
+			        
+			    if(response.status == 200){
+			    	dispatch({ type : 'PRODUCT_DELETE_SUCCESS' , payload : true })
+			    }else{
+			    	dispatch({ type : 'PRODUCT_DELETE_FAILURE' , payload : false})
+			    }
+												        
+	   		})
+	        .catch(error => {
+	        	dispatch({ type : 'PRODUCT_DELETE_FAILURE' , payload : false})
+	            
+	        })
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //add Product
 
 
 export function setBackProductSuccess(){
-	return {type : 'PRODUCT_ADD_SET_BACK' , payload : null}
+	return {type : 'PRODUCT_ADD_SET_BACK' }
 }
 
 export function addNewProduct(email , productName , productDesc , productCategory, pic  ){
-	console.log( email , productName , productDesc , productCategory ) ; 
-
 		return function(dispatch){
 
 			var data = new FormData();
@@ -27,27 +73,16 @@ export function addNewProduct(email , productName , productDesc , productCategor
 	        method: 'POST',
 	        credentials:'include',
 			body: data
-			//    JSON.stringify({
-	   	    // 			"email" : email ,
-	   	    // 			"productName" : productName,
-	   	    // 			"productDesc" : productDesc ,
-	   	    // 			"productCategory" : productCategory
-			//    })
-
-	  		}).then(function (response) {
-			        console.log("Response from server " , response);
-			      response.json().then(res => {
-					  
-				
-			      	
-			      dispatch({ type : 'PRODUCT_ADD_SUCCESS' , payload : true })
-
-			      	
-				})
-																		        
-	   		})
+			}).then(function (response) {
+			       if(response.status == 200){
+			       		 dispatch({ type : 'PRODUCT_ADD_SUCCESS' })
+			       }else{
+			       		dispatch({ type : 'PRODUCT_ADD_FAILURE' })
+			       }	
+			     
+			})
 	        .catch(error => {
-	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
+	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' })
 	            
 	        })
 		}
@@ -58,8 +93,6 @@ export function addNewProduct(email , productName , productDesc , productCategor
 //Get All User Products
 
 export function getAllUserProduct(email  ){
-	console.log( email ) ; 
-
 		return function(dispatch){
 			fetch(url + 'getAllUserProducts', {
 	        method: 'POST',

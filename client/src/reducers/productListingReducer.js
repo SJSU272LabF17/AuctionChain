@@ -16,7 +16,7 @@ export default function productListingReducer (state=initialState , action )  {
 			return  {...state , productList :  action.payload , currentAuctionedProduct : null} ; 
 		}
 		case 'GET_CURRENT_AUCTIONED_PRODUCT_SUCCESS' : {
-			return  {...state , currentAuctionedProduct :  action.payload , productList : []} ; 
+			return  {...state , currentAuctionedProduct :  action.payload , productList : null} ; 
 		}
 
 

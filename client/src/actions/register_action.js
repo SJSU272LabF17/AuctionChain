@@ -6,8 +6,6 @@ const headers = {
 };
 
 export function register(username , password , fname , lname  ){
-	console.log(username , password , fname , lname  ) ; 
-
 		return function(dispatch){
 			fetch(api + 'register', {
 	        method: 'POST',
@@ -26,13 +24,8 @@ export function register(username , password , fname , lname  ){
 	   	    })
 
 	  		}).then(function (response) {
-			        console.log("Response from server " , response);
 			      response.json().then(res => {
-			      	
-			      	
-			      dispatch({ type : 'REGISTERED' , payload : res})
-
-			      	
+			      dispatch({ type : 'REGISTERED_FAIL' , payload : res})
 				})
 																		        
 	   		})
@@ -41,17 +34,9 @@ export function register(username , password , fname , lname  ){
 	        		registered : false ,
 	        		registeredError : "Internal Server error "
 	        	}
-	        	 dispatch({ type : 'REGISTERED_FAIL' , payload : res})
-	        	
-	            console.log("This is error");
-	            
+	        	dispatch({ type : 'REGISTERED_FAIL' , payload : res})
 	        })
 		}
-
-
-		
-	
-
 }
 
 
@@ -66,7 +51,6 @@ export function setBackRegisteredSuccess(){
 
 
 export function login(username , password ){
-		console.log("---------" , username , password)
 		return function(dispatch){
 			fetch(api + 'login', {
 	        method: 'POST',

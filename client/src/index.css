@@ -13,6 +13,7 @@ body {
     border-radius: 4px;
     background-color: white ;
     padding: 20px ;
+    box-shadow: 1px 1px 1px 1px #DCDCDC ; 
     
 }
 
@@ -49,7 +50,8 @@ body {
 }
 
 .registrationDiv{
-  margin-left: 25px
+  margin-left: 25px ;
+  margin-top: 20px
 }
 
 #usernameExistDiv{
@@ -185,6 +187,7 @@ body {
     padding-top: 20px ;
     padding-bottom: 20px ;
     box-shadow: 1px 1px 1px 1px #DCDCDC ; 
+    height : 650px;
 
   }
 
@@ -265,6 +268,7 @@ body {
   .PutOnAuctionDiv{
     margin-left: 250px ; 
     background-color : white;
+
   }
 
 
@@ -322,7 +326,7 @@ padding-top: 20px ;
     height: 200px;
     border-radius: 5% ;
     margin-left: 20px;
-    margin-top: 5px;
+    margin-top: 20px;
      border : 1px solid lightgrey;
   } 
 
@@ -358,23 +362,27 @@ padding-top: 20px ;
   }
 
   .login-close{
-    margin-left: 90px;
+    margin-left: 0px;
   }
 
-  .login{
 
+
+  .login{
+  
   }
 
   .putonAuctionButtonDiv{
+    width : 150px;
     border-left: 1px solid #e4e5ea;
-    height: 100px
+    height: 100px ;
+    text-align: center;
   }
 
 
 
   .auctionImage{
     font-size: 2.5em ;
-        margin-left: 60px;
+        margin-left: 20px;
     margin-top: 35px
   }
 
@@ -508,7 +516,7 @@ padding-top: 20px ;
 
 .registerTextModal{
   border-right: 1px solid#888;
-  height: 330px;
+  height: 340px;
     width: 150px;
 }
 
@@ -586,7 +594,7 @@ padding-top: 20px ;
  .auction-main-div .auction-main-div-container  .auction-main-div-container-subdiv2{
    padding-left: 0 ;
    padding-right: 0 ;
-   padding-top: 5px
+   padding-top: 20px
 
  }
 
@@ -608,7 +616,7 @@ padding-top: 20px ;
       border-left: 1px solid #e4e5ea;
       max-height : 500px;
       min-height : 500px;
-      overflow-y:scroll;
+      
       color: darkcyan
  }
 
@@ -631,6 +639,11 @@ padding-top: 20px ;
     color : white;
  }
 
+.scrollable-div{  
+  overflow-y:scroll;
+  max-height : 430px ;
+  min-height: 430px
+}
 
  .individualAuctionDiv .offer-timestamp{
     
@@ -795,6 +808,90 @@ background-color: red
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 9999;
+  background: white;
+  opacity:0.9
+}
+
+
+.closeBidButton{
+  border-radius: 0px ;
+  min-width: 180px ;
+  margin-top: 210px ;
+
+}
+
+
+
+
+
+
+.image-preview-input {
+    position: relative;
+  overflow: hidden;
+  margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+
+
+
+.image-preview-input{
+  background-color: #165261 ;
+  color : white;
+}
+
+
+.clearButton{
+  background-color: #CD1306;
+    color: white;
+}
+
+
+.login-div{
+  background-color: whitesmoke
+}
+
+
+.registration-main-div{
+  background-color: whitesmoke
+}
+
+.register-cancel{
+  margin-left: 15px ;
+  min-width: 74px
+}
+
+
+
+.topRightPadd{
+  padding-top: 10px ;
+  padding-right: 10px
+}
+
+
+
+ .loader-div .loader {
+  position: fixed;
+  top: 25%;
+  right: 50%;
+  bottom: 75%;
+  left: 50%;
   z-index: 9999;
   background: white;
   opacity:0.9

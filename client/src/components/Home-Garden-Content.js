@@ -23,24 +23,26 @@ class HomeGardenContent extends Component {
       }
     }
 
-    componentDidMount(){
-       console.log("New files found Did mount "  , this.props.listOfProducts  ) ; 
-      if(this.props.listOfProducts == null ){
+    componentWillMount(){
+       console.log("New files found Did mount "  , this.props.productList  ) ; 
+      
          this.props.getAllProducts(this.state.category);
          this.setState({isLoaded : true })
-      }
+      
      
     }
 
 
-    componentWillReceiveProps(newProps){
-      console.log("New files found "  , newProps.listOfProducts  ) ; 
-      if(newProps.listOfProducts != null ){
+
+ 
+   componentWillUpdate(nextProps, nextState) {
+      if(nextProps.productList != null && this.state.isLoaded === true ){
         this.setState({ isLoaded : false })
       }
-    }
+   }
+  
 
-
+    
     render() {
       
       
@@ -60,7 +62,11 @@ class HomeGardenContent extends Component {
                     {
                        this.props.productList == null ?  <span /> : 
 
-                       this.props.productList.map((product , key ) => {
+                       (
+
+                        this.props.productList.length == 0 ? <h3>No Products to display</h3>
+                        :
+                        this.props.productList.map((product , key ) => {
                                          return <div  onClick={() => {
                                                               var url = '/productDetails/' + product.productListingId ; 
                                                               this.props.history.push(url) ; 
@@ -90,6 +96,8 @@ class HomeGardenContent extends Component {
 
                                         </div>
                                   })
+
+                        )
                     }  
                   </div>
             </div>

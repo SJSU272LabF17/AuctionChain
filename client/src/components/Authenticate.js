@@ -3,7 +3,9 @@ import { connect } from 'react-redux' ;
 import {register , setBackRegisteredSuccess , login , checkIfAlreadyLoggedIn , logout , setBackLoginSuccess } from '../actions/register_action'
 import Modal from 'react-modal'
 import { Modal as BootStrapModal } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom' ;
+import Loader from 'react-loader'
+import  NotificationSystem from 'react-notification-system'
 
 export default function(InnerComponent){
    class Authenticate extends Component{
@@ -23,41 +25,89 @@ export default function(InnerComponent){
 		      usernameLogin : '' , 
       		  passwordLogin : '' ,
       		  loginError : '' ,
-      		  errorLoginServer : ''
+      		  errorLoginServer : '' ,
+
+      		  isLoaded: false ,
+
+	        loaderOptions : {
+	            color: '#D5E0E8'
+	        }
 		}
+		 this._addNotification = this._addNotification.bind(this) ; 
 	}
 
-	componentWillMount(){
-		console.log("Initial")
-	}
+	 _addNotification( type, message ) {
+      switch(type) {
+            case  'Success' : {
+               this._notificationSystem.addNotification({
+                            message: message,
+                            level: 'info',
+                            position : 'tr' ,
+                            autoDismiss : 4
+              });
+               break
+             }
+              case  'Error' : {
+               this._notificationSystem.addNotification({
+                            message: message,
+                            level: 'error',
+                            position : 'tr',
+                            autoDismiss : 4
+              });
+               break
+             }
+             case  'Info' : {
+               this._notificationSystem.addNotification({
+                            message: message,
+                            level: 'success',
+                            position : 'tr',
+                            autoDismiss : 4
+              });
+               break
+             }
+        }
+    }
+
+	
 
 	 componentWillReceiveProps(newProps) {    
      
-      if(newProps.register_success){
-      	this.setState({
-      		modalIsOpen : false
-      	})
+	 	if(newProps.register_success == true ){
+	 		this.setState({
+	 			modalIsOpen : false , 
+	 			isLoaded : false
+	 		})
 
-      	this.props.setBackRegisteredSuccess();
-	   }
+	 		this.props.setBackRegisteredSuccess();
+	 		this._addNotification("Success" , "Successfully Registered !!! Please login")
+	 	}
 
+	 	if(newProps.register_success == false ){
+	 		this.setState({
+	 			isLoaded : false , 
 
+	 		})
+	 		this.props.setBackRegisteredSuccess();
+		}
 
+	 	if(this.props.isAuthenticated === true ){
+	 		
+	 		this.setState({
+	 			modalIsOpenLogin : false ,
+	 			errorLoginServer : '',
+	 			isLoaded : false 
+	 		})
 
+	 	}
 
-      if(this.props.isAuthenticated === true ){
-      	this.setState({
-      		modalIsOpenLogin : false ,
-      		errorLoginServer : ''
-      	})
-      }
+	 	
 
-      console.log("Login incoreect or not  ?? " , this.props.isAuthenticated)
+	 	if(this.props.isAuthenticated === false){
+	 		this.setState({ errorLoginServer : 'Username or password is incorrect' , isLoaded : false })
+	 		
+	 	}
 
-      if(this.props.isAuthenticated === false){
-      		this.setState({ errorLoginServer : 'Username or password is incorrect'})
-      		this.props.setBackLoginSuccess() ; 
-      }
+	 	
 
 
    }
@@ -69,26 +119,35 @@ export default function(InnerComponent){
      	 }
 
      	 if(this.props.isAuthenticated === true &&  this.state.modalIsOpenLogin === true ){
+     	 	console.log("Hiii 1")
 	      	this.setState({
 	      		modalIsOpenLogin : false ,
-	      		errorLoginServer : ''
+	      		errorLoginServer : '',
+	      		isLoaded : false 
 	      	})
+	      	this._addNotification("Success" , "Welcome " + this.props.user.email  ) ;
 	      }
+
+
+	 	if(this.props.isAuthenticated == null && this.props.logoutVar == true ){
+	 		this._addNotification("Info" , "Successfully logged out");
+	 		this.props.setBackLoggedOut() ; 
+
+	 	}
    }
 
 
 	onChangeUsernameLogin(e){
-    
-    this.setState({
-      usernameLogin : e.target.value
-    })
-  }
+      this.setState({
+	      usernameLogin : e.target.value
+	    })
+	  }
  
  	 onChangePasswordLogin(e){
-    this.setState({
-      passwordLogin : e.target.value
-    })
-  }
+	    this.setState({
+	      passwordLogin : e.target.value
+	    })
+	  }
 
 	 onChangeUsername(e){
     
@@ -119,6 +178,55 @@ export default function(InnerComponent){
       	e.preventDefault()
    	  }
 
+
+   	  login(){
+   	  	this.props.setBackLoginSuccess() ; 
+   	  	this.setState({ errorLoginServer : '' , isLoaded : true })
+   	  	this.props.login(this.state.username , this.state.password)
+	  }
+
+   	  
+
+   	  register(){
+   	  	this.props.setBackRegisteredSuccess();
+		var username_regex = /^[a-z0-9]{3,20}$/i ; 
+   	  		var name_regex = /^[a-z]{3,20}$/i ;
+   	  		var lname_regex = /^[a-z]{3,20}$/i ;
+   	  		var password_regex = /^[a-z0-9]{5,20}$/i ; 
+
+   	  		if(!username_regex.test(this.state.username)){
+   	  			this.setState({
+   	  				error : 'Username should be alpha-numeric and 5-20 characters'
+   	  			})
+   	  			return ;
+   	  		}
+   	  		if(!password_regex.test(this.state.password)){
+   	  			this.setState({
+   	  				error : 'Password should be alpha-numeric and 5-20 characters'
+   	  			})
+   	  			return ;
+   	  		}
+   	  		if(!name_regex.test(this.state.fname)){
+   	  			this.setState({
+   	  				error : 'First Name should contain only letters and 5-20 characters only'
+   	  			})
+   	  			return ;
+   	  		}
+   	  		if(!lname_regex.test(this.state.lname)){
+   	  			this.setState({
+   	  				error : 'Last Name should contain only letters and 5-20 characters only'
+   	  			})
+   	  			return ;
+   	  		}
+
+   	  		this.setState({error : '' , isLoaded : true })
+
+   	  		this.props.register(this.state.username,
+   	  			this.state.password,
+   	  			this.state.fname,
+   	  			this.state.lname)
+	}
+
 	
    render(){
 
@@ -133,11 +241,20 @@ export default function(InnerComponent){
 	      }
 	    };
 		return(
+
 			<div className="totalBackGround">
 			<div >
 			<nav className="navbar navbar-inverse ">
 			<div className="container-fluid">
 			<div className="navbar-header">
+
+			 <div className="loader-div">
+              <Loader loaded={!this.state.isLoaded}  options={this.state.loaderOptions} >
+                <div className="loaded-contents"></div>
+              </Loader>
+            </div>
+
+             <NotificationSystem ref={n => this._notificationSystem = n} />
 
 			{
 				this.props.isAuthenticated === true ? 
@@ -208,7 +325,7 @@ export default function(InnerComponent){
 
 	            	<BootStrapModal.Footer>
 
-	            		<div className="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+	            		<div className="registration-main-div col-md-12 col-lg-12 col-sm-12 col-xs-12">
 					             					<div className="registerTextModal col-md-4 col-lg-4 col-sm-4 col-xs-4">
 
 					             							<span className="RegisterHeading"><h3 className="273Heading">CMPE 272</h3></span>
@@ -272,65 +389,20 @@ export default function(InnerComponent){
 														          
 														          
 														          
-														          <div className="row topPadd">
+														          <div className="row topRightPadd">
 														          <div className='form-group'>
 														           
 														            <div className='col-lg-5 col-md-5 col-sm-5'>
 														            </div>
 														            <div className='col-lg-4 col-md-4 col-sm-4'>
-														              <button className='btn btn-info sharpButton' onClick={() => {
-														                      
-														                      var username_regex = /^[a-z0-9]{3,20}$/i ; 
-														                      var name_regex = /^[a-z]{3,20}$/i ;
-														                      var lname_regex = /^[a-z]{3,20}$/i ;
-														                      var password_regex = /^[a-z0-9]{5,20}$/i ; 
-
-														                      console.log(this.state.username,
-														                                this.state.password,
-														                                this.state.fname,
-														                                this.state.lname,
-														                                this.state.dob,
-														                                this.state.gender)
-
-
-														                      if(!username_regex.test(this.state.username)){
-														                        this.setState({
-														                          error : 'Username should be alpha-numeric and 5-20 characters'
-														                        })
-														                        return ;
-														                      }
-														                      if(!password_regex.test(this.state.password)){
-														                        this.setState({
-														                          error : 'Password should be alpha-numeric and 5-20 characters'
-														                        })
-														                        return ;
-														                      }
-														                      if(!name_regex.test(this.state.fname)){
-														                        this.setState({
-														                          error : 'First Name should contain only letters and 5-20 characters only'
-														                        })
-														                        return ;
-														                      }
-														                      if(!lname_regex.test(this.state.lname)){
-														                        this.setState({
-														                          error : 'Last Name should contain only letters and 5-20 characters only'
-														                        })
-														                        return ;
-														                      }
-														                      
-														                      
-														                      this.props.register(this.state.username,
-														                                this.state.password,
-														                                this.state.fname,
-														                                this.state.lname)
-
-
-														                    }}>Submit</button>
+														              
+														              <button onClick={() => {
+														            		this.props.setBackRegisteredSuccess(); 
+									                      					this.setState({modalIsOpen: false , isLoaded : false});
+									                      				}} className="btn btn-danger register-cancel sharpButton">Close</button>
 														            </div>
 														            <div className='col-lg-3 col-md-3 col-sm-3'>
-														            	<button onClick={() => {
-									                      				this.setState({modalIsOpen: false});
-									                      				}} className="btn btn-danger sharpButton">Close</button>
+														            	<button className='btn btn-info sharpButton' onClick={this.register.bind(this)}>Submit</button>
 														            </div>
 														          </div>
 														          </div>
@@ -343,7 +415,7 @@ export default function(InnerComponent){
 														        <div className='col-lg-5 col-md-5 col-sm-5'></div>
 														          
 														          <div className='col-lg-7 col-md-7 col-sm-7' id="usernameExistDiv">
-														            <span className="text-red"> <b>{this.props.registration_error}</b>  </span>
+														            <span className="text-red"> <b>{this.props.registration_error}{this.state.error}</b>  </span>
 														          </div>
 														          
 														        </div>
@@ -366,7 +438,7 @@ export default function(InnerComponent){
 
 					             			
 
-					             			<div className="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+					             			<div className="login-div col-md-12 col-lg-12 col-sm-12 col-xs-12">
 					             					<div className="loginTextModal col-md-4 col-lg-4 col-sm-4 col-xs-4">
 
 					             							<span className="loginHeading">CMPE 272</span>
@@ -403,21 +475,20 @@ export default function(InnerComponent){
 															</div>
 
 
-									                        <div className=' form-group'>
-									                          <div className='col-lg-4 col-sm-12 col-md-4 '></div>
-									                          <div className='col-sm-12 col-lg-2 col-md-2 text-right'>
-									                            <button className='btn btn-info sharpButton login-close' onClick={() => {
-									                            	console.log("Credentials " , this.state.usernameLogin , this.state.passwordLogin)
-									                            	this.props.setBackLoginSuccess() ; 
-									                            	this.setState({ errorLoginServer : ''})
-									                              this.props.login(this.state.username , this.state.password)
-									                            }}> Login</button>
-									                          </div>
-									                            <div className='col-lg-2 col-md-2 col-sm-12 text-right login-close'>
-															            	<button onClick={() => {
-										                      				this.setState({modalIsOpenLogin: false , errorLoginServer : ''});
-										                      				}} className="btn btn-default sharpButton">Close</button>
-															    </div>
+									                        <div className='row '>
+									                        
+										                          
+										                          <div className='col-lg-9 col-sm-9 col-md-9 col-xs-9'>
+										                            	<button onClick={() => {
+											                      				this.setState({modalIsOpenLogin: false , errorLoginServer : ''});
+											                      				}} className="btn btn-default login-close sharpButton">Close</button>
+										                          </div>
+										                           
+										                            <div className='col-lg-3 col-md-3 col-sm-3 col-xs-3 '>
+																            	
+										                            		<button className='btn btn-info sharpButton login' onClick={this.login.bind(this)}> Login</button>
+																            	
+																    </div>
 									                        </div>
 
 
@@ -447,7 +518,8 @@ export default function(InnerComponent){
 	  	setBackRegisteredSuccess : () => dispatch(setBackRegisteredSuccess()),
 	  	login : (username , password ) => dispatch(login(username , password )),
 	  	logout : () => dispatch(logout()) , 
-	  	setBackLoginSuccess : () => dispatch(setBackLoginSuccess())
+	  	setBackLoginSuccess : () => dispatch(setBackLoginSuccess()),
+	  	setBackLoggedOut : () => dispatch({type : 'USER_LOGGED_OUT_SET_BACK'})
 	  }
 	}
 
@@ -455,8 +527,9 @@ export default function(InnerComponent){
 	    return {
 	    	isAuthenticated : state.AuthReducer.isAuthenticated,
 	    	register_success : state.AuthReducer.register_success , 
-				registration_error : state.AuthReducer.registration_error,
-				user : state.AuthReducer.user
+	    	registration_error : state.AuthReducer.registration_error,
+	    	user : state.AuthReducer.user , 
+	    	logoutVar : state.AuthReducer.logout
 	    };
 	}
 
