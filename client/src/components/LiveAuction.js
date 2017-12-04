@@ -227,6 +227,7 @@ class LiveAuction extends Component {
                                       <div className="bid-suggestion">
                                         <span className="text-red">{this.state.bidError}</span>
                                       </div>
+                                      
                                       <div className="shipping">
                                         Shipping: $23.00 Economy Shipping
                                       </div>
@@ -258,8 +259,8 @@ class LiveAuction extends Component {
                     </div>
                     <div className="auction-main-div-container-subdiv3 col-md-5 col-lg-5 col-sm-5 col-xs-5">
 
-                    <div className="individualAuctionDivHead" > 
-                        <span className="auction-heading">Auction Status</span>
+                    <div className="individualAuctionDivHead"  > 
+                     <a><i onClick={() => this.props.getCurrentProductAuctioned(this.state.listingId)} className="fa fa-refresh" aria-hidden="true"><span className="auction-heading">Auction Status</span></i></a>
                     </div>
 
                          <div className="scrollable-div">

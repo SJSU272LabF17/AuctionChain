@@ -71,7 +71,8 @@ export default function(InnerComponent){
 	
 
 	 componentWillReceiveProps(newProps) {    
-     
+     	
+     	console.log("componentWillReceiveProps Authenticate " , newProps.register_success) ; 
 	 	if(newProps.register_success == true ){
 	 		this.setState({
 	 			modalIsOpen : false , 
