@@ -94,6 +94,16 @@ class HomeGardenContent extends Component {
                                                  <a className="auctionPrice"> Total # of Bids : {product.numberOfBids} </a>
                                               </div>
 
+                                              {
+                                                product.state == "SOLD" ? 
+                                                <div className="AuctionPriceDiv">
+                                                   <a className="auctionPrice productStatus"> SOLD </a>
+                                                </div>
+                                              :
+                                              <div>
+                                              </div>
+                                              }
+
                                         </div>
                                   })
 

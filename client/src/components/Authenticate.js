@@ -229,7 +229,7 @@ export default function(InnerComponent){
 
 	
    render(){
-
+   		console.log("Usere " , this.props.user)
    		const customStyles = {
 	      content : {
 	        top                   : '50%',
@@ -287,6 +287,13 @@ export default function(InnerComponent){
 				}
 
 				<li><Link to="/myProduct">My Products</Link></li>
+
+				{
+					this.props.isAuthenticated === true ?
+					<li><a>Currency - ${this.props.user.balance}</a></li>
+					: <span></span>
+				}
+
 				<li><a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1"><i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a>
 					<ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						
@@ -537,5 +544,3 @@ export default function(InnerComponent){
 
 
 }
-
-
