@@ -106,12 +106,19 @@ class LiveAuction extends Component {
           priceToCompare = this.props.currentAuctionedProduct.maxBidPrice :
           priceToCompare = Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )
 
+
           
           if(this.state.bidAmount < priceToCompare){
             this._addNotification("Error" , "Please check the expected least amount to bid") ;
             return 
           }
           
+          if(this.state.bidAmount > this.props.user.balance){
+            this._addNotification("Error" , "Not Enough funds to proceed!!") ;
+            return 
+          }
+
+
           this.setState({ isLoaded : true,   } );
         this.props.placeBid(this.props.user.email , this.state.bidAmount , this.state.listingId)
     }
@@ -124,7 +131,7 @@ class LiveAuction extends Component {
     render() {
       
      
-      
+      console.log("CUrrent Prout " , this.props.currentAuctionedProduct) ; 
 
       return (
         <div className="auction-main-div">
@@ -150,55 +157,76 @@ class LiveAuction extends Component {
                         {
                           this.props.user == null ? 
                            (<div> 
-                              <h4 className="text-red">Login To Bid</h4>
+                                <h4 className="text-red">Login To Bid</h4>
                             </div> )
                            : 
 
 
                              ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
                               <div >
-                                <button className="btn btn-danger closeBidButton" onClick={() => {
-                                  this.props.closeBid(this.state.listingId) ; 
-                                }}>Close Bid</button>
+                              {
+                                this.props.currentAuctionedProduct.state == "SOLD" ? 
+                                <h4 className="text-red">Congrats !!! You are the owner of the product</h4>
+                                :
+                                  <button className="btn btn-danger closeBidButton" onClick={() => {
+                                      this.props.closeBid(this.state.listingId) ; 
+                                    }}>Close Bid</button>
+                                 
+                              }
                               </div>
+                              
                               :
 
-                               <div className="bid-action-div-content"> 
+                              (
+
+                               
+                                  this.props.currentAuctionedProduct.state =="SOLD" ? 
+                                  <div><h3 className="text-brown">Sorry !! The Product is already Sold</h3></div>
+                                  :
                                   
-                                  <div className="current-max-bid-div">
+                                    <div className="bid-action-div-content"> 
+                                   
+                                       <div className="current-max-bid-div">
 
-                                    Current Bid-Price : { this.props.currentAuctionedProduct.offers[0] == undefined ? 
-                                                          this.props.currentAuctionedProduct.maxBidPrice :
-                                                          this.props.currentAuctionedProduct.offers[0].bidPrice
+                                        Current Bid-Price : { this.props.currentAuctionedProduct.offers[0] == undefined ? 
+                                                              this.props.currentAuctionedProduct.maxBidPrice :
+                                                              this.props.currentAuctionedProduct.offers[0].bidPrice
 
-                                                      }
-                                  </div>
-                                  <div>
-                                          
-                                          <input className="bidPriceTextBox" id="carid" type="number" value={this.state.bidAmount}  onChange={(e) => {
-                                            this.setState({
-                                              bidAmount : e.target.value
-                                            })
-                                          }} aria-describedby="basic-addon1"  />
-                                          <span onClick={this.placeBid.bind(this)}><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
+                                                          }
+                                      </div>
+                                      <div>
+                                              
+                                              <input className="bidPriceTextBox" id="carid" type="number" value={this.state.bidAmount}  onChange={(e) => {
+                                                this.setState({
+                                                  bidAmount : e.target.value
+                                                })
+                                              }} aria-describedby="basic-addon1"  />
+                                              <span onClick={this.placeBid.bind(this)}><i className="fa fa-gavel fa-lg bidImage" aria-hidden="true"></i></span>
 
-                                           
-                                    
-                                  </div>
-                                  <div className="bid-suggestion">
-                                    <span className="text-red">Enter USD { this.props.currentAuctionedProduct.offers[0] == undefined ? 
-                                                          this.props.currentAuctionedProduct.maxBidPrice :
-                                                          Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )
+                                               
+                                        
+                                      </div>
+                                      <div className="bid-suggestion">
+                                        <span className="text-red">Enter USD { this.props.currentAuctionedProduct.offers[0] == undefined ? 
+                                                              this.props.currentAuctionedProduct.maxBidPrice :
+                                                              Math.ceil(this.props.currentAuctionedProduct.offers[0].bidPrice * 1.05 )
 
-                                                      } or more</span>
-                                  </div>
-                                  <div className="bid-suggestion">
-                                    <span className="text-red">{this.state.bidError}</span>
-                                  </div>
-                                  <div className="shipping">
-                                    Shipping: $23.00 Economy Shipping
-                                  </div>
-                           </div> )
+                                                          } or more</span>
+                                      </div>
+                                      <div className="bid-suggestion">
+                                        <span className="text-red">{this.state.bidError}</span>
+                                      </div>
+                                      <div className="shipping">
+                                        Shipping: $23.00 Economy Shipping
+                                      </div>
+                                  </div> 
+                  
+                              
+
+
+
+                              )
+                           )
                         }
                       </div>
                      

@@ -449,7 +449,7 @@ padding-top: 20px ;
 .singleProductDiv{
   box-shadow: 1px 1px 1px 1px #DCDCDC ; 
   width: 220px ; 
-  height: 305px ;
+  height: 320px ;
   background-color: white ;
   margin-bottom: 40px ; 
   margin-right : 80px;
@@ -911,4 +911,12 @@ background-color: red
   border-bottom: 1px solid darkgrey;
   margin-bottom: 20px ;
   font-size: 20px
+}
+
+.productStatus{
+  color : red;
+}
+
+.text-brown{
+  color: brown;
 }
