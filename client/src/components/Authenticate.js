@@ -290,7 +290,7 @@ export default function(InnerComponent){
 
 				{
 					this.props.isAuthenticated === true ?
-					<li><a>Currency - ${this.props.user.balance}</a></li>
+					<li><a>Balance - ${this.props.user.balance}</a></li>
 					: <span></span>
 				}
 

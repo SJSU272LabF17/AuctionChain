@@ -130,6 +130,7 @@ class LiveAuction extends Component {
       this.setState({isLoaded : true })  
       closeBid(this.state.listingId , function(err , response){
           _this.setState({isLoaded : false})
+          console.log("Close Bid error " , err) ; 
           if(err){
             _this._addNotification("Error" , "Failed to Close the Bid") ;
           }else if(!err && response == true ){
