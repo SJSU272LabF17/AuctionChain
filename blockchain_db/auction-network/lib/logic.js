@@ -25,6 +25,7 @@ function closeBidding(closeBidding) {
     }
     // by default we mark the listing as RESERVE_NOT_MET
     listing.state = 'RESERVE_NOT_MET';
+    listing.product.state = 'RESERVE_NOT_MET';
     var highestOffer = null;
     var buyer = null;
     var seller = null;
