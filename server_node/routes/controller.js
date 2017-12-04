@@ -109,6 +109,8 @@ module.exports = function(app , db ){
 	app.post('/deleteProduct', function(req, res){
 		var pid = req.body.pid ;
 
+		console.log("############### DELETE PRODUCT:", req.body)
+
 		axios.delete('http://localhost:3004/api/org.cmpe272.evergreen.auction.Product/' + pid, {})
 		.then(function (response) {	
 			res.status(200).json({});
@@ -187,6 +189,7 @@ module.exports = function(app , db ){
 				product.productListingId = response.data[i].listingId;
 				product.imageurl = response.data[i].imageurl;
 				product.numberOfBids = countBids;
+				product.state = response.data[i].state;
 				product.maxBidPrice = maxBid;
 				arrRes.push(product);
 			}

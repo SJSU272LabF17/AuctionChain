@@ -49,6 +49,7 @@ function closeBidding(closeBidding) {
             console.log('#### buyer balance after: ' + buyer.balance);
             // transfer the product to the buyer
             listing.product.owner = buyer;
+            listing.product.listingId = '0';
             listing.product.state = 'ADDED';
             listing.owner = buyer;
             // clear the offers

@@ -72,7 +72,7 @@ class myProduct extends Component {
                      this.props.myProducts == null ? <span></span> :
 
                      this.props.myProducts.map((product , key) => {
-                                  return <MyProductList key={key} product={product}></MyProductList>
+                                  return <MyProductList {...this.props} key={key} product={product}></MyProductList>
                                 })              
                  }
           

@@ -77,6 +77,13 @@ class MyProductList extends Component {
       this.props.deleteProduct(this.props.product.pid)
     }
 
+    redirectToProductPage(){
+      if(this.props.product.listingId != "0")
+      { 
+        this.props.history.push('/productDetails/' + this.props.product.listingId) 
+      }
+    }
+
 
     render() {
      
@@ -85,7 +92,7 @@ class MyProductList extends Component {
                   <div className="row">
                     <NotificationSystem ref={n => this._notificationSystem = n} />
 
-                    <div className="divForImage col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <div className="divForImage col-lg-3 col-sm-3 col-md-3 col-xs-3" onClick={ () => this.redirectToProductPage() }>
                       <img className="imageAttr" alt="" src={this.props.serverURL + this.props.product.imageurl} />
                     </div>
                     
@@ -101,7 +108,7 @@ class MyProductList extends Component {
 
                     <div className="DivForImageInfo col-lg-7 col-sm-7 col-md-7 col-xs-7 textColorBlack">
                       <div >
-                         <div className="DivForImageInfoName col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                         <div className="DivForImageInfoName col-lg-10 col-sm-10 col-md-10 col-xs-10" onClick={ () => this.redirectToProductPage() }>
                               {this.props.product.name }
                              <div className="ImageDescription">
                               {this.props.product.description}  

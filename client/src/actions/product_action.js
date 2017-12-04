@@ -17,7 +17,10 @@ export function deleteProduct(id  ){
 			fetch(url + 'deleteProduct', {
 	        method: 'POST',
 	        credentials:'include',
-
+	        headers: {
+	            ...headers,
+	            'Content-Type': 'application/json'
+	        },
 			body :    JSON.stringify({
 	   	    			"pid" : id ,
 	   	    	})
