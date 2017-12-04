@@ -214,25 +214,30 @@ module.exports = function(app , db ){
 			console.log(response.data);
 
 			var maxBid = response.data.reservePrice;
+			var totalBids = 0;
 			var arrOffers = []
-			for (var j = response.data.offers.length - 1 ; j >= 0; j--){
-				if(response.data.offers[j].bidPrice > maxBid){
-					maxBid = response.data.offers[j].bidPrice;
+
+			if(response.data.offers){
+				for (var j = response.data.offers.length - 1 ; j >= 0; j--){
+					if(response.data.offers[j].bidPrice > maxBid){
+						maxBid = response.data.offers[j].bidPrice;
+					}
+					totalBids++;
+					var Member = response.data.offers[j].member;
+					var splitEmail = Member.split("#");
+					var email = splitEmail[splitEmail.length - 1];
+	
+					var dateObj = new Date(response.data.offers[j].timestamp);
+					var date = dateFormat(dateObj, "mmm d, h:MM:ss TT");
+	
+					var offer = {}
+					offer.bidPrice = response.data.offers[j].bidPrice;
+					offer.timestamp = date;
+					offer.email = email[0] + email[1] + "***" + email[email.length - 1];
+					arrOffers.push(offer);
 				}
-				
-				var Member = response.data.offers[j].member;
-				var splitEmail = Member.split("#");
-				var email = splitEmail[splitEmail.length - 1];
-
-				var dateObj = new Date(response.data.offers[j].timestamp);
-				var date = dateFormat(dateObj, "mmm d, h:MM:ss TT");
-
-				var offer = {}
-				offer.bidPrice = response.data.offers[j].bidPrice;
-				offer.timestamp = date;
-				offer.email = email[0] + email[1] + "***" + email[email.length - 1];
-				arrOffers.push(offer);
 			}
+			
 
 			var splitOwner = response.data.owner.split("#");
 			var owner = splitOwner[splitOwner.length - 1];;
@@ -243,7 +248,8 @@ module.exports = function(app , db ){
 			product.productCategory = response.data.category;
 			product.productListingId = response.data.listingId;
 			product.imageurl = response.data.imageurl;
-			product.numberOfBids = response.data.offers.length;
+			product.state = response.data.state;
+			product.numberOfBids = totalBids;
 			product.maxBidPrice = maxBid;
 			product.owner = owner;
 			product.offers = arrOffers;		
@@ -401,7 +407,8 @@ module.exports = function(app , db ){
 				   
 			  res.status(200).json({loggedIn : true, user : {email : response.data.email , 
 			   fname : response.data.firstName , 
-			   lname : response.data.lastName
+			   lname : response.data.lastName,
+			   balance: response.data.balance
 		   }});
 
 		})
@@ -421,11 +428,6 @@ module.exports = function(app , db ){
 		var className =  req.body.class ; 
 		
 		const saltRounds = 10;
-		//console.log(email , password , firstName , lastName , balance , className );
-		
-		
-		
-		
 		
 		bcrypt.hash(password, saltRounds, function(err, hash) {
 			var apiObject = {
@@ -466,6 +468,20 @@ module.exports = function(app , db ){
 			});
 		});
 	})
+
+	app.get('/getLedger', function(req, res){
+
+		axios.get('http://localhost:3004/api/system/historian', {})
+		.then(function (response) {
+			console.log("get the ledger.");
+			  console.log(response.data);
+			  res.status(200).json({ data: response.data});
+		})
+		.catch(function(error){
+			res.status(500);
+		});
+
+	});
 	
 };
 

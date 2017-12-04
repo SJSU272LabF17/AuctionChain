@@ -21,7 +21,8 @@ module.exports = function(passport) {
 					if(result1 == true){
 						done(null, {email : response.data.email , 
 							fname : response.data.firstName , 
-							lname : response.data.lastName
+							lname : response.data.lastName,
+							balance: response.data.balance
 						});
 					}else{
 						done(null, false);

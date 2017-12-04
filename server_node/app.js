@@ -16,12 +16,27 @@ var mongo = require("./middleware/mongo");
 
 var app = express();
 
-//Enable CORS
+var whitelist = ['http://localhost:3000', 'http://9f5db843.ngrok.io']
 var corsOptions = {
-	    origin: 'http://localhost:3000',
-	    credentials: true,
+    origin: function (origin, callback) {
+        /*if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }*/
+    	callback(null, true)
+    },
+    credentials: true
 }
 app.use(cors(corsOptions))
+
+
+// //Enable CORS
+// var corsOptions = {
+// 	    origin: 'http://localhost:3000',
+// 	    credentials: true,
+// }
+// app.use(cors(corsOptions))
 
 
 app.use(morgan('dev')) ; 

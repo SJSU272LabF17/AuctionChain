@@ -50,8 +50,9 @@ function closeBidding(closeBidding) {
             // transfer the product to the buyer
             listing.product.owner = buyer;
             listing.product.state = 'ADDED';
+            listing.owner = buyer;
             // clear the offers
-            listing.offers = null;
+            //listing.offers = null;
         }
     }
     return getAssetRegistry('org.cmpe272.evergreen.auction.Product')
