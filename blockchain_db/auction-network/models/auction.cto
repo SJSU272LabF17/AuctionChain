@@ -16,6 +16,7 @@ asset Product identified by pid {
 
 enum ProductState {
   o ADDED 
+  o RESERVE_NOT_MET
   o FOR_SALE
 }
 
