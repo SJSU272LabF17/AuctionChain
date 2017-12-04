@@ -684,8 +684,14 @@ padding-top: 20px ;
 }
 .banner-text h2.bnr-title {
   color: #24FFED;
-  font-size: 7em;
+  font-size: 5em;
 }
+
+.banner-text h4.bnr-title {
+  color: #24FFED;
+  font-size: 2em;
+}
+
 .banner-text p {
   font-size: 1em;
   color: #fff;
