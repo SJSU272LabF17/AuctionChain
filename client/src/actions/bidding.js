@@ -36,10 +36,10 @@ export function placeBid(email , amount , listingId  ){
 
 
 
-export function closeBid(listingId  ){
+export function closeBid(listingId , callback  ){
 	
 
-		return function(dispatch){
+		
 			fetch(url + 'closeBidding', {
 	        method: 'POST',
 	        headers: {
@@ -53,15 +53,12 @@ export function closeBid(listingId  ){
 	   	    })
 
 	  		}).then(function (response) {
-			        console.log("Response from server " , response);
-			      response.json().then(res => {
-					dispatch({ type : 'BIDDING_END_SUCCESS' , payload : true })
-				})
-																		        
-	   		})
+	  			console.log("Wait for the response ")
+			    callback(null , true )
+			})
 	        .catch(error => {
-	        	dispatch({ type : 'PRODUCT_ADD_FAILURE' , payload : false})
-	            
+	        	console.log("Error Response ")
+	        	callback(error , false)
 	        })
-		}
+		
 }

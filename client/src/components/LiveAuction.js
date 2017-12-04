@@ -125,7 +125,19 @@ class LiveAuction extends Component {
 
 
 
-
+    closeBidCLient(){
+      var _this = this ;
+      this.setState({isLoaded : true })  
+      closeBid(this.state.listingId , function(err , response){
+          _this.setState({isLoaded : false})
+          if(err){
+            _this._addNotification("Error" , "Failed to Close the Bid") ;
+          }else if(!err && response == true ){
+            _this.addNotification("Success", "Bid Closed Successfully")
+          }
+          _this.props.getCurrentProductAuctioned(_this.state.listingId) ;
+      }) ; 
+    }
    
 
     render() {
@@ -165,12 +177,10 @@ class LiveAuction extends Component {
                              ( this.props.user.email === this.props.currentAuctionedProduct.owner ? 
                               <div >
                               {
-                                this.props.currentAuctionedProduct.state == "SOLD" ? 
-                                <h4 className="text-red">Congrats !!! You are the owner of the product</h4>
+                                ( this.props.currentAuctionedProduct.state == "SOLD" || this.props.currentAuctionedProduct.state == "RESERVE_NOT_MET" )  ? 
+                                <h4 className="text-brown">You are the owner of the product</h4>
                                 :
-                                  <button className="btn btn-danger closeBidButton" onClick={() => {
-                                      this.props.closeBid(this.state.listingId) ; 
-                                    }}>Close Bid</button>
+                                  <button className="btn btn-danger closeBidButton" onClick={this.closeBidCLient.bind(this)}>Close Bid</button>
                                  
                               }
                               </div>
@@ -180,8 +190,8 @@ class LiveAuction extends Component {
                               (
 
                                
-                                  this.props.currentAuctionedProduct.state =="SOLD" ? 
-                                  <div><h3 className="text-brown">Sorry !! The Product is already Sold</h3></div>
+                                    ( this.props.currentAuctionedProduct.state == "SOLD" || this.props.currentAuctionedProduct.state == "RESERVE_NOT_MET" )   ? 
+                                  <div><h3 className="text-brown">Sorry !! The Product is already Sold or not in current auction</h3></div>
                                   :
                                   
                                     <div className="bid-action-div-content"> 
@@ -291,7 +301,7 @@ function mapDispatchToProps(dispatch){
     return {
       getCurrentProductAuctioned : (listingId) => dispatch(getCurrentProductAuctioned(listingId)),
       placeBid : (email , amount , listingId) => dispatch(placeBid(email , amount , listingId)) , 
-      closeBid : (listingId) => dispatch(closeBid(listingId)) ,
+    
       setBackBidSuccess : () => dispatch({ type : 'SET_BACK_BID_SUCCESS' })
     }
   }

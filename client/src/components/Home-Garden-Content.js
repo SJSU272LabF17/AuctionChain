@@ -67,7 +67,7 @@ class HomeGardenContent extends Component {
                         this.props.productList.length == 0 ? <h3>No Products to display</h3>
                         :
                         this.props.productList.map((product , key ) => {
-                                         return <div  onClick={() => {
+                                         return   <div  onClick={() => {
                                                               var url = '/productDetails/' + product.productListingId ; 
                                                               this.props.history.push(url) ; 
                                                           }}  key={key} className="singleProductDiv col-lg-4 col-sm-4 col-md-4 col-xs-4">
@@ -81,6 +81,7 @@ class HomeGardenContent extends Component {
                                                    </div>
                                                 </div>
                                               </div>
+                                              {console.log(product.state)}
 
                                              <div className="singleImageDiv ">
                                                   <img className="singleImageAuctioned" alt="" src={this.props.serverURL + product.imageurl} />
@@ -100,8 +101,11 @@ class HomeGardenContent extends Component {
                                                    <a className="auctionPrice productStatus"> SOLD </a>
                                                 </div>
                                               :
-                                              <div>
-                                              </div>
+                                                ( product.state == "RESERVE_NOT_MET" ? 
+                                                <div className="AuctionPriceDiv">
+                                                   <a className="auctionPrice productStatus"> NOT IN AUCTION </a>
+                                                </div> :
+                                                <span />)
                                               }
 
                                         </div>
