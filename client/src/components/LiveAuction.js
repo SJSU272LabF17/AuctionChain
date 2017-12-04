@@ -134,7 +134,7 @@ class LiveAuction extends Component {
           if(err){
             _this._addNotification("Error" , "Failed to Close the Bid") ;
           }else if(!err && response == true ){
-            _this.addNotification("Success", "Bid Closed Successfully")
+            _this._addNotification("Success", "Bid Closed Successfully")
           }
           _this.props.getCurrentProductAuctioned(_this.state.listingId) ;
       }) ; 
