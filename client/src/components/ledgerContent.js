@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import Loader from 'react-loader'
 import * as hyperLedger from '../actions/hyperLedger'
 class LedgerContent extends Component {
   
@@ -7,13 +8,19 @@ class LedgerContent extends Component {
     super(props);
 
     this.state={
-      ledgerContent : []
+      ledgerContent : [],
+      isLoaded: false ,
+
+          loaderOptions : {
+              color: '#894EA'
+          }
     }
   }
 
 
   componentDidMount(){
     var _this = this ; 
+    _this.setState({isLoaded:true});
     hyperLedger.getLedger(function(res){
       console.log("Receied Response " , res ) ; 
       if(res.length > 0){
@@ -27,7 +34,8 @@ class LedgerContent extends Component {
         return 0;
 });
 
-        _this.setState({ledgerContent : res})
+        _this.setState({ledgerContent : res, isLoaded:false})
+
       }
     })
   }
@@ -63,6 +71,11 @@ class LedgerContent extends Component {
         <div>
           { listOfLedger}
         </div>
+        <div className="">
+              <Loader loaded={!this.state.isLoaded}  options={this.state.loaderOptions} >
+                <div className="loaded-contents"></div>
+              </Loader>
+            </div>
       </div>
 
     );
