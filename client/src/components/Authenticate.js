@@ -275,7 +275,7 @@ export default function(InnerComponent){
 			<ul className="nav navbar-nav">
 				<li className="active"><a href="/">Home</a></li>
 				<li><Link to="/home-garden">Products</Link></li>
-				<li><a href="#">Help & Contact</a></li>
+				<li><a href="/ledger-content">View Ledger</a></li>
 			</ul>
 
 			<ul className="nav navbar-nav navbar-right">
