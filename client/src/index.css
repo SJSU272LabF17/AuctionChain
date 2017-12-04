@@ -896,3 +896,19 @@ background-color: red
   background: white;
   opacity:0.9
 }
+
+.ledger-wrapper{
+  width: 98% ;
+  min-height: 200px ;
+  margin-left: 0px ;
+  background-color: white ;
+  padding : 30px;
+}
+
+
+.ledger-wrapper .ledger-header{
+  padding-bottom : 20px;
+  border-bottom: 1px solid darkgrey;
+  margin-bottom: 20px ;
+  font-size: 20px
+}
