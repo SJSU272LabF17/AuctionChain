@@ -6,6 +6,7 @@ import Registration from './components/registration';
 import Login from './components/login';
 import registerServiceWorker from './registerServiceWorker';
 import {checkIfAlreadyLoggedIn} from './actions/register_action'
+import LedgerContent from './components/ledgerContent'
 
 
 import { BrowserRouter ,   Switch, Route  } from 'react-router-dom'
@@ -30,6 +31,7 @@ const Main = () => (
           <Route exact path="/myProduct" component={Authenticate(HomeGarden(myProduct))}/>
           <Route exact path="/productDetails/:listingid" component={Authenticate(HomeGarden(liveAuction))}/>
           <Route exact path="/setUpAuction/:productId" component={Authenticate(HomeGarden(AuctionProduct))}/>
+          <Route exact path="/ledger-content" component={Authenticate(LedgerContent)}/>
           <Route exact path="/home-garden/category/:category" component={Authenticate(HomeGarden(HomeGardenContent))}/>
     </Switch>
   
