@@ -2,6 +2,12 @@
 
 An online auction platform based on blockchain would be great improvement over current auction systems. With the blockchain structure auction data and bids will be impossible to falsify. The platform will be transparent, reliable and scalable. With the help of this market anyone can place any item to auction and bidder can bid and buy items without any fraud.
 
+
+## Architecture Diagram
+
+![Alt text](/Architecture_Diagram.png?raw=true "Architecture Diagram")
+
+
 ## Methodology / Resources
 
 We are planning to use IBM Bluemix’s open source platform hyperledger composer for creating blockchain.
